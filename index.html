@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recetario de Cocina Oriental | UAN - UATyG</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fuentes de Google: Noto Serif JP para títulos orientales e Inter para lectura clara -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;600;700;900&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['"Noto Serif JP"', 'serif'],
+          },
+          colors: {
+            washi: '#FAF6F0',
+            washiDark: '#F2EAE0',
+            crimson: '#9B1B1B',
+            crimsonDark: '#781212',
+            gold: '#C59B27',
+            ink: '#1C1917',
+            jade: '#2F5233',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Patrón sutil oriental Seigaiha (olas japonesas) para encabezados */
+    .bg-seigaiha {
+      background-color: #1C1917;
+      background-image: radial-gradient(circle at 100% 150%, #1C1917 24%, #2B2420 25%, #2B2420 28%, #1C1917 29%, #1C1917 36%, #2B2420 36%, #2B2420 40%, transparent 40%, transparent),
+        radial-gradient(circle at 0 150%, #1C1917 24%, #2B2420 25%, #2B2420 28%, #1C1917 29%, #1C1917 36%, #2B2420 36%, #2B2420 40%, transparent 40%, transparent),
+        radial-gradient(circle at 50% 100%, #2B2420 10%, #1C1917 11%, #1C1917 23%, #2B2420 24%, #2B2420 30%, #1C1917 31%, #1C1917 43%, #2B2420 44%, #2B2420 50%, #1C1917 51%, #1C1917 63%, #2B2420 64%, #2B2420 71%, transparent 71%, transparent),
+        radial-gradient(circle at 100% 50%, #2B2420 5%, #1C1917 6%, #1C1917 15%, #2B2420 16%, #2B2420 20%, #1C1917 21%, #1C1917 30%, #2B2420 31%, #2B2420 35%, #1C1917 36%, #1C1917 45%, #2B2420 46%, #2B2420 49%, transparent 50%, transparent),
+        radial-gradient(circle at 0 50%, #2B2420 5%, #1C1917 6%, #1C1917 15%, #2B2420 16%, #2B2420 20%, #1C1917 21%, #1C1917 30%, #2B2420 31%, #2B2420 35%, #1C1917 36%, #1C1917 45%, #2B2420 46%, #2B2420 49%, transparent 50%, transparent);
+      background-size: 60px 30px;
+    }
+
+    /* Sello tradicional japonés (Hanko) */
+    .hanko-seal {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+    }
+
+    /* Scrollbar elegante */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F2EAE0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #9B1B1B;
+      border-radius: 9999px;
+    }
+
+    /* Estilos de impresión para imprimir una receta limpia */
+    @media print {
+      body > *:not(#recipeModal) {
+        display: none !important;
+      }
+      #recipeModal {
+        position: static !important;
+        background: white !important;
+        overflow: visible !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-washi text-ink font-sans antialiased selection:bg-crimson selection:text-white">
+
+  <!-- ==================== BARRA DE NAVEGACIÓN ==================== -->
+  <nav class="sticky top-0 z-40 bg-ink/95 backdrop-blur-md border-b border-gold/30 text-washi shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo e Identidad -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-crimson border border-gold/60 flex items-center justify-center shadow-inner shrink-0">
+            <span class="font-serif font-bold text-lg text-washi">食</span>
+          </div>
+          <div class="leading-tight">
+            <p class="font-serif font-bold text-sm sm:text-base tracking-wide text-washi">Cocina Oriental</p>
+            <p class="text-[11px] text-gold tracking-wider uppercase">UAN • UATyG • Gastronomía</p>
+          </div>
+        </div>
+
+        <!-- Enlaces rápidos -->
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <a href="#recetario" class="hover:text-gold transition-colors">Recetario</a>
+          <a href="#reposteria-brigadas" class="hover:text-gold transition-colors">Repostería</a>
+          <a href="#brigada" class="hover:text-gold transition-colors">Brigada 1</a>
+          <button onclick="openPhotoGuide()" class="px-3.5 py-1.5 rounded-lg bg-crimson/90 hover:bg-crimson border border-gold/40 text-washi text-xs font-semibold transition flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            Guía de Fotos GitHub
+          </button>
+        </div>
+
+        <!-- Botón móvil Guía de Fotos -->
+        <button onclick="openPhotoGuide()" class="md:hidden px-3 py-1.5 rounded-lg bg-crimson border border-gold/40 text-washi text-xs font-semibold">
+          Fotos GitHub
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO / PORTADA ==================== -->
+  <header class="relative bg-seigaiha text-washi overflow-hidden border-b-4 border-crimson">
+    <!-- Decoración de símbolos orientales de fondo -->
+    <div class="pointer-events-none select-none absolute -right-6 top-6 text-[11rem] sm:text-[16rem] font-serif font-black text-white/[0.04] leading-none">
+      和味
+    </div>
+    <div class="pointer-events-none select-none absolute -left-8 bottom-0 text-[9rem] font-serif font-black text-gold/[0.05] leading-none">
+      料理
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+        <div class="max-w-3xl">
+          <!-- Etiqueta institucional -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-crimson/25 border border-gold/40 text-gold text-xs sm:text-sm font-medium mb-5">
+            <span>🏮</span>
+            <span>Universidad Autónoma de Nayarit • Unidad Académica de Turismo y Gastronomía</span>
+          </div>
+
+          <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight mb-4">
+            Recetario de <span class="text-gold">Cocina Oriental</span>
+          </h1>
+
+          <p class="text-stone-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
+            Compendio gastronómico de la <strong class="text-white">Licenciatura en Gastronomía</strong>. Técnicas tradicionales, fondos, masas artesanales, sushi, salteados al wok y repostería tradicional de Japón y China elaborados en práctica por la <strong class="text-gold">Brigada 1</strong>.
+          </p>
+
+          <!-- Estadísticas rápidas -->
+          <div class="flex flex-wrap gap-3 sm:gap-4">
+            <div class="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+              <p class="text-2xl font-serif font-bold text-gold" id="statTotal">30</p>
+              <p class="text-xs text-stone-300 uppercase tracking-wider">Recetas Completas</p>
+            </div>
+            <div class="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+              <p class="text-2xl font-serif font-bold text-white">日本 • 中華</p>
+              <p class="text-xs text-stone-300 uppercase tracking-wider">Japón y China</p>
+            </div>
+            <div class="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+              <p class="text-2xl font-serif font-bold text-crimson bg-washi/95 px-2 rounded-md inline-block">Brigada 1</p>
+              <p class="text-xs text-stone-300 uppercase tracking-wider mt-0.5">UATyG • UAN</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sello Hanko decorativo -->
+        <div class="hidden lg:flex flex-col items-center gap-3">
+          <div class="w-24 h-36 rounded-xl border-2 border-crimson bg-crimson/15 backdrop-blur-sm flex items-center justify-center p-2 shadow-lg">
+            <div class="w-full h-full border border-crimson/70 rounded-lg flex items-center justify-center">
+              <span class="hanko-seal font-serif font-black text-2xl tracking-widest text-crimson drop-shadow">東洋料理</span>
+            </div>
+          </div>
+          <span class="text-[11px] uppercase tracking-widest text-gold/80">Gastronomía Oriental</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== BUSCADOR Y FILTROS ==================== -->
+  <section id="recetario" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-7 relative z-20">
+    <div class="bg-white rounded-2xl shadow-xl border border-stone-200/80 p-4 sm:p-6">
+      <div class="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between">
+        <!-- Campo de búsqueda -->
+        <div class="relative flex-1">
+          <svg class="w-5 h-5 text-stone-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Buscar receta o ingrediente (ej. sushi, ramen, salmón, cerdo, dango...)"
+            class="w-full pl-12 pr-4 py-3 rounded-xl bg-washi border border-stone-200 focus:border-crimson focus:ring-2 focus:ring-crimson/20 outline-none text-sm sm:text-base transition"
+          />
+        </div>
+
+        <!-- Botones de filtro por categoría -->
+        <div class="flex flex-wrap gap-2" id="filterButtons">
+          <button data-filter="Todas" class="filter-btn active px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-crimson text-white shadow-sm">
+            Todas (30)
+          </button>
+          <button data-filter="Japonesa" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-washiDark text-ink hover:bg-stone-200">
+            🇯🇵 Japonesa
+          </button>
+          <button data-filter="China" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-washiDark text-ink hover:bg-stone-200">
+            🇨🇳 China
+          </button>
+          <button data-filter="Masas y Bases" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-washiDark text-ink hover:bg-stone-200">
+            🥟 Masas y Bases
+          </button>
+          <button data-filter="Repostería" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-washiDark text-ink hover:bg-stone-200">
+            🍡 Repostería
+          </button>
+        </div>
+      </div>
+
+      <!-- Contador de resultados -->
+      <div class="mt-3 flex items-center justify-between text-xs text-stone-500 border-t border-stone-100 pt-3">
+        <span id="resultsCount">Mostrando 30 recetas</span>
+        <span class="hidden sm:inline">Haz clic en cualquier platillo para ver ingredientes y procedimiento completo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CUADRÍCULA DE RECETAS ==================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div id="recipesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+      <!-- Las tarjetas se renderizan dinámicamente con JavaScript -->
+    </div>
+
+    <!-- Estado vacío si no hay resultados -->
+    <div id="emptyState" class="hidden text-center py-16 bg-white rounded-2xl border border-stone-200 shadow-sm">
+      <p class="text-5xl mb-3">🍜</p>
+      <h3 class="font-serif text-xl font-bold text-ink mb-1">No se encontraron recetas</h3>
+      <p class="text-stone-500 text-sm mb-4">Intenta buscar otro platillo o limpia los filtros activos.</p>
+      <button onclick="resetFilters()" class="px-5 py-2.5 rounded-xl bg-crimson text-white text-sm font-semibold hover:bg-crimsonDark transition">
+        Ver todas las recetas
+      </button>
+    </div>
+  </main>
+
+  <!-- ==================== ANEXO: REPOSTERÍA DEL PROYECTO ==================== -->
+  <section id="reposteria-brigadas" class="bg-washiDark/70 border-y border-stone-200/80 py-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-crimson">Muestra Gastronómica • Presentación</span>
+        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-ink mt-1">Repostería Oriental</h2>
+        <p class="text-stone-600 text-sm mt-2">
+          Selección de postres japoneses de nuestra brigada y el postre chino elaborado por nuestra compañera anexada. Haz clic en cualquiera para abrir su receta y foto.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <!-- Brigada 1 Japón -->
+        <div class="bg-white rounded-2xl p-6 border-2 border-crimson/40 shadow-sm relative overflow-hidden">
+          <div class="absolute top-4 right-4 px-2.5 py-0.5 rounded-md bg-crimson text-white text-[10px] font-bold uppercase">Brigada 1</div>
+          <p class="text-xs font-bold uppercase tracking-wider text-crimson">🇯🇵 Japón</p>
+          <h3 class="font-serif font-bold text-xl text-ink mt-1 mb-4">Postres Japoneses</h3>
+          <ul class="space-y-2.5 text-sm text-stone-700">
+            <li>
+              <button onclick="openRecipeModal('dorayaki-camote')" class="w-full text-left flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-washi transition group">
+                <span class="flex items-center gap-2.5 font-medium group-hover:text-crimson"><span class="text-crimson font-bold">•</span> Dorayaki con relleno de camote</span>
+                <span class="text-xs text-stone-400 group-hover:text-crimson">Ver receta →</span>
+              </button>
+            </li>
+            <li>
+              <button onclick="openRecipeModal('purin')" class="w-full text-left flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-washi transition group">
+                <span class="flex items-center gap-2.5 font-medium group-hover:text-crimson"><span class="text-crimson font-bold">•</span> Purin (Flan japonés)</span>
+                <span class="text-xs text-stone-400 group-hover:text-crimson">Ver receta →</span>
+              </button>
+            </li>
+            <li>
+              <button onclick="openRecipeModal('mushi-pan')" class="w-full text-left flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-washi transition group">
+                <span class="flex items-center gap-2.5 font-medium group-hover:text-crimson"><span class="text-crimson font-bold">•</span> Mushi pan (Panquecitos al vapor)</span>
+                <span class="text-xs text-stone-400 group-hover:text-crimson">Ver receta →</span>
+              </button>
+            </li>
+            <li>
+              <button onclick="openRecipeModal('sweet-potato')" class="w-full text-left flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-washi transition group">
+                <span class="flex items-center gap-2.5 font-medium group-hover:text-crimson"><span class="text-crimson font-bold">•</span> Sweet potato japonés (Bocaditos de camote)</span>
+                <span class="text-xs text-stone-400 group-hover:text-crimson">Ver receta →</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Postre Chino - Julieta Esmeralda (Brigada 3) -->
+        <div class="bg-white rounded-2xl p-6 border-2 border-gold/50 shadow-sm relative overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="absolute top-4 right-4 px-2.5 py-0.5 rounded-md bg-amber-700 text-white text-[10px] font-bold uppercase">Brigada 3</div>
+            <p class="text-xs font-bold uppercase tracking-wider text-amber-700">🇨🇳 China</p>
+            <h3 class="font-serif font-bold text-xl text-ink mt-1 mb-4">Postre Chino</h3>
+            <ul class="space-y-2.5 text-sm text-stone-700">
+              <li>
+                <button onclick="openRecipeModal('tang-yuan')" class="w-full text-left flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-washi transition group">
+                  <span class="flex items-center gap-2.5 font-medium text-ink group-hover:text-amber-700"><span class="text-amber-700 font-bold">•</span> Tang yuan rellenos de cacahuate</span>
+                  <span class="text-xs text-stone-400 group-hover:text-amber-700">Ver receta →</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-3 border-t border-stone-100 text-xs text-stone-500">
+            Elaborado por <strong class="text-ink">Julieta Esmeralda Hernández Arias</strong> (Brigada 3)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECCIÓN BRIGADA 1 Y CRÉDITOS ==================== -->
+  <section id="brigada" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="bg-white rounded-3xl border border-stone-200 shadow-md overflow-hidden">
+      <div class="bg-ink text-washi px-6 sm:px-10 py-8 border-b-4 border-gold flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-gold font-semibold">Universidad Autónoma de Nayarit</p>
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold mt-1">Integrantes • Brigada 1</h2>
+          <p class="text-stone-300 text-sm mt-1">Unidad Académica de Turismo y Gastronomía • Licenciatura en Gastronomía</p>
+        </div>
+        <div class="text-3xl sm:text-4xl font-serif text-gold/80 select-none">絆</div>
+      </div>
+
+      <div class="p-6 sm:p-10">
+        <!-- Lista oficial de integrantes de la Brigada 1 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="p-4 rounded-xl bg-washi border border-stone-200 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-crimson/10 text-crimson font-serif font-bold flex items-center justify-center shrink-0">1</div>
+            <div>
+              <p class="font-semibold text-ink text-sm">Luis Armando Santiago González</p>
+              <p class="text-xs text-stone-500">Brigada 1 • Lic. en Gastronomía</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-washi border border-stone-200 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-crimson/10 text-crimson font-serif font-bold flex items-center justify-center shrink-0">2</div>
+            <div>
+              <p class="font-semibold text-ink text-sm">Leonel Aldair Arroyo Soria</p>
+              <p class="text-xs text-stone-500">Brigada 1 • Lic. en Gastronomía</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-washi border border-stone-200 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-crimson/10 text-crimson font-serif font-bold flex items-center justify-center shrink-0">3</div>
+            <div>
+              <p class="font-semibold text-ink text-sm">Diego de la Rosa Torres</p>
+              <p class="text-xs text-stone-500">Brigada 1 • Lic. en Gastronomía</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-washi border border-stone-200 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-crimson/10 text-crimson font-serif font-bold flex items-center justify-center shrink-0">4</div>
+            <div>
+              <p class="font-semibold text-ink text-sm">David Villagrana Ibarra</p>
+              <p class="text-xs text-stone-500">Brigada 1 • Lic. en Gastronomía</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-washi border border-stone-200 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-crimson/10 text-crimson font-serif font-bold flex items-center justify-center shrink-0">5</div>
+            <div>
+              <p class="font-semibold text-ink text-sm">Daniela Rivera Carrillo</p>
+              <p class="text-xs text-stone-500">Brigada 1 • Lic. en Gastronomía</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-washi border border-stone-200 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-crimson/10 text-crimson font-serif font-bold flex items-center justify-center shrink-0">6</div>
+            <div>
+              <p class="font-semibold text-ink text-sm">Zully Adolfo González Hernández</p>
+              <p class="text-xs text-stone-500">Brigada 1 • Lic. en Gastronomía</p>
+            </div>
+          </div>
+
+          <!-- Integrante de Brigada 3 anexada -->
+          <div class="p-4 rounded-xl bg-crimson/5 border border-crimson/30 flex items-center gap-3 sm:col-span-2 lg:col-span-3">
+            <div class="w-10 h-10 rounded-full bg-crimson text-white font-serif font-bold flex items-center justify-center shrink-0">★</div>
+            <div>
+              <p class="font-bold text-ink text-sm sm:text-base">Julieta Esmeralda Hernández Arias</p>
+              <p class="text-xs text-crimson font-medium">Brigada 3 (Anexada a la Brigada 1) • Licenciatura en Gastronomía</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-ink text-stone-400 border-t border-gold/30 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <p class="font-serif font-bold text-washi text-base">Recetario Digital de Cocina Oriental</p>
+        <p class="text-xs mt-1">Universidad Autónoma de Nayarit • Unidad Académica de Turismo y Gastronomía (UATyG)</p>
+      </div>
+      <div class="flex items-center gap-4 text-xs">
+        <button onclick="openPhotoGuide()" class="text-gold hover:underline">Ver lista de nombres de fotos para GitHub</button>
+        <span>•</span>
+        <span>Brigada 1</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODAL DE DETALLE DE RECETA ==================== -->
+  <div id="recipeModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/75 backdrop-blur-sm p-3 sm:p-6">
+    <div class="max-w-4xl mx-auto bg-washi rounded-3xl shadow-2xl border border-gold/40 overflow-hidden my-4 relative">
+      <!-- Barra superior del modal -->
+      <div class="no-print sticky top-0 z-10 bg-ink/95 text-washi px-5 py-3.5 flex items-center justify-between border-b border-gold/30">
+        <div class="flex items-center gap-2 text-xs sm:text-sm text-gold font-medium truncate pr-4">
+          <span id="modalCategoryBadge">Cocina Japonesa</span>
+          <span>•</span>
+          <span id="modalPhotoFilename" class="font-mono text-stone-300">foto-ejemplo.jpg</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+            <span class="hidden sm:inline">Imprimir</span>
+          </button>
+          <button onclick="closeRecipeModal()" class="w-9 h-9 rounded-lg bg-crimson hover:bg-crimsonDark text-white flex items-center justify-center transition" aria-label="Cerrar">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contenido del modal -->
+      <div id="modalBody">
+        <!-- Se llena dinámicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL GUÍA DE FOTOS PARA GITHUB ==================== -->
+  <div id="photoGuideModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/75 backdrop-blur-sm p-3 sm:p-6">
+    <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl border border-gold/40 overflow-hidden my-6">
+      <div class="bg-ink text-washi px-6 py-5 flex items-center justify-between border-b-2 border-crimson">
+        <div>
+          <h3 class="font-serif text-xl font-bold text-gold">Guía de Nombres de Fotos para GitHub</h3>
+          <p class="text-xs text-stone-300 mt-1">Guarda tus fotos con estos nombres exactos en la misma carpeta de tu archivo HTML en GitHub.</p>
+        </div>
+        <button onclick="closePhotoGuide()" class="w-9 h-9 rounded-lg bg-crimson hover:bg-crimsonDark text-white flex items-center justify-center transition">✕</button>
+      </div>
+      <div class="p-6 max-h-[70vh] overflow-y-auto">
+        <div class="mb-4 p-3.5 rounded-xl bg-washi border border-gold/40 text-xs sm:text-sm text-stone-700">
+          <strong>Tip para GitHub:</strong> Sube este archivo HTML como <code class="bg-white px-1.5 py-0.5 rounded border font-mono text-crimson">index.html</code> junto con tus archivos <code class="bg-white px-1.5 py-0.5 rounded border font-mono text-crimson">.jpg</code> en la misma carpeta raíz. Las <strong>8 fotos que ya tienes</strong> se cargarán automáticamente en su receta y ya fueron retiradas de esta lista de pendientes.
+        </div>
+        <div id="photoGuideStats" class="flex flex-wrap gap-2 mb-4 text-xs font-semibold">
+          <!-- Se genera automáticamente -->
+        </div>
+        <div id="photoGuideList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+          <!-- Se genera automáticamente -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== LÓGICA Y BASE DE DATOS DE RECETAS ==================== -->
+  <script>
+    /**
+     * BASE DE DATOS COMPLETA DE LAS 25 RECETAS DE COCINA ORIENTAL
+     * Cada receta incluye su nombre de archivo `photoFile` listo para GitHub (ej. "foto-kasutera.jpg", "foto-dango.jpg", "foto-sushi.jpg").
+     */
+    const RECIPES = [
+      {
+        id: 'onigiri',
+        title: 'Onigiri de Salmón y Wakame',
+        kanji: 'おにぎり',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '2 piezas',
+        time: '25 min',
+        photoFile: 'foto-onigiri.jpg',
+        description: 'Triángulos tradicionales de arroz japonés caliente mezclados con salmón salteado, alga wakame, sésamo tostado y envueltos en alga nori.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '150 g de arroz cocido (caliente)',
+              '80 g de salmón',
+              '1 cdita de alga wakame seca',
+              '1/2 cdita de sésamo blanco tostado',
+              '1 cda de salsa de soja',
+              '2 g de cebollino',
+              'Aceite (al gusto)',
+              '1 hoja de alga Nori'
+            ]
+          }
+        ],
+        steps: [
+          'Cortamos el cebollino finamente.',
+          'Salteamos el salmón comenzando por la parte de la piel. Echamos un poco de sal, tapamos, damos la vuelta y terminamos de cocer.',
+          'Dejamos el salmón encima de papel absorbente para retirar el exceso de aceite.',
+          'Apartamos la piel y desmenuzamos el salmón.',
+          'En un bol colocamos el arroz (es importante que esté caliente, de lo contrario se deshace la bola).',
+          'Añadimos el salmón y el alga wakame seca, machacándola o deshaciéndola con la mano.',
+          'Añadimos el sésamo tostado, pellizcándolo ligeramente para liberar su sabor y nutrientes.',
+          'Incorporamos la salsa de soja y el cebollino cortado; mezclamos todo muy bien.',
+          'Nos mojamos las manos, tomamos la mitad de la mezcla y apretamos suavemente dándole forma de triángulo.',
+          'Cortamos el alga nori en forma de triángulo y cubrimos nuestro onigiri.'
+        ]
+      },
+      {
+        id: 'masa-gyozas',
+        title: 'Masa Casera para Dumpling y Gyozas',
+        kanji: '餃子の皮',
+        origin: 'Japonesa / China',
+        category: 'Masas y Bases',
+        yield: '28 piezas',
+        time: '2 h 30 min (incluye reposo)',
+        photoFile: 'foto-masa-gyozas.jpg',
+        description: 'Masa artesanal elástica y suave elaborada con agua caliente, ideal para formar discos finos con centro reforzado para gyozas y dumplings.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '200 g de harina de trigo',
+              '80 ml de agua caliente (+10 ml según temperatura ambiente)',
+              '10 g de sal',
+              '50 g de maicena (para enharinar)'
+            ]
+          }
+        ],
+        steps: [
+          'Ponemos la harina en un bol, añadimos la sal y mezclamos bien. Vertemos el agua caliente poco a poco mientras removemos.',
+          'Trabajamos la masa con la mano hasta conseguir una bola y que el bol quede limpio.',
+          'La pasamos a una superficie lisa y amasamos unos 10 minutos más. Cuando esté homogénea y suave, la envolvemos con papel film y dejamos reposar 2 horas.',
+          'Pasadas las 2 horas, volvemos a trabajar la masa formando un cilindro grande y la dividimos en 2. Guardamos una parte en film o bolsa plástica para que no se seque, y con la otra formamos un cilindro más pequeño.',
+          'Cortamos cada cilindro en 14 piezas iguales (28 piezas en total), espolvoreamos un poco de maicena por encima y aplanamos ligeramente cada pieza con la mano.',
+          'Tomamos una pieza (tapando el resto con un paño o servilleta húmeda) y con un rodillo formamos un disco fino, procurando que el centro quede un poco más grueso que los bordes para que no se rompa con el relleno.'
+        ]
+      },
+      {
+        id: 'katsudon',
+        title: 'Katsudon',
+        kanji: 'カツ丼',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '4 - 6 porciones',
+        time: '1 h 30 min',
+        photoFile: 'foto-katsudon.jpg',
+        description: 'Clásico tazón japonés de arroz acompañado de filete de cerdo marinado y empanizado crujiente en panko con verduras salteadas.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '1 kg de filete de cerdo',
+              '1 kg de panko',
+              '1/2 docena de huevos (6 piezas)',
+              '1/2 kg de harina',
+              '1 kg de arroz japonés o Verde Valle',
+              '3 piezas de pimiento morrón semáforo (uno de cada color)',
+              '2 piezas de cebolla',
+              '1/2 kg de champiñones',
+              'Ajo y 1 trozo de jengibre',
+              '50 g de pimienta',
+              '5 g de sal',
+              'Salsa de soya y aceite vegetal'
+            ]
+          }
+        ],
+        steps: [
+          'Marinamos el filete de cerdo con ajo, jengibre, salsa de soya, sal y pimienta; dejamos reposar durante 1 hora.',
+          'Ponemos a remojar el arroz durante 30 minutos. Una vez remojado, lo ponemos a cocer.',
+          'Cortamos las verduras: el morrón y la cebolla en cubos de 2 a 3 cm, y los champiñones fileteados.',
+          'Ya marinada la carne, la pasamos por harina, huevo y panko para empanizarla y freírla hasta dorar.',
+          'Aparte, salteamos las verduras con pimienta, salsa de soya y sal.',
+          'Montamos el platillo colocando la cama de arroz, las verduras salteadas y encima la carne empanizada cortada en tiras.'
+        ]
+      },
+      {
+        id: 'yakitori-pollo',
+        title: 'Yakitori de Pollo',
+        kanji: '焼き鳥',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '6 - 8 porciones',
+        time: '40 min',
+        photoFile: 'foto-yakitori-pollo.jpg',
+        description: 'Brochetas japonesas de pechuga de pollo marinado intercaladas con pimiento morrón y cebolla, terminadas con soya y ajonjolí tostado.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '1 kg de pechuga de pollo',
+              '3 piezas de pimiento morrón',
+              '2 piezas de cebollas grandes',
+              '1 cabeza de ajo',
+              'Jengibre fresco',
+              'Salsa de soya Kikkoman',
+              'Aceite de ajonjolí',
+              '100 g de ajonjolí',
+              '1 paquete de palillos de bambú',
+              'Sal y pimienta al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'Marinar el pollo cortado en cubos con ajo, jengibre, salsa de soya, sal y pimienta.',
+          'Tostar el ajonjolí en una sartén seca hasta que tome aroma y reservar.',
+          'Cortar la cebolla y el pimiento morrón en cubos de 2 cm.',
+          'Insertar los ingredientes en los palillos de bambú de manera intercalada (pollo, cebolla, morrón).',
+          'Freír las brochetas de yakitori en poco aceite (con toque de aceite de ajonjolí) hasta cocer bien el pollo y bañar al final con salsa de soya Kikkoman y ajonjolí previamente tostado.'
+        ]
+      },
+      {
+        id: 'yakitori-camaron',
+        title: 'Yakitori de Camarón',
+        kanji: 'エビ焼き鳥',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '6 - 8 porciones',
+        time: '35 min',
+        photoFile: 'foto-yakitori-camaron.jpg',
+        description: 'Brochetas orientales de camarón mediano marinado en soya, ajo y jengibre, intercalado con vegetales frescos y glaseado con ajonjolí tostado.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '1 kg de camarón pelado mediano',
+              '3 piezas de pimiento morrón',
+              '2 piezas de cebollas grandes',
+              '1 cabeza de ajo',
+              'Jengibre fresco',
+              'Salsa de soya Kikkoman',
+              'Aceite de ajonjolí',
+              '100 g de ajonjolí',
+              '1 paquete de palillos de bambú',
+              'Sal y pimienta al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'Marinar el camarón limpio con ajo, jengibre, salsa de soya, sal y pimienta.',
+          'Tostar el ajonjolí ligeramente y reservar.',
+          'Cortar la cebolla y el pimiento morrón en cubos de 2 cm.',
+          'Insertar los camarones y los vegetales en los palillos de bambú de manera intercalada.',
+          'Freír los yakitori en poco aceite hasta que los camarones estén rosados y cocidos; bañar con salsa de soya Kikkoman y espolvorear con el ajonjolí tostado.'
+        ]
+      },
+      {
+        id: 'yakisoba',
+        title: 'Yakisoba',
+        kanji: '焼きそば',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '2 porciones',
+        time: '25 min',
+        photoFile: 'foto-yakisoba.jpg',
+        description: 'Fideos japoneses salteados a fuego fuerte con lomo de cerdo, col, zanahoria, brotes de soja y salsa Yakisoba casera.',
+        ingredientGroups: [
+          {
+            subtitle: 'Fideos y Salteado',
+            items: [
+              '150 g de fideos Yakisoba',
+              '100 g de lomo de cerdo',
+              '50 g de col',
+              '25 g de cebollín',
+              '25 g de brotes de soja',
+              '25 g de zanahoria',
+              '1 diente de ajo',
+              'Un chorrito de Sake o agua',
+              'Una pizca de sal y pimienta',
+              'Aceite vegetal',
+              'Katsuobushi y copos de alga Nori (para decorar)'
+            ]
+          },
+          {
+            subtitle: 'Salsa Yakisoba Casera',
+            items: [
+              '1 cda de salsa de soja japonesa',
+              '1 cda de salsa de ostras',
+              '1/2 cda de salsa inglesa',
+              '1/2 cda de ketchup',
+              '1/2 cdita de azúcar'
+            ]
+          }
+        ],
+        steps: [
+          'En una sartén a fuego fuerte con un poco de aceite vegetal, freír los fideos para Yakisoba.',
+          'Cuando estén bien tostados, darles la vuelta y añadir un poco de Sake (o un chorrito de agua) para ayudar a separarlos bien.',
+          'Una vez separados, apartar a un lado, añadir un poco más de aceite y saltear el cerdo junto con el ajo picado.',
+          'Agregar la col, la zanahoria y una pizca de sal y pimienta; saltear hasta que las verduras se ablanden ligeramente.',
+          'Añadir los brotes de soja, los cebollines y la salsa Yakisoba casera. Mezclar todo bien y saltear un minuto más.',
+          'Servir en un plato y coronar con un poco de Katsuobushi y copos de alga Nori al gusto.'
+        ]
+      },
+      {
+        id: 'sushi',
+        title: 'Sushi y sus Derivados (Maki, Uramaki, Temaki, Nigiri y Gunkan)',
+        kanji: '寿司',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '4 personas',
+        time: '1 h 15 min',
+        photoFile: 'foto-sushi.jpg',
+        description: 'Guía completa de arroz avinagrado (Sushi-zu) y las cinco técnicas clásicas de armado: Maki, Uramaki, Temaki, Nigiri y Gunkan.',
+        ingredientGroups: [
+          {
+            subtitle: 'Base y Aderezo (Sushi-zu)',
+            items: [
+              '400 g de arroz grano corto para sushi',
+              '480 ml de agua',
+              '80 ml de vinagre de arroz',
+              '40 g de azúcar',
+              '10 g de sal'
+            ]
+          },
+          {
+            subtitle: 'Proteínas',
+            items: [
+              '250 g de salmón fresco',
+              '250 g de atún fresco',
+              '16 piezas de camarón grande (U15/U20), cocidos y abiertos en mariposa'
+            ]
+          },
+          {
+            subtitle: 'Vegetales, Complementos y Extras',
+            items: [
+              '2 piezas grandes de aguacate (maduros pero firmes)',
+              '190 g de queso crema tipo Philadelphia (en barra)',
+              '10 a 12 hojas de alga Nori',
+              'Pasta de Wasabi al gusto',
+              'Salsa de soya y ajonjolí para acompañar y decorar'
+            ]
+          }
+        ],
+        steps: [
+          'Lavado del arroz: Lava el arroz con agua fría frotando suavemente en un colador hasta que el agua salga completamente clara (5-6 lavados). Deja escurrir 20 minutos.',
+          'Cocción: Coloca el arroz y el agua en una olla tapada herméticamente. Lleva a ebullición a fuego medio-alto; al hervir, baja al mínimo y cocina 13-15 minutos sin destapar. Apaga y reposa tapado 10 minutos más.',
+          'Aderezo (Sushi-zu): Disuelve el azúcar y la sal en el vinagre de arroz a fuego muy bajo (sin hervir) hasta integrar.',
+          'Enfriado y mezclado: Extiende el arroz caliente en una bandeja amplia (Hangiri). Vierte el aderezo uniformemente mezclando con cortes diagonales sin romper el grano mientras abanicas hasta llegar a temperatura ambiente. Cubre con un paño húmedo.',
+          'Maki: Extiende media hoja de nori (lado rugoso arriba) sobre el Makisu. Cubre con arroz dejando 1.5 cm libres arriba, añade proteína, aguacate y queso crema, enrolla firme y corta en 6 u 8 piezas.',
+          'Uramaki (Roll invertido): Forra el Makisu con plástico film. Cubre media hoja de nori con arroz y ajonjolí, voltea el nori para que el arroz toque el plástico, coloca el relleno sobre el nori y enrolla.',
+          'Temaki (Cono): Corta una hoja de nori a la mitad. Coloca arroz en triángulo en una esquina, añade tiras de proteína, aguacate y queso crema en diagonal, y enrolla desde la esquina inferior formando un cono.',
+          'Nigiri: Con manos humedecidas en agua con vinagre, moldea 20 g de arroz en óvalo compacto. Coloca un punto fino de wasabi en la lámina de pescado o camarón y presiona suavemente sobre el arroz.',
+          'Gunkan: Forma un óvalo de 15-20 g de arroz y rodea los costados con una tira de alga nori de 3.5 cm de alto dejando un "pozo" de 1 cm arriba. Rellena con atún o salmón picado fino y corona con queso crema o tobiko.'
+        ]
+      },
+      {
+        id: 'tempura',
+        title: 'Verduras en Tempura Crujiente',
+        kanji: '天ぷら',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '4 porciones',
+        time: '25 min',
+        photoFile: 'foto-tempura.jpg',
+        description: 'Tempura japonesa ligera, pálida y extra crujiente gracias al choque térmico entre la masa helada con grumos y el aceite caliente.',
+        ingredientGroups: [
+          {
+            subtitle: 'Las Verduras',
+            items: [
+              '2 zanahorias medianas',
+              '2 calabazas italianas medianas',
+              'Opcionales: pimiento morrón, aros de cebolla, champiñones, brócoli o camarón grande'
+            ]
+          },
+          {
+            subtitle: 'Masa Tempura (Desde Cero)',
+            items: [
+              '1 taza de harina de trigo todo uso (tamizada)',
+              '2 cdas de fécula de maíz (Maicena) o harina de arroz tamizada',
+              '1 huevo muy frío (directo del refrigerador)',
+              '1 taza (240 ml) de agua con gas helada o agua muy fría con hielo',
+              '1 pizca de bicarbonato de sodio (opcional)',
+              '1/2 cdita de sal'
+            ]
+          },
+          {
+            subtitle: 'Para Freír',
+            items: [
+              'Aceite vegetal neutro (mínimo 5 cm de profundidad)',
+              'Harina extra para enharinar las verduras'
+            ]
+          }
+        ],
+        steps: [
+          'Preparar verduras: Lava y pela la zanahoria; córtala en bastones de 5-6 cm x 0.5 cm. Corta la calabaza en rodajas diagonales o bastones de 0.5 cm. Seca perfectamente cada trozo con papel absorbente.',
+          'Estación de fritura: Calienta el aceite en olla honda o wok a 170–180 °C (una gota de masa debe bajar y subir burbujeando de inmediato).',
+          'Masa tempura: Tamiza juntos harina, fécula de maíz, sal y bicarbonato. Aparte bate ligeramente el huevo frío y añade el agua helada (sin hielos).',
+          'Vierte lo líquido sobre lo seco y mezcla MUY POCO con palillos haciendo movimientos de corte; deben quedar grumos visibles para no desarrollar gluten. Mantén el bol sobre otro bol con hielo.',
+          'Freír: Pasa cada verdura por harina extra (sacude el exceso), sumerge en la masa helada y desliza en el aceite en tandas de 4-5 piezas.',
+          'Fríe 2-3 minutos volteando una vez hasta que quede dorado muy pálido y crujiente. Escurre en rejilla metálica o papel absorbente.'
+        ],
+        notes: 'El frío es rey: el choque térmico crea la crocancia. Fríe primero las verduras más firmes (zanahoria) y al final las más tiernas (calabaza).'
+      },
+      {
+        id: 'rollos-chinos',
+        title: 'Rollos Chinos Caseros (Spring Rolls)',
+        kanji: '春卷',
+        origin: 'China',
+        category: 'China',
+        yield: '8 - 10 piezas',
+        time: '45 min',
+        photoFile: 'foto-rollos-chinos.jpg',
+        description: 'Crujientes rollitos primavera rellenos de cerdo picado, col, zanahoria, fideos de soja y setas shiitake aromatizados con jengibre.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '8 - 10 hojas de papel de harina ("Spring roll paper")',
+              '1 huevo (para cerrar los rollitos)',
+              '150 g de carne de cerdo picada',
+              '150 g de col',
+              '50 g de fideos de soja',
+              '4 setas Shiitake deshidratadas',
+              '25 g de cebollines',
+              '1 pieza de zanahoria',
+              '2 dientes de ajo y 1 trocito de jengibre',
+              '1 cda de salsa de soja ligera',
+              '1 cdita de azúcar y pimienta blanca en polvo',
+              'Aceite vegetal para freír'
+            ]
+          }
+        ],
+        steps: [
+          'Hidratar los fideos de soja durante 30 minutos y las setas Shiitake deshidratadas durante 15 minutos.',
+          'Picar el ajo y jengibre; cortar muy finamente los cebollines y la zanahoria. Escurrir y cortar las setas Shiitake y los fideos de soja.',
+          'Relleno: En una sartén con aceite vegetal, freír ajo y jengibre a fuego fuerte. Cuando suelten aroma, añadir las setas Shiitake y saltear 1 minuto.',
+          'Agregar los cebollines y saltear otro minuto. Bajar el fuego y añadir el cerdo picado.',
+          'Cuando el cerdo esté cocinado, añadir zanahoria, col, fideos de soja, salsa de soja ligera, azúcar y pimienta blanca; saltear 5 minutos. Pasar a un bowl y dejar enfriar completamente.',
+          'Armado: Extender la hoja de papel de harina, colocar el relleno, enrollar hasta el centro, doblar las puntas hacia adentro y terminar de enrollar sellando con huevo batido.',
+          'Fritura: Freír en abundante aceite vegetal a fuego medio unos 5 minutos, moviéndolos para un dorado homogéneo. Escurrir en rejilla o papel absorbente.'
+        ]
+      },
+      {
+        id: 'gyozas-ternera',
+        title: 'Gyozas de Ternera',
+        kanji: '牛肉餃子',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '25 - 30 piezas',
+        time: '1 hora',
+        photoFile: 'foto-gyozas-ternera.jpg',
+        description: 'Empanadillas japonesas rellenas de ternera jugosa, col china y jengibre, cocinadas a la plancha con costra crujiente y vapor.',
+        ingredientGroups: [
+          {
+            subtitle: 'Relleno',
+            items: [
+              '300 g de ternera picada',
+              '50 g de col china',
+              '30 g de cebolleta o cebollino chino',
+              '1 cda de ajo rallado y 1 cda de jengibre rallado',
+              '1.5 cdas de salsa de soja japonesa',
+              '1 cda de vino de arroz "Sake"',
+              '1/2 cda de aceite de sésamo',
+              '1/2 cda de maicena',
+              '1 cdita de azúcar, 1/4 cdita de sal y pimienta negra'
+            ]
+          },
+          {
+            subtitle: 'Para Cocinar y Salsa',
+            items: [
+              'Pasta para dumplings / gyozas',
+              '3/4 taza de agua y 1/2 a 2 cdas de maicena (para costra crujiente)',
+              'Aceite vegetal y aceite de sésamo para aromatizar',
+              'Salsa: 2 cdas de salsa de soja japonesa, 1 cda de vinagre de arroz japonés y aceite de chile La-Yu al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'Picar finamente la col china y la cebolleta; rallar el jengibre y el ajo.',
+          'En un bowl mezclar la ternera picada con soja japonesa, sal, azúcar, pimienta negra, aceite de sésamo, maicena y sake haciendo movimientos circulares. Incorporar poco a poco un par de cucharadas de agua para mayor jugosidad.',
+          'Agregar la col, cebolleta, jengibre y ajo rallado. Mezclar hasta integrar, tapar y marinar en nevera al menos 30 minutos.',
+          'Armado: Colocar una bolita de relleno en el centro de cada disco de masa, juntar por la mitad y hacer 3 pliegues por cada lado.',
+          'Planchado: En sartén a fuego medio con un poco de aceite vegetal, colocar las gyozas y dorar la base un par de minutos.',
+          'Añadir el agua (o agua con maicena disuelta para costra crujiente) también por encima para evitar que se sequen. Tapar y cocinar 5 a 7 minutos hasta evaporar casi todo el líquido.',
+          'Añadir un poco de aceite de sésamo para aromatizar, cocinar 2 minutos más y servir con la mezcla de soja, vinagre de arroz y aceite de chile La-Yu.'
+        ]
+      },
+      {
+        id: 'chahan',
+        title: 'Arroz Frito – Chahan',
+        kanji: '炒飯',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '2 personas',
+        time: '15 min',
+        photoFile: 'foto-chahan.jpg',
+        description: 'Versión japonesa del clásico arroz frito, salteado a fuego vivo con panceta o jamón, huevo, jengibre, salsa de soja y un toque aromático de sake.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '500 g de arroz japonés cocido (Gohan)',
+              '150 g de panceta de cerdo, cerdo Char Siu o jamón York (en trocitos)',
+              '2 huevos',
+              '25 g de cebolleta (parte blanca y verde picadas)',
+              '1 cda de jengibre fresco picado',
+              '2 cdas de salsa de soja japonesa',
+              '1 cda de vino de arroz japonés (Sake)',
+              '1 cdita de sal y pimienta blanca al gusto',
+              'Aceite vegetal para saltear',
+              'Beni Shoga (jengibre encurtido rojo, opcional para decorar)'
+            ]
+          }
+        ],
+        steps: [
+          'Pica la cebolleta (parte blanca y verde) y el jengibre. Corta la panceta o jamón en trocitos pequeños y bate los huevos.',
+          'En un wok o sartén bien caliente con aceite vegetal, fríe la panceta hasta dorar. Añade el jengibre picado y los huevos batidos.',
+          'Inmediatamente añade el arroz japonés cocido al wok y saltea a fuego vivo mezclando constantemente para romper grumos y envolverlo con el huevo.',
+          'Sazona con salsa de soja japonesa, sal y pimienta blanca. Continúa salteando a fuego alto para tostar ligeramente los granos y lograr aroma ahumado.',
+          'Añade un chorrito de Sake, incorpora la cebolleta picada y saltea brevemente hasta evaporar el alcohol.',
+          'Sirve en cuencos y decora con Beni Shoga o cebolleta fresca.'
+        ]
+      },
+      {
+        id: 'fideos-ramen',
+        title: 'Fideos Ramen Caseros y Kansui',
+        kanji: '自家製ラーメン',
+        origin: 'Japonesa',
+        category: 'Masas y Bases',
+        yield: '4 - 6 porciones',
+        time: '2 h 30 min',
+        photoFile: 'foto-fideos-ramen.jpg',
+        description: 'Fideos alcalinos artesanales de textura firme, elástica y tono amarillo característico elaborados con Kansui casero.',
+        ingredientGroups: [
+          {
+            subtitle: 'Kansui Casero (rinde ~5 usos)',
+            items: [
+              '50 g de bicarbonato sódico'
+            ]
+          },
+          {
+            subtitle: 'Masa de Fideos Ramen',
+            items: [
+              '500 g de harina de trigo multiuso',
+              '200 ml de agua',
+              '10 g de Kansui casero (bicarbonato horneado)',
+              '5 g de sal',
+              'Maicena (para enharinar al estirar)'
+            ]
+          }
+        ],
+        steps: [
+          'Kansui casero: Coloca los 50 g de bicarbonato sódico en una bandeja y hornea a 120 °C durante 1 hora para transformarlo en carbonato sódico. Deja enfriar sin tocarlo directamente y guarda en frasco hermético.',
+          'Coloca los 500 g de harina en un bol grande. En otro recipiente disuelve los 10 g de Kansui casero en los 200 ml de agua y luego agrega los 5 g de sal hasta disolver.',
+          'Vierte la mezcla líquida poco a poco sobre la harina removiendo para absorber uniformemente. Coloca los grumos de masa en una bolsa hermética tipo Ziploc y reposa 1 hora a temperatura ambiente.',
+          'Amasado: Trabaja la masa con rodillo doblándola y aplanándola al menos 3 veces (o colócala en la bolsa entre dos trapos limpios y písala uniformemente).',
+          'Porcionado: Divide la masa en 6 partes iguales y aplasta ligeramente cada porción con rodillo.',
+          'Estirado en máquina de pasta: Pasa por el nivel 0, dobla a la mitad y repite 3 veces hasta suavizar. Espolvorea maicena por ambos lados y reduce el grosor progresivamente hasta el nivel 4 (o entre 4 y 6).',
+          'Corte: Pasa por el cabezal cortador de fideos ramen. Se conservan hasta 5 días en nevera o 2 meses congelados.'
+        ]
+      },
+      {
+        id: 'pollo-teriyaki',
+        title: 'Pollo Teriyaki',
+        kanji: '照り焼きチキン',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '2 personas',
+        time: '20 min',
+        photoFile: 'foto-pollo-teriyaki.jpg',
+        description: 'Contramuslos de pollo dorados a la plancha y glaseados en una brillante reducción de shoyu, sake, mirin y azúcar.',
+        ingredientGroups: [
+          {
+            subtitle: 'Para el Pollo',
+            items: [
+              '2 contramuslos de pollo sin hueso (con o sin piel)',
+              '2 cdas de harina de trigo',
+              'Sal y pimienta al gusto',
+              '1 tallo de cebolleta (en trozos de 3-4 cm)',
+              'Unas rodajas de jengibre fresco',
+              'Aceite vegetal para dorar'
+            ]
+          },
+          {
+            subtitle: 'Salsa Teriyaki',
+            items: [
+              '2 cdas de salsa de soja japonesa (Shoyu)',
+              '1 cda de Sake',
+              '1 cda de Mirin (o 1/2 cda de miel)',
+              '1/2 cda de azúcar'
+            ]
+          }
+        ],
+        steps: [
+          'En un bol mezcla la salsa de soja japonesa, el Sake, el Mirin (o miel) y el azúcar hasta disolver. Reserva.',
+          'Retira el exceso de grasa del pollo y empareja su grosor. Salpimienta por ambos lados y cubre ligeramente con harina de trigo.',
+          'En sartén a fuego medio con aceite vegetal, dora el pollo (piel hacia abajo primero) unos 3 minutos hasta dorar bien y da la vuelta.',
+          'Haz un hueco en la sartén, añade la cebolleta y rodajas de jengibre. Cocina hasta que la cebolleta esté tierna, retírala y drena el exceso de aceite.',
+          'Vierte la salsa Teriyaki y deja reducir a fuego lento hasta la mitad, bañando constantemente el pollo para glasearlo.',
+          'Corta en trozos de bocado, sirve con la cebolleta a la plancha, vierte el resto de la salsa espesa por encima y acompaña con arroz blanco caliente.'
+        ]
+      },
+      {
+        id: 'shoyu-ramen',
+        title: 'Shoyu Ramen Tradicional',
+        kanji: '醤油ラーメン',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '4 personas',
+        time: '2+ horas',
+        photoFile: 'foto-shoyu-ramen.jpg',
+        description: 'Sopa tradicional japonesa con caldo de huesos, tare de soja y kombu, aceite aromatizado de cebolleta, cerdo Chashu y huevo marinado Ajitama.',
+        ingredientGroups: [
+          {
+            subtitle: 'Base y Toppings',
+            items: [
+              '4 porciones de fideos Ramen (125–150 g por ración)',
+              '500 g de panceta de cerdo (para Chashu)',
+              '4 huevos (para huevo marinado)',
+              '1 hoja de alga Nori (cortada en 4 trozos)'
+            ]
+          },
+          {
+            subtitle: 'Caldo',
+            items: [
+              '3 litros de agua',
+              '1 kg de huesos de pollo y 1/2 kg de huesos de cerdo',
+              '3 setas Shiitake deshidratadas (opcional)',
+              '3 trozos grandes de jengibre, 2 tallos de cebolleta, 1 zanahoria y 1 cabeza de ajo'
+            ]
+          },
+          {
+            subtitle: 'Tare (Salsa Base) y Aceite Aromatizado',
+            items: [
+              'Tare: 300 ml salsa de soja japonesa, 150 ml Sake, 150 ml Mirin, 5 g alga Kombu, 4 dientes de ajo, 3 rodajas de jengibre y 1 tallo de cebolleta',
+              'Aceite aromatizado: 50 g de cebolleta y 1/2 taza (120 ml) de aceite vegetal'
+            ]
+          }
+        ],
+        steps: [
+          'Remoja el alga Kombu en la salsa de soja japonesa mínimo 30 minutos (ideal desde la noche anterior).',
+          'Blanquea los huesos de cerdo y pollo en agua hirviendo 5 minutos desde que salga espuma; escurre y lava bien con agua limpia.',
+          'Caldo: Coloca los huesos limpios con cebolleta, zanahoria, ajo, jengibre, shiitake y 3 L de agua. Hierve, baja a fuego lento y cocina tapado 2 horas.',
+          'Chashu: Enrolla la panceta con la piel afuera, átala con hilo de cocina y agrégala al caldo durante 1 hora de cocción.',
+          'Tare: Calienta suavemente la soja con el Kombu, añade Sake, Mirin, cebolleta, ajo y jengibre. Apaga justo al comenzar a hervir y reserva.',
+          'Huevos marinados: Pincha la base de los huevos, cuécelos en agua hirviendo exactamente 6 minutos (moviendo el primer minuto). Pasa a agua helada, pela y marina en bolsa Ziploc con un poco de Tare mínimo 2 horas.',
+          'Saca la panceta del caldo, retira el hilo, dórala por todos lados en sartén, reposa 5 minutos y marina en bolsa Ziploc con Tare por 2 horas.',
+          'Aceite aromatizado: Fríe 50 g de cebolleta en 120 ml de aceite a fuego medio hasta dorar e infusionar; cuela y reserva.',
+          'Corta el Chashu en rodajas y dóralas ligeramente antes de servir; parte los huevos a la mitad.',
+          'Ensamblaje: Pon en cada bol 4 cdas de Tare, 1 cda de aceite aromatizado y caldo caliente hasta poco más de la mitad. Cuece los fideos 1 minuto, escurre, agrégalos y decora con Chashu, cebolleta, huevo y alga Nori.'
+        ]
+      },
+      {
+        id: 'okonomiyaki',
+        title: 'Okonomiyaki',
+        kanji: 'お好み焼き',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '1 porción',
+        time: '30 min',
+        photoFile: 'foto-okonomiyaki.jpg',
+        description: 'Tarta salada japonesa a la plancha de repollo, vegetales y tocino, cubierta con salsa tonkatsu, dashi, cebollín, polvo nori y gari.',
+        ingredientGroups: [
+          {
+            subtitle: 'Grupo Amarillo (Vegetales)',
+            items: [
+              '150 g de repollo',
+              '60 g de pimiento / pimienta',
+              '60 g de cebolla',
+              '60 g de champiñón',
+              '60 g de germinado'
+            ]
+          },
+          {
+            subtitle: 'Proteína y Harina',
+            items: [
+              '5 piezas de tocino',
+              '1 taza de harina'
+            ]
+          },
+          {
+            subtitle: 'Grupo Azul (Líquidos y Sazón)',
+            items: [
+              '1 1/2 cda de aceite de ajonjolí',
+              '3 cdas de Sake',
+              '1 1/2 cda de Mirin',
+              '3 cdas de salsa de soja',
+              '1 cda de sal-pimienta',
+              '2 piezas de huevo'
+            ]
+          },
+          {
+            subtitle: 'Grupo Verde (Decoración y Terminado)',
+            items: [
+              '3 oz de salsa tonkatsu',
+              '1 cda de dashi',
+              '2 cdas de cebollín',
+              '1/2 cda de polvo nori',
+              '1 cda de gari (jengibre encurtido)'
+            ]
+          }
+        ],
+        steps: [
+          'En un bowl agregar los ingredientes del Grupo Amarillo (repollo, pimiento, cebolla, champiñón y germinado).',
+          'Agregar piezas de tocino cortadas en macedoine a la mezcla.',
+          'Incorporar los ingredientes del Grupo Azul (aceite de ajonjolí, sake, mirin, soja, sal-pimienta y huevo) y mezclar hasta homogeneizar.',
+          'Agregar la harina y mezclar hasta que todo quede uniforme.',
+          'En una sartén a fuego medio verter la mezcla y acomodar para que la superficie quede uniforme.',
+          'Colocar el resto de las tiras de tocino encima y tapar.',
+          'Una vez cocida la mitad inferior, dar la vuelta y volver a tapar.',
+          'Emplatar con el lado del tocino hacia arriba, cortar en 8 porciones de manera convergente, bañar con salsa tonkatsu y decorar con los ingredientes del Grupo Verde.'
+        ],
+        notes: 'Cuidados: Para revisar que la tarta esté cocida por dentro, pinchar con un palillo hasta que salga seco. Tiempo de vida: 3-4 horas.'
+      },
+      {
+        id: 'pollo-naranja',
+        title: 'Pollo a la Naranja',
+        kanji: '陳皮雞',
+        origin: 'China',
+        category: 'China',
+        yield: '4 personas',
+        time: '50 min',
+        photoFile: 'foto-pollo-naranja.jpg',
+        description: 'Trozos crujientes de pechuga de pollo rebozados en maicena y bañados en una salsa cítrica, agridulce y ligeramente picante de naranja fresca.',
+        ingredientGroups: [
+          {
+            subtitle: 'Para Macerar y Rebozar el Pollo',
+            items: [
+              '500 g de pechuga de pollo',
+              '1 pieza de huevo',
+              '1 cda de salsa de soja ligera',
+              'Un chorrito de vino de arroz chino o Jerez seco (opcional)',
+              '120 g de maicena'
+            ]
+          },
+          {
+            subtitle: 'Para la Salsa y Decoración',
+            items: [
+              '2 dientes de ajo',
+              '2 tazas (400 ml, aprox. 6-8 naranjas) de zumo de naranja',
+              '3 cdas de salsa de soja ligera',
+              '50 g de azúcar',
+              '1/2 cda de Sambal Ulek o La jiao jiang (opcional)',
+              'Ralladura de media naranja',
+              'Un poco de maicena disuelta en 2 cdas de agua',
+              'Aceite vegetal, semillas de sésamo tostado y cebolleta'
+            ]
+          }
+        ],
+        steps: [
+          'Cortamos el pollo en trozos y en un bowl lo mezclamos con salsa de soja ligera, vino de arroz chino (o Jerez) y el huevo.',
+          'Tapamos con film y dejamos macerar en la nevera 30 minutos. Mientras tanto, exprimimos las naranjas y reservamos el zumo.',
+          'Rebozamos bien el pollo con la maicena (uno a uno o mezclado en el bowl) y freímos en abundante aceite vegetal hasta que esté bien dorado. Escurrimos y reservamos.',
+          'Salsa: En una sartén con poco aceite freímos los ajos hasta que aromaticen; añadimos el zumo de naranja, salsa de soja ligera y azúcar, removiendo y dejando reducir.',
+          'Añadimos el Sambal y la ralladura de piel de naranja. Espesamos agregando la maicena disuelta en agua sin dejar de remover.',
+          'Incorporamos el pollo crujiente, mezclamos bien para impregnar y servimos solo o sobre arroz blanco, decorado con cebolleta y sésamo tostado.'
+        ]
+      },
+      {
+        id: 'chow-mein',
+        title: 'Chow Mein',
+        kanji: '炒麵',
+        origin: 'China',
+        category: 'China',
+        yield: '2 personas',
+        time: '25 min',
+        photoFile: 'foto-chow-mein.jpg',
+        description: 'Fideos de huevo salteados al estilo cantonés con pollo macerado en polvo 5 especias chinas, pimiento rojo, brotes de soja y cebolleta.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes Principales',
+            items: [
+              '150 g de pechuga de pollo',
+              '90 g de noodles (fideos) de huevo deshidratados',
+              '100 g de brotes de soja',
+              '30 g de pimiento rojo',
+              '30 g de cebolleta o cebollino',
+              '1.5 cdas de salsa de soja ligera',
+              'Un poco de salsa de soja oscura',
+              'Aceite de sésamo y aceite vegetal'
+            ]
+          },
+          {
+            subtitle: 'Para Marinar el Pollo',
+            items: [
+              '1/2 cda de salsa de soja ligera',
+              '1/2 cdita de 5 especias chinas',
+              '1 cdita de maicena',
+              'Un poco de salsa de soja oscura'
+            ]
+          }
+        ],
+        steps: [
+          'En un bowl maceramos el pollo con el polvo 5 especias, salsa de soja ligera y oscura. Añadimos la maicena, mezclamos bien y reservamos.',
+          'Cocinamos los noodles en agua hirviendo aproximadamente 1 minuto (sin que se pasen). Los pasamos a agua fría para cortar cocción, escurrimos bien y mezclamos con un chorrito de aceite de sésamo para que no se peguen.',
+          'En una sartén a fuego medio-alto con aceite vegetal freímos el pollo; cuando esté dorado añadimos el pimiento rojo y salteamos 1 minuto.',
+          'Añadimos los noodles y salteamos 1 minuto más.',
+          'Bajamos el fuego, agregamos los brotes de soja, la cebolleta y la salsa de soja ligera sin dejar de saltear.',
+          'Finalizamos con un poco de salsa de soja oscura, mezclamos todo bien y servimos caliente.'
+        ]
+      },
+      {
+        id: 'dango',
+        title: 'Dango (Hanami Dango)',
+        kanji: '花見団子',
+        origin: 'Japonesa',
+        category: 'Repostería',
+        yield: '15 bolitas (5 brochetas)',
+        time: '25 min',
+        photoFile: 'foto-dango.jpg',
+        description: 'Tradicionales brochetas dulces japonesas tricolor (matcha, blanco y rosa) elaboradas con harina de arroz y arroz glutinoso.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '50 g de harina de arroz',
+              '110 g de harina de arroz glutinoso',
+              '90 ml de agua caliente',
+              '1 cdita de café de té matcha en polvo',
+              '2 gotas de colorante rojo',
+              '50 g de azúcar refinado'
+            ]
+          }
+        ],
+        steps: [
+          'En una ensaladera mezclar ambas harinas con el azúcar y repartir la mezcla resultante en 3 tazones iguales.',
+          'En el primer tazón añadir el té matcha y 30 ml de agua caliente; mezclar hasta obtener una consistencia blanda (ajustar agua o harina si es necesario) y formar 5 bolitas.',
+          'En el segundo tazón añadir 2 gotas de colorante rojo y 30 ml de agua caliente. En el tercer tazón añadir solo 30 ml de agua caliente. Formar 5 bolitas rosas y 5 blancas.',
+          'Llevar agua a ebullición en una olla e introducir las bolitas por tandas. Cuando floten a la superficie, cocer 2 minutos más.',
+          'Escurrir bien y ensartar de 3 en 3 (verde, blanco y rosa) en brochetas.'
+        ],
+        notes: 'Truco: Se puede utilizar harina preparada para dango en lugar de la mezcla de harinas de arroz y arroz glutinoso.'
+      },
+      {
+        id: 'kasutera',
+        title: 'Kasutera (Castella)',
+        kanji: 'カステラ',
+        origin: 'Japonesa',
+        category: 'Repostería',
+        yield: '10 personas',
+        time: '50 min + 4 h reposo',
+        photoFile: 'foto-kasutera.jpg',
+        description: 'Icónico bizcocho esponjoso japonés de Nagasaki con miga fina y húmeda, glaseado con miel líquida y reposado en film para máxima suavidad.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '180 g de harina de trigo',
+              '4 huevos (a temperatura ambiente)',
+              '75 g de miel líquida diluida en 2 cucharadas soperas de agua caliente',
+              '120 g de azúcar refinado'
+            ]
+          }
+        ],
+        steps: [
+          'Reservar 2 cucharadas soperas de la mezcla de miel diluida. Forrar un molde rectangular de 20 cm de largo con papel vegetal y precalentar el horno a 180 °C.',
+          'Tamizar la harina en una ensaladera.',
+          'Romper los huevos en el tazón de la batidora, batir, añadir el azúcar y batir a máxima velocidad durante 5 minutos hasta esponjar.',
+          'Añadir la miel diluida, batir de nuevo e incorporar la mitad de la harina tamizada; batir suavemente y añadir la harina restante.',
+          'Verter la mezcla en el molde y hornear durante 35 minutos.',
+          'Al sacar del horno, pincelar la superficie con la miel reservada, retirar el papel vegetal y envolver inmediatamente en papel film.',
+          'Dejar reposar al menos 4 horas a temperatura ambiente. Retirar los bordes y cortar en rebanadas antes de servir.'
+        ],
+        notes: 'Truco: El kasutera se conserva muy bien varios días en refrigeración siempre que se mantenga bien envuelto en papel film para evitar que se reseque.'
+      },
+      {
+        id: 'cerdo-yuxiang',
+        title: 'Cerdo Yuxiang (Yu Xiang Rou Si)',
+        kanji: '魚香肉絲',
+        origin: 'China',
+        category: 'China',
+        yield: '2 personas',
+        time: '45 min',
+        photoFile: 'foto-cerdo-yuxiang.jpg',
+        description: 'Tiras de lomo de cerdo salteadas al estilo Sichuan con pasta de chile Doubanjiang, pimientos, zanahoria y hongos negros chinos.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '250 g de lomo de cerdo',
+              '1 cda de maicena y 1 clara de huevo (opcional)',
+              '1 cda de aceite vegetal o agua',
+              '100 g de pimiento verde y rojo',
+              '50 g de setas u hongos negros chinos',
+              '25 g de zanahoria',
+              '2 dientes de ajo, 1 trocito de jengibre y cebollín al gusto',
+              '1 cda de salsa de soja ligera',
+              '1/2 cda de pasta de chile china (Doubanjiang / Toban Djan)',
+              '1 tapón de vino de arroz chino o agua',
+              '1 cdita de azúcar, sal, pimienta blanca y aceite vegetal'
+            ]
+          }
+        ],
+        steps: [
+          'Cortar el cerdo en tiras y mezclarlo con sal, pimienta blanca, maicena, clara de huevo y aceite o agua. Refrigerar y marinar mínimo 30 minutos.',
+          'Cortar pimientos, zanahoria y setas en juliana. Picar ajo, jengibre y la parte blanca del cebollín. Preparar aparte una mezcla de maicena con agua para espesar.',
+          'Calentar un wok o sartén con aceite y saltear el cerdo hasta cocer. Incorporar ajo, jengibre y cebollín.',
+          'Agregar la pasta de chile y cocinar brevemente para desarrollar su aroma. Añadir las verduras y saltear hasta que estén tiernas pero crujientes.',
+          'Incorporar la soja, vino de arroz (o agua) y azúcar. Ajustar la consistencia con la maicena disuelta en agua hasta que la salsa nape los ingredientes y servir.'
+        ]
+      },
+      {
+        id: 'cerdo-charsiu',
+        title: 'Cerdo Char Siu',
+        kanji: '叉燒',
+        origin: 'China',
+        category: 'China',
+        yield: '4 personas',
+        time: '2 h 30 min (incluye marinado)',
+        photoFile: 'foto-cerdo-charsiu.jpg',
+        description: 'Clásico cerdo asado cantonés marinado en salsa Hoisin, miel, cinco especias chinas y vino de arroz, horneado y glaseado.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '1 kg de carne de cerdo (preferentemente con algo de grasa)',
+              '100 g de salsa Hoisin (aprox. 5 cucharadas)',
+              '50 ml de vino de arroz chino o Jerez seco',
+              '4 cdas de salsa de soja y 1 cda de salsa de soja oscura',
+              '2 cdas de salsa de ostras',
+              '3 cdas de miel y 20 g de azúcar moreno',
+              '1 cda de cinco especias chinas y 1 cdita de pimienta blanca',
+              'Anís estrellado y hojas de laurel (opcionales)'
+            ]
+          }
+        ],
+        steps: [
+          'Mezclar la salsa Hoisin, miel, azúcar moreno, vino, salsas de soja y ostras, cinco especias y pimienta blanca hasta lograr una marinada homogénea.',
+          'Cubrir el cerdo con la marinada, tapar y refrigerar al menos 2 horas.',
+          'Precalentar el horno a 200 °C. Colocar la carne sobre una rejilla y hornear 10 minutos.',
+          'Voltear, pincelar con la marinada y hornear otros 10 minutos. Apagar el horno y dejar reposar la carne dentro unos 5 minutos.',
+          'Hervir aparte la marinada restante hasta reducir y espesar. Cortar el cerdo en láminas, bañar con la salsa y terminar con cebollín y sésamo.'
+        ]
+      },
+      {
+        id: 'ternera-brocoli',
+        title: 'Ternera con Brócoli en Salsa de Ostras',
+        kanji: '西蘭花炒牛肉',
+        origin: 'China',
+        category: 'China',
+        yield: '4 personas',
+        time: '50 min',
+        photoFile: 'foto-ternera-brocoli.jpg',
+        description: 'Láminas tiernas de ternera marinada salteadas en wok con brócoli blanqueado, ajo machacado, zanahoria y salsa brillante de ostras.',
+        ingredientGroups: [
+          {
+            subtitle: 'Salteado y Salsa',
+            items: [
+              '300 g de brócoli',
+              '8 dientes de ajo',
+              '50 g de zanahoria (aprox. 1/2 pieza)',
+              '1/2 cebolla grande',
+              '1 1/2 cdas de salsa de soja ligera',
+              '2 cdas de salsa de ostras',
+              'Aceite vegetal, maicena y un poco de agua'
+            ]
+          },
+          {
+            subtitle: 'Para Marinar la Ternera',
+            items: [
+              '300 g de ternera en láminas finas',
+              '1 cda de soja ligera y 1 cda de salsa de ostras',
+              '1/2 cda de maicena',
+              'Pimienta blanca y 1 cda de aceite vegetal'
+            ]
+          }
+        ],
+        steps: [
+          'Cortar la ternera en láminas finas y marinarla con soja, salsa de ostras, maicena, pimienta blanca y aceite mínimo 30 minutos en refrigeración.',
+          'Machacar ligeramente los ajos; cortar cebolla y zanahoria. Dividir el brócoli en ramilletes de bocado.',
+          'Blanquear el brócoli 30 segundos en agua hirviendo con sal y un poco de aceite; pasar a agua fría y escurrir.',
+          'Preparar la salsa mezclando soja ligera, salsa de ostras, pimienta blanca, maicena y un poco de agua.',
+          'Saltear el ajo en wok caliente, agregar la ternera y cocinar. Incorporar cebolla y zanahoria; después añadir el brócoli y la salsa. Saltear hasta espesar y servir.'
+        ]
+      },
+      {
+        id: 'sopa-wonton',
+        title: 'Sopa Wontón',
+        kanji: '雲吞麵',
+        origin: 'China',
+        category: 'China',
+        yield: '4 personas',
+        time: '1 h 45 min',
+        photoFile: 'foto-sopa-wonton.jpg',
+        description: 'Caldo reconfortante de huesos de cerdo con saquitos de wontón rellenos de cerdo y langostinos, terminado con aceite aromático de chalota.',
+        ingredientGroups: [
+          {
+            subtitle: 'Caldo y Pasta',
+            items: [
+              '1 paquete de pasta wontón',
+              '2.5 L de agua y 1 kg de huesos de cerdo',
+              '1 trozo grande de jengibre, 4 tallos de cebolleta y 5 dientes de ajo'
+            ]
+          },
+          {
+            subtitle: 'Relleno',
+            items: [
+              '250 g de cerdo picado y 250 g de langostinos pelados',
+              '50 g de parte verde de cebolleta',
+              '4 cdas de agua aromática (tallos de cebolleta machacados, jengibre y agua)',
+              '4 cdas de aceite caliente (opcional)',
+              '1 cda de soja, 1/2 cda de salsa de ostras, 1/2 cda de aceite de sésamo',
+              '1 cdita de sal, 1 cdita de azúcar y pimienta blanca'
+            ]
+          },
+          {
+            subtitle: 'Aceite Aromático y Servicio',
+            items: [
+              'Aceite aromático: 5 dientes de ajo, 5 chalotas, 2 cm de jengibre y aceite vegetal',
+              'Para servir: 1/2 cda de soja ligera, 1/2 cdita de sal, pimienta blanca, aceite de sésamo, cebollino y cilantro'
+            ]
+          }
+        ],
+        steps: [
+          'Caldo: Cubrir los huesos con 2.5 L de agua y añadir jengibre, tallos de cebolleta y ajo. Hervir, bajar fuego y cocer aprox. 1 hora espumando.',
+          'Preparar el agua aromática con tallos de cebolleta machacados, jengibre picado y agua.',
+          'Relleno: Mezclar cerdo y langostinos con los condimentos removiendo siempre en la misma dirección, incorporando el agua aromática poco a poco hasta lograr textura pegajosa. Refrigerar 30 minutos.',
+          'Aceite aromático: Picar ajo, chalota y jengibre y freír a fuego medio hasta dorar bien; reservar.',
+          'Armado: Colocar relleno en cada hoja de wontón, humedecer bordes y cerrar en forma de saquito.',
+          'Cocer los wontones en agua hirviendo unos 8 minutos según tamaño.',
+          'En cada bol colocar condimentos, cebollino y cilantro; añadir caldo caliente, los wontones cocidos y terminar con aceite de sésamo y aceite aromático.'
+        ]
+      },
+      {
+        id: 'pasta-wonton',
+        title: 'Pasta Wontón Casera',
+        kanji: '雲吞皮',
+        origin: 'China',
+        category: 'Masas y Bases',
+        yield: '25 piezas (9 x 9 cm)',
+        time: '2 h 30 min',
+        photoFile: 'foto-pasta-wonton.jpg',
+        description: 'Láminas delgadas y resistentes de pasta al huevo de 1 mm de grosor, ideales para sopa wontón, wontones fritos o shumai.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '300 g de harina de trigo',
+              '50 ml de agua (ajustar según tamaño de huevos)',
+              '2 huevos XL',
+              '1 cdita de sal',
+              'Maicena (cantidad necesaria para estirar y separar)'
+            ]
+          }
+        ],
+        steps: [
+          'Colocar la harina en un bol. Aparte batir huevos, agua y sal; incorporar poco a poco a la harina.',
+          'Amasar unos 10 minutos hasta obtener una masa lisa y compacta.',
+          'Envolver o cubrir y reposar en refrigeración durante 1 hora.',
+          'Amasar otros 10 minutos y dividir en dos porciones.',
+          'Estirar cada porción en rectángulo hasta 3 mm de grosor usando maicena. Doblar, cubrir con paño húmedo y reposar otra hora.',
+          'Estirar finalmente hasta aprox. 1 mm de grosor y cortar cuadrados de 9 x 9 cm.',
+          'Espolvorear bien con maicena para separar las hojas. Conservar hasta 3 días refrigeradas o 1 mes congeladas.'
+        ]
+      },
+      {
+        id: 'shumai',
+        title: 'Shumai (Dim Sum)',
+        kanji: '燒賣',
+        origin: 'China',
+        category: 'China',
+        yield: '20 piezas',
+        time: '1 h 30 min',
+        photoFile: 'foto-shumai.jpg',
+        description: 'Clásicos bocados cantoneses al vapor abiertos por arriba, rellenos de cerdo, langostinos y shiitake, coronados con zanahoria y salsa agridulce.',
+        ingredientGroups: [
+          {
+            subtitle: 'Shumai',
+            items: [
+              '20 hojas de pasta wontón',
+              '200 g de cerdo picado y 200 g de langostinos picados',
+              '2 setas shiitake secas e hidratadas',
+              '5 g de parte verde de cebolleta',
+              '1 cdita de jengibre rallado',
+              'Zanahoria picada fina (para decorar)',
+              '1/2 cda de maicena, 1 cda de salsa de ostras, 1/2 cda de soja ligera',
+              '1/2 cdita de aceite de sésamo, 1/2 cdita de sal y pimienta blanca'
+            ]
+          },
+          {
+            subtitle: 'Salsa para Acompañar',
+            items: [
+              '2 cdas de salsa de soja ligera',
+              '2 cdas de vinagre de arroz',
+              '2 cdas de azúcar',
+              '1/2 cda de salsa de soja oscura'
+            ]
+          }
+        ],
+        steps: [
+          'Mezclar los langostinos con parte de la maicena y sal, removiendo en una sola dirección hasta que quede pegajoso.',
+          'En otro recipiente trabajar el cerdo con el resto de la maicena, sal, soja, salsa de ostras y pimienta durante varios minutos.',
+          'Integrar langostinos, shiitake picado, cebolleta, jengibre y aceite de sésamo. Trabajar hasta lograr textura firme y pegajosa; refrigerar 1 hora.',
+          'Recortar las esquinas de la pasta wontón para darle forma circular. Colocar aprox. 25 g de relleno en el centro y cerrar con la mano dejando la parte superior abierta; decorar con zanahoria.',
+          'Colocar en vaporera sobre papel perforado y cocinar al vapor a fuego medio de 8 a 10 minutos.',
+          'Salsa: Calentar soja ligera, soja oscura, vinagre y azúcar hasta que comience a hervir; retirar, enfriar y servir con los shumai.'
+        ]
+      },
+      {
+        id: 'dorayaki-camote',
+        title: 'Dorayaki con Relleno de Camote',
+        kanji: 'どら焼き',
+        origin: 'Japonesa (Brigada 1)',
+        category: 'Repostería',
+        yield: '8 dorayaki',
+        time: '45 min',
+        photoFile: 'foto-dorayaki.jpg',
+        description: 'Esponjosas tortitas japonesas a la sartén con miel, unidas de dos en dos con un suave relleno dulce de puré de camote y mantequilla.',
+        ingredientGroups: [
+          {
+            subtitle: 'Tortitas',
+            items: [
+              '2 huevos',
+              '70 g de azúcar',
+              '20 g de miel',
+              '130 g de harina de trigo',
+              '1 cdita de polvo para hornear',
+              '40–60 ml de agua',
+              'Aceite vegetal (para engrasar)'
+            ]
+          },
+          {
+            subtitle: 'Relleno de Camote',
+            items: [
+              '300 g de camote cocido y machacado',
+              '30 g de azúcar',
+              '20 g de mantequilla'
+            ]
+          }
+        ],
+        steps: [
+          'Mezclar el camote caliente con el azúcar y la mantequilla hasta integrar por completo. Dejar enfriar.',
+          'Batir los huevos con el azúcar y la miel; incorporar la harina y el polvo para hornear. Agregar agua poco a poco hasta lograr una mezcla espesa que fluya. Reposar 10 minutos.',
+          'Engrasar apenas una sartén antiadherente y cocinar 16 tortitas de unos 8 cm de diámetro a fuego medio-bajo.',
+          'Voltear cuando aparezcan burbujas en la superficie y terminar la cocción. Unir de dos en dos con el relleno de camote.'
+        ],
+        notes: 'Equipo: Sartén antiadherente y globo. Nota técnica: El relleno más conocido es el anko de frijol azuki dulce; el camote es una alternativa accesible y deliciosa.'
+      },
+      {
+        id: 'purin',
+        title: 'Purin (Flan Japonés)',
+        kanji: 'プリン',
+        origin: 'Japonesa (Brigada 1)',
+        category: 'Repostería',
+        yield: '6 flanes pequeños',
+        time: '70 min + 4 h refrigeración',
+        photoFile: 'foto-purin.jpg',
+        description: 'Clásico flan japonés horneado suavemente a baño María, de textura tersa y cremosa coronado con caramelo brillante.',
+        ingredientGroups: [
+          {
+            subtitle: 'Caramelo',
+            items: [
+              '80 g de azúcar',
+              '25 ml de agua'
+            ]
+          },
+          {
+            subtitle: 'Flan',
+            items: [
+              '500 ml de leche entera',
+              '3 huevos',
+              '1 yema',
+              '70 g de azúcar',
+              '1 cdita de vainilla'
+            ]
+          }
+        ],
+        steps: [
+          'Preparar el caramelo con los 80 g de azúcar y los 25 ml de agua; repartir inmediatamente en el fondo de los moldes.',
+          'Calentar la leche con los 70 g de azúcar sin dejar que hierva. Aparte, mezclar los huevos y la yema suavemente sin incorporar demasiado aire.',
+          'Agregar la leche tibia poco a poco a los huevos, incorporar la vainilla y colar la mezcla. Repartir en los moldes y cubrir con papel aluminio.',
+          'Hornear a baño María a 150 °C durante 35–45 minutos, hasta que los bordes estén firmes y el centro tiemble ligeramente.',
+          'Dejar enfriar a temperatura ambiente y refrigerar al menos 4 horas antes de desmoldar y servir.'
+        ],
+        notes: 'Equipo: Horno, refractario y moldes resistentes al calor. Nota técnica: El calor suave permite una textura completamente lisa. Los tiempos dependen del tamaño de los moldes.'
+      },
+      {
+        id: 'mushi-pan',
+        title: 'Mushi Pan (Panquecitos al Vapor)',
+        kanji: '蒸しパン',
+        origin: 'Japonesa (Brigada 1)',
+        category: 'Repostería',
+        yield: '8 piezas pequeñas',
+        time: '35 min',
+        photoFile: 'foto-mushipan.jpg',
+        description: 'Panecillos japoneses suaves, ligeros y esponjosos cocidos al vapor en moldes individuales.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '150 g de harina de trigo',
+              '70 g de azúcar',
+              '2 cditas de polvo para hornear',
+              '1 huevo',
+              '120 ml de leche',
+              '30 ml de aceite vegetal',
+              '1 pizca de sal'
+            ]
+          }
+        ],
+        steps: [
+          'Mezclar en un recipiente la harina, el azúcar, el polvo para hornear y la pizca de sal. En otro recipiente integrar el huevo, la leche y el aceite vegetal.',
+          'Unir ambas mezclas suavemente sin batir en exceso.',
+          'Repartir en moldes engrasados o capacillos sostenidos dentro de moldes individuales, llenando hasta dos tercios de su capacidad.',
+          'Cocinar al vapor durante 12–15 minutos, hasta que al insertar un palillo salga limpio. Retirar y entibiar.'
+        ],
+        notes: 'Equipo: Vaporera y moldes individuales. Nota técnica: Variación sugerida: incorporar 60 g de camote cocido en cubitos. Proteger la superficie del goteo de la tapa.'
+      },
+      {
+        id: 'sweet-potato',
+        title: 'Sweet Potato Japonés (Bocaditos de Camote)',
+        kanji: 'スイートポテト',
+        origin: 'Japonesa (Brigada 1)',
+        category: 'Repostería',
+        yield: '10 piezas',
+        time: '60 min',
+        photoFile: 'foto-sweet-potato.jpg',
+        description: 'Delicados bocaditos ovalados de puré de camote, mantequilla y yema, barnizados y horneados hasta lograr una corteza dorada.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '500 g de pulpa de camote cocido (preferentemente al horno)',
+              '40 g de mantequilla',
+              '40 g de azúcar',
+              '30–60 ml de leche o crema',
+              '1 yema de huevo (para la mezcla)',
+              '1 yema de huevo (para barnizar)',
+              '1 pizca de sal'
+            ]
+          }
+        ],
+        steps: [
+          'Machacar o pasar la pulpa de camote caliente por un colador para obtener una textura fina y sin fibras.',
+          'Mezclar con la mantequilla, el azúcar y la pizca de sal. Agregar la leche o crema poco a poco hasta obtener un puré firme.',
+          'Dejar entibiar e incorporar una yema de huevo.',
+          'Formar 10 óvalos y colocarlos en una charola. Barnizar la superficie con la segunda yema.',
+          'Hornear a 200 °C durante 12–15 minutos hasta dorar ligeramente.'
+        ],
+        notes: 'Equipo: Horno y prensa o colador. Nota técnica: El camote mexicano puede tener más humedad o fibra que el japonés; ajustar gradualmente la cantidad de leche.'
+      },
+      {
+        id: 'tang-yuan',
+        title: 'Tang Yuan Rellenos de Cacahuate',
+        kanji: '湯圓',
+        origin: 'China (Brigada 3 • Julieta Esmeralda)',
+        category: 'Repostería',
+        yield: '20 piezas (5 porciones)',
+        time: '60 min',
+        photoFile: 'foto-tang-yuan.jpg',
+        description: 'Tradicionales bolitas chinas de harina de arroz glutinoso rellenas de pasta dulce de cacahuate tostado y servidas calientes en almíbar de jengibre.',
+        ingredientGroups: [
+          {
+            subtitle: 'Masa',
+            items: [
+              '200 g de harina de arroz glutinoso',
+              '140–170 ml de agua tibia'
+            ]
+          },
+          {
+            subtitle: 'Relleno de Cacahuate',
+            items: [
+              '80 g de cacahuate tostado sin sal y molido',
+              '40 g de azúcar',
+              '35 g de mantequilla suave'
+            ]
+          },
+          {
+            subtitle: 'Almíbar de Jengibre',
+            items: [
+              '1 litro de agua',
+              '80 g de azúcar o piloncillo',
+              '15 g de jengibre fresco en rebanadas'
+            ]
+          }
+        ],
+        steps: [
+          'Mezclar el cacahuate molido, el azúcar y la mantequilla suave; dividir el relleno en 20 porciones y refrigerar hasta que estén firmes.',
+          'Agregar el agua tibia poco a poco a la harina de arroz glutinoso hasta obtener una masa suave y maleable que cierre sin agrietarse.',
+          'Dividir la masa en 20 porciones, aplanar cada una, colocar el relleno frío en el centro y cerrar perfectamente formando bolitas.',
+          'Hervir el agua con el azúcar o piloncillo y las rebanadas de jengibre durante 10 minutos para formar el almíbar.',
+          'En otra olla, cocer las bolitas en agua a hervor suave. Cuando floten a la superficie, continuar 2–3 minutos y comprobar una pieza. Servir calientes en el almíbar.'
+        ],
+        notes: 'Equipo: Báscula, procesador o molino y ollas. Nota técnica: La harina de arroz común no sustituye a la de arroz glutinoso, ya que no ofrece la misma elasticidad. Elaborado por Julieta Esmeralda Hernández Arias (Brigada 3).'
+      }
+    ];
+
+    // Estado de filtros
+    let currentFilter = 'Todas';
+    let currentSearch = '';
+
+    /**
+     * Fotos ya confirmadas y listas por el usuario (se eliminan de la lista de pendientes)
+     */
+    const READY_PHOTOS = new Set([
+      'foto-sopa-wonton.jpg',
+      'foto-tempura.jpg',
+      'foto-sushi.jpg',
+      'foto-yakitori-camaron.jpg',
+      'foto-dango.jpg',
+      'foto-katsudon.jpg',
+      'foto-shoyu-ramen.jpg',
+      'foto-okonomiyaki.jpg'
+    ]);
+
+    /**
+     * Genera la URL de respaldo (placeholder) mientras se visualiza localmente antes de subir a GitHub
+     */
+    function getPlaceholderUrl(recipe) {
+      const label = encodeURIComponent(`${recipe.photoFile}`);
+      if (READY_PHOTOS.has(recipe.photoFile)) {
+        return `https://placehold.co/800x520/1F3A26/E6C972?text=Lista+para+GitHub:+${label}`;
+      }
+      return `https://placehold.co/800x520/26211E/D4AF37?text=Pendiente:+${label}`;
+    }
+
+    /**
+     * Renderiza la cuadrícula de tarjetas de recetas
+     */
+    function renderRecipes() {
+      const grid = document.getElementById('recipesGrid');
+      const emptyState = document.getElementById('emptyState');
+      const resultsCount = document.getElementById('resultsCount');
+
+      const filtered = RECIPES.filter((r) => {
+        const matchesCategory = currentFilter === 'Todas' || r.category === currentFilter;
+        const searchLower = currentSearch.toLowerCase().trim();
+        const matchesSearch =
+          !searchLower ||
+          r.title.toLowerCase().includes(searchLower) ||
+          r.description.toLowerCase().includes(searchLower) ||
+          r.origin.toLowerCase().includes(searchLower) ||
+          r.ingredientGroups.some((g) =>
+            g.items.some((item) => item.toLowerCase().includes(searchLower))
+          );
+        return matchesCategory && matchesSearch;
+      });
+
+      resultsCount.textContent = `Mostrando ${filtered.length} de ${RECIPES.length} recetas`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      grid.innerHTML = filtered
+        .map((recipe) => {
+          const isReady = READY_PHOTOS.has(recipe.photoFile);
+          const badgeColor =
+            recipe.category === 'Japonesa'
+              ? 'bg-crimson text-white'
+              : recipe.category === 'China'
+              ? 'bg-amber-700 text-white'
+              : recipe.category === 'Repostería'
+              ? 'bg-pink-800 text-white'
+              : 'bg-jade text-white';
+
+          return `
+            <article
+              onclick="openRecipeModal('${recipe.id}')"
+              class="group cursor-pointer bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+            >
+              <!-- Espacio de fotografía (carga desde GitHub con respaldo automático) -->
+              <div class="relative h-52 bg-stone-900 overflow-hidden">
+                <img
+                  src="${recipe.photoFile}"
+                  alt="${recipe.title}"
+                  onerror="this.onerror=null; this.src='${getPlaceholderUrl(recipe)}';"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent"></div>
+
+                <!-- Etiqueta de categoría -->
+                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg text-[11px] font-bold tracking-wide uppercase shadow ${badgeColor}">
+                  ${recipe.category}
+                </span>
+
+                <!-- Símbolo oriental -->
+                <span class="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-black/50 backdrop-blur-sm text-gold font-serif text-xs border border-gold/30">
+                  ${recipe.kanji}
+                </span>
+
+                <!-- Estado y nombre de archivo para GitHub -->
+                <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] text-stone-200">
+                  <span class="font-mono px-2 py-0.5 rounded-md border truncate max-w-[70%] ${
+                    isReady
+                      ? 'bg-emerald-900/80 border-emerald-400/40 text-emerald-100'
+                      : 'bg-black/55 border-white/15'
+                  }">${isReady ? '✅' : '📷'} ${recipe.photoFile}</span>
+                  <span class="font-medium bg-black/55 px-2 py-0.5 rounded-md">${recipe.time}</span>
+                </div>
+              </div>
+
+              <!-- Contenido de la tarjeta -->
+              <div class="p-5 flex-1 flex flex-col">
+                <h3 class="font-serif font-bold text-lg text-ink group-hover:text-crimson transition-colors leading-snug mb-2">
+                  ${recipe.title}
+                </h3>
+                <p class="text-stone-600 text-sm line-clamp-2 mb-4 flex-1">
+                  ${recipe.description}
+                </p>
+
+                <div class="pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
+                  <span class="text-stone-500 font-medium">🍽️ ${recipe.yield}</span>
+                  <span class="text-crimson font-semibold inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    Ver receta
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </span>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join('');
+    }
+
+    /**
+     * Abre el modal con toda la información detallada de la receta seleccionada
+     */
+    function openRecipeModal(id) {
+      const recipe = RECIPES.find((r) => r.id === id);
+      if (!recipe) return;
+
+      document.getElementById('modalCategoryBadge').textContent = `${recipe.origin} • ${recipe.category}`;
+      document.getElementById('modalPhotoFilename').textContent = recipe.photoFile;
+
+      const ingredientsHTML = recipe.ingredientGroups
+        .map(
+          (group) => `
+          <div class="mb-5 last:mb-0">
+            <h4 class="font-serif font-bold text-sm uppercase tracking-wider text-crimson mb-2.5 flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+              ${group.subtitle}
+            </h4>
+            <ul class="space-y-2">
+              ${group.items
+                .map(
+                  (item, idx) => `
+                <li class="flex items-start gap-2.5 text-sm text-stone-700">
+                  <input type="checkbox" id="ing-${recipe.id}-${idx}-${group.subtitle.slice(0,3)}" class="mt-1 accent-crimson rounded cursor-pointer shrink-0" />
+                  <label for="ing-${recipe.id}-${idx}-${group.subtitle.slice(0,3)}" class="cursor-pointer select-none leading-snug">${item}</label>
+                </li>
+              `
+                )
+                .join('')}
+            </ul>
+          </div>
+        `
+        )
+        .join('');
+
+      const stepsHTML = recipe.steps
+        .map(
+          (step, index) => `
+          <li class="flex gap-3.5">
+            <span class="w-7 h-7 rounded-full bg-crimson text-white font-serif font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+              ${index + 1}
+            </span>
+            <p class="text-sm sm:text-[15px] text-stone-800 leading-relaxed">${step}</p>
+          </li>
+        `
+        )
+        .join('');
+
+      const notesHTML = recipe.notes
+        ? `
+          <div class="mt-6 p-4 rounded-2xl bg-amber-50 border border-gold/50 text-sm text-stone-800">
+            <p class="font-serif font-bold text-amber-900 mb-1">💡 Notas y Cuidados del Chef</p>
+            <p>${recipe.notes}</p>
+          </div>
+        `
+        : '';
+
+      document.getElementById('modalBody').innerHTML = `
+        <!-- Cabecera visual con foto de la receta -->
+        <div class="relative h-64 sm:h-80 bg-stone-900">
+          <img
+            src="${recipe.photoFile}"
+            alt="${recipe.title}"
+            onerror="this.onerror=null; this.src='${getPlaceholderUrl(recipe)}';"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-transparent"></div>
+          <div class="absolute bottom-5 left-5 right-5 sm:left-8 sm:right-8 text-white">
+            <span class="font-serif text-gold text-sm sm:text-base tracking-widest">${recipe.kanji}</span>
+            <h2 class="font-serif text-2xl sm:text-4xl font-bold leading-tight mt-0.5">${recipe.title}</h2>
+            <p class="text-stone-200 text-xs sm:text-sm mt-2 max-w-2xl">${recipe.description}</p>
+          </div>
+        </div>
+
+        <!-- Barra de metadatos -->
+        <div class="bg-washiDark border-b border-stone-200 px-5 sm:px-8 py-3.5 flex flex-wrap items-center gap-4 sm:gap-8 text-xs sm:text-sm text-stone-700">
+          <div><strong class="text-ink">Rendimiento:</strong> ${recipe.yield}</div>
+          <div><strong class="text-ink">Tiempo estimado:</strong> ${recipe.time}</div>
+          <div><strong class="text-ink">Archivo de foto:</strong> <code class="font-mono text-crimson bg-white px-2 py-0.5 rounded border border-stone-200">${recipe.photoFile}</code></div>
+        </div>
+
+        <!-- Cuerpo de la receta: Ingredientes y Procedimiento -->
+        <div class="p-5 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <!-- Columna Ingredientes -->
+          <div class="lg:col-span-5 bg-white p-5 sm:p-6 rounded-2xl border border-stone-200/90 shadow-sm h-fit">
+            <h3 class="font-serif text-xl font-bold text-ink pb-3 mb-4 border-b border-stone-100 flex items-center justify-between">
+              <span>Ingredientes</span>
+              <span class="text-xs font-sans font-normal text-stone-400">Toca para marcar</span>
+            </h3>
+            ${ingredientsHTML}
+          </div>
+
+          <!-- Columna Procedimiento -->
+          <div class="lg:col-span-7">
+            <h3 class="font-serif text-xl font-bold text-ink pb-3 mb-5 border-b border-stone-200">
+              Preparación Paso a Paso
+            </h3>
+            <ol class="space-y-4">
+              ${stepsHTML}
+            </ol>
+            ${notesHTML}
+          </div>
+        </div>
+      `;
+
+      const modal = document.getElementById('recipeModal');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    /**
+     * Cierra el modal de receta
+     */
+    function closeRecipeModal() {
+      document.getElementById('recipeModal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    /**
+     * Abre el modal con la guía de nombres de archivos PENDIENTES para GitHub
+     */
+    function openPhotoGuide() {
+      const pendingRecipes = RECIPES.filter((r) => !READY_PHOTOS.has(r.photoFile));
+      const readyCount = RECIPES.length - pendingRecipes.length;
+
+      document.getElementById('photoGuideStats').innerHTML = `
+        <span class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200">
+          ✅ Ya tienes listas: ${readyCount} fotos
+        </span>
+        <span class="px-3 py-1.5 rounded-lg bg-amber-50 text-amber-900 border border-amber-200">
+          📷 Te faltan por preparar: ${pendingRecipes.length} fotos
+        </span>
+      `;
+
+      const list = document.getElementById('photoGuideList');
+      list.innerHTML = pendingRecipes
+        .map(
+          (r, i) => `
+        <div class="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-washi border border-stone-200">
+          <span class="text-xs font-medium text-ink truncate">${i + 1}. ${r.title}</span>
+          <code class="text-xs font-mono font-semibold text-crimson bg-white px-2 py-1 rounded border border-stone-200 shrink-0">${r.photoFile}</code>
+        </div>
+      `
+        )
+        .join('');
+      document.getElementById('photoGuideModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePhotoGuide() {
+      document.getElementById('photoGuideModal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function resetFilters() {
+      currentFilter = 'Todas';
+      currentSearch = '';
+      document.getElementById('searchInput').value = '';
+      updateFilterButtons();
+      renderRecipes();
+    }
+
+    function updateFilterButtons() {
+      document.querySelectorAll('.filter-btn').forEach((btn) => {
+        if (btn.dataset.filter === currentFilter) {
+          btn.classList.add('bg-crimson', 'text-white', 'shadow-sm');
+          btn.classList.remove('bg-washiDark', 'text-ink', 'hover:bg-stone-200');
+        } else {
+          btn.classList.remove('bg-crimson', 'text-white', 'shadow-sm');
+          btn.classList.add('bg-washiDark', 'text-ink', 'hover:bg-stone-200');
+        }
+      });
+    }
+
+    // Eventos iniciales
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      currentSearch = e.target.value;
+      renderRecipes();
+    });
+
+    document.querySelectorAll('.filter-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        currentFilter = btn.dataset.filter;
+        updateFilterButtons();
+        renderRecipes();
+      });
+    });
+
+    // Cerrar modales al hacer clic fuera o presionar Escape
+    document.getElementById('recipeModal').addEventListener('click', (e) => {
+      if (e.target.id === 'recipeModal') closeRecipeModal();
+    });
+    document.getElementById('photoGuideModal').addEventListener('click', (e) => {
+      if (e.target.id === 'photoGuideModal') closePhotoGuide();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeRecipeModal();
+        closePhotoGuide();
+      }
+    });
+
+    // Inicializar renderizado
+    renderRecipes();
+  </script>
+</body>
+</html>
