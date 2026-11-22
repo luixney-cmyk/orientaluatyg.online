@@ -99,20 +99,10 @@
         </div>
 
         <!-- Enlaces rápidos -->
-        <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <div class="flex items-center gap-5 sm:gap-6 text-xs sm:text-sm font-medium">
           <a href="#recetario" class="hover:text-gold transition-colors">Recetario</a>
-          <a href="#reposteria-brigadas" class="hover:text-gold transition-colors">Repostería</a>
           <a href="#brigada" class="hover:text-gold transition-colors">Brigada 1</a>
-          <button onclick="openPhotoGuide()" class="px-3.5 py-1.5 rounded-lg bg-crimson/90 hover:bg-crimson border border-gold/40 text-washi text-xs font-semibold transition flex items-center gap-1.5">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            Guía de Fotos GitHub
-          </button>
         </div>
-
-        <!-- Botón móvil Guía de Fotos -->
-        <button onclick="openPhotoGuide()" class="md:hidden px-3 py-1.5 rounded-lg bg-crimson border border-gold/40 text-washi text-xs font-semibold">
-          Fotos GitHub
-        </button>
       </div>
     </div>
   </nav>
@@ -141,7 +131,7 @@
           </h1>
 
           <p class="text-stone-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
-            Compendio gastronómico de la <strong class="text-white">Licenciatura en Gastronomía</strong>. Técnicas tradicionales, fondos, masas artesanales, sushi, salteados al wok, curries, fermentos y repostería tradicional de Japón, China, Tailandia y Corea elaborados en práctica por la <strong class="text-gold">Brigada 1</strong>.
+            Compendio gastronómico de la <strong class="text-white">Licenciatura en Gastronomía</strong>. Técnicas tradicionales, fondos, masas artesanales, sushi, salteados al wok, curries, fermentos, bebidas y repostería tradicional de Japón, China, Tailandia y Corea elaborados en práctica por la <strong class="text-gold">Brigada 1</strong>.
           </p>
 
           <!-- Estadísticas rápidas -->
@@ -245,74 +235,6 @@
     </div>
   </main>
 
-  <!-- ==================== ANEXO: REPOSTERÍA DEL PROYECTO ==================== -->
-  <section id="reposteria-brigadas" class="bg-washiDark/70 border-y border-stone-200/80 py-14">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-2xl mx-auto mb-10">
-        <span class="text-xs font-bold uppercase tracking-widest text-crimson">Muestra Gastronómica • Presentación</span>
-        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-ink mt-1">Repostería Oriental</h2>
-        <p class="text-stone-600 text-sm mt-2">
-          Selección de postres japoneses de nuestra brigada y el postre chino elaborado por nuestra compañera anexada. Haz clic en cualquiera para abrir su receta y foto.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        <!-- Brigada 1 Japón -->
-        <div class="bg-white rounded-2xl p-6 border-2 border-crimson/40 shadow-sm relative overflow-hidden">
-          <div class="absolute top-4 right-4 px-2.5 py-0.5 rounded-md bg-crimson text-white text-[10px] font-bold uppercase">Brigada 1</div>
-          <p class="text-xs font-bold uppercase tracking-wider text-crimson">🇯🇵 Japón</p>
-          <h3 class="font-serif font-bold text-xl text-ink mt-1 mb-4">Postres Japoneses</h3>
-          <ul class="space-y-2.5 text-sm text-stone-700">
-            <li>
-              <button onclick="openRecipeModal('dorayaki-camote')" class="w-full text-left flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-washi transition group">
-                <span class="flex items-center gap-2.5 font-medium group-hover:text-crimson"><span class="text-crimson font-bold">•</span> Dorayaki con relleno de camote</span>
-                <span class="text-xs text-stone-400 group-hover:text-crimson">Ver receta →</span>
-              </button>
-            </li>
-            <li>
-              <button onclick="openRecipeModal('purin')" class="w-full text-left flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-washi transition group">
-                <span class="flex items-center gap-2.5 font-medium group-hover:text-crimson"><span class="text-crimson font-bold">•</span> Purin (Flan japonés)</span>
-                <span class="text-xs text-stone-400 group-hover:text-crimson">Ver receta →</span>
-              </button>
-            </li>
-            <li>
-              <button onclick="openRecipeModal('mushi-pan')" class="w-full text-left flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-washi transition group">
-                <span class="flex items-center gap-2.5 font-medium group-hover:text-crimson"><span class="text-crimson font-bold">•</span> Mushi pan (Panquecitos al vapor)</span>
-                <span class="text-xs text-stone-400 group-hover:text-crimson">Ver receta →</span>
-              </button>
-            </li>
-            <li>
-              <button onclick="openRecipeModal('sweet-potato')" class="w-full text-left flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-washi transition group">
-                <span class="flex items-center gap-2.5 font-medium group-hover:text-crimson"><span class="text-crimson font-bold">•</span> Sweet potato japonés (Bocaditos de camote)</span>
-                <span class="text-xs text-stone-400 group-hover:text-crimson">Ver receta →</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Postre Chino - Julieta Esmeralda (Brigada 3) -->
-        <div class="bg-white rounded-2xl p-6 border-2 border-gold/50 shadow-sm relative overflow-hidden flex flex-col justify-between">
-          <div>
-            <div class="absolute top-4 right-4 px-2.5 py-0.5 rounded-md bg-amber-700 text-white text-[10px] font-bold uppercase">Brigada 3</div>
-            <p class="text-xs font-bold uppercase tracking-wider text-amber-700">🇨🇳 China</p>
-            <h3 class="font-serif font-bold text-xl text-ink mt-1 mb-4">Postre Chino</h3>
-            <ul class="space-y-2.5 text-sm text-stone-700">
-              <li>
-                <button onclick="openRecipeModal('tang-yuan')" class="w-full text-left flex items-center justify-between gap-2 p-2 rounded-lg hover:bg-washi transition group">
-                  <span class="flex items-center gap-2.5 font-medium text-ink group-hover:text-amber-700"><span class="text-amber-700 font-bold">•</span> Tang yuan rellenos de cacahuate</span>
-                  <span class="text-xs text-stone-400 group-hover:text-amber-700">Ver receta →</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-          <div class="mt-6 pt-3 border-t border-stone-100 text-xs text-stone-500">
-            Elaborado por <strong class="text-ink">Julieta Esmeralda Hernández Arias</strong> (Brigada 3)
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ==================== SECCIÓN BRIGADA 1 Y CRÉDITOS ==================== -->
   <section id="brigada" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
     <div class="bg-white rounded-3xl border border-stone-200 shadow-md overflow-hidden">
@@ -396,10 +318,8 @@
         <p class="font-serif font-bold text-washi text-base">Recetario Digital de Cocina Oriental</p>
         <p class="text-xs mt-1">Universidad Autónoma de Nayarit • Unidad Académica de Turismo y Gastronomía (UATyG)</p>
       </div>
-      <div class="flex items-center gap-4 text-xs">
-        <button onclick="openPhotoGuide()" class="text-gold hover:underline">Ver lista de nombres de fotos para GitHub</button>
-        <span>•</span>
-        <span>Brigada 1</span>
+      <div class="flex items-center gap-4 text-xs text-gold font-medium">
+        <span>Brigada 1 • Licenciatura en Gastronomía</span>
       </div>
     </div>
   </footer>
@@ -411,8 +331,6 @@
       <div class="no-print sticky top-0 z-10 bg-ink/95 text-washi px-5 py-3.5 flex items-center justify-between border-b border-gold/30">
         <div class="flex items-center gap-2 text-xs sm:text-sm text-gold font-medium truncate pr-4">
           <span id="modalCategoryBadge">Cocina Japonesa</span>
-          <span>•</span>
-          <span id="modalPhotoFilename" class="font-mono text-stone-300">foto-ejemplo.jpg</span>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition flex items-center gap-1.5">
@@ -432,36 +350,12 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL GUÍA DE FOTOS PARA GITHUB ==================== -->
-  <div id="photoGuideModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/75 backdrop-blur-sm p-3 sm:p-6">
-    <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl border border-gold/40 overflow-hidden my-6">
-      <div class="bg-ink text-washi px-6 py-5 flex items-center justify-between border-b-2 border-crimson">
-        <div>
-          <h3 class="font-serif text-xl font-bold text-gold">Guía de Nombres de Fotos para GitHub</h3>
-          <p class="text-xs text-stone-300 mt-1">Guarda tus fotos con estos nombres exactos en la misma carpeta de tu archivo HTML en GitHub.</p>
-        </div>
-        <button onclick="closePhotoGuide()" class="w-9 h-9 rounded-lg bg-crimson hover:bg-crimsonDark text-white flex items-center justify-center transition">✕</button>
-      </div>
-      <div class="p-6 max-h-[70vh] overflow-y-auto">
-        <div class="mb-4 p-3.5 rounded-xl bg-washi border border-gold/40 text-xs sm:text-sm text-stone-700">
-          <strong>Tip para GitHub:</strong> Sube este archivo HTML como <code class="bg-white px-1.5 py-0.5 rounded border font-mono text-crimson">index.html</code> junto con tus archivos <code class="bg-white px-1.5 py-0.5 rounded border font-mono text-crimson">.jpg</code> en la misma carpeta raíz. Las <strong>8 fotos que ya tienes</strong> se cargarán automáticamente en su receta y ya fueron retiradas de esta lista de pendientes.
-        </div>
-        <div id="photoGuideStats" class="flex flex-wrap gap-2 mb-4 text-xs font-semibold">
-          <!-- Se genera automáticamente -->
-        </div>
-        <div id="photoGuideList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
-          <!-- Se genera automáticamente -->
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- ==================== LÓGICA Y BASE DE DATOS DE RECETAS ==================== -->
   <script>
     /**
-     * BASE DE DATOS COMPLETA DE LAS 44 RECETAS DE COCINA ORIENTAL
-     * Ordenadas conforme al índice del recetario (Prácticas 1 a 8: Japón, China, Tailandia y Corea)
-     * conservando al final los 5 postres oficiales de la Brigada 1 y Brigada 3.
+     * BASE DE DATOS COMPLETA DE LAS 48 RECETAS DE COCINA ORIENTAL
+     * Ordenadas conforme al índice del recetario (Prácticas 1 a 8: Japón, China, Tailandia y Corea),
+     * seguidas por la repostería oficial de la Brigada 1 y Brigada 3, y el apartado de Bebidas.
      */
     const RECIPES = [
       // ==================== PRÁCTICA 1 (JAPÓN) ====================
@@ -2083,7 +1977,7 @@
         ]
       },
 
-      // ==================== REPOSTERÍA DE BRIGADA 1 Y BRIGADA 3 (SIN CAMBIOS) ====================
+      // ==================== REPOSTERÍA DE BRIGADA 1 Y BRIGADA 3 ====================
       {
         id: 'dorayaki-camote',
         title: 'Dorayaki con Relleno de Camote',
@@ -2401,28 +2295,11 @@
     let currentSearch = '';
 
     /**
-     * Fotos ya confirmadas y listas por el usuario (se eliminan de la lista de pendientes)
-     */
-    const READY_PHOTOS = new Set([
-      'foto-sopa-wonton.jpg',
-      'foto-tempura.jpg',
-      'foto-sushi.jpg',
-      'foto-yakitori-camaron.jpg',
-      'foto-dango.jpg',
-      'foto-katsudon.jpg',
-      'foto-shoyu-ramen.jpg',
-      'foto-okonomiyaki.jpg'
-    ]);
-
-    /**
-     * Genera la URL de respaldo (placeholder) mientras se visualiza localmente antes de subir a GitHub
+     * Genera una imagen de respaldo limpia solo en caso de error de carga
      */
     function getPlaceholderUrl(recipe) {
-      const label = encodeURIComponent(`${recipe.photoFile}`);
-      if (READY_PHOTOS.has(recipe.photoFile)) {
-        return `https://placehold.co/800x520/1F3A26/E6C972?text=Lista+para+GitHub:+${label}`;
-      }
-      return `https://placehold.co/800x520/26211E/D4AF37?text=Pendiente:+${label}`;
+      const label = encodeURIComponent(recipe.title);
+      return `https://placehold.co/800x520/26211E/D4AF37?text=${label}`;
     }
 
     /**
@@ -2485,7 +2362,6 @@
       emptyState.classList.add('hidden');
       grid.innerHTML = filtered
         .map((recipe) => {
-          const isReady = READY_PHOTOS.has(recipe.photoFile);
           const badgeColor = getBadgeColor(recipe.category);
 
           return `
@@ -2493,7 +2369,7 @@
               onclick="openRecipeModal('${recipe.id}')"
               class="group cursor-pointer bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
             >
-              <!-- Espacio de fotografía (carga desde GitHub con respaldo automático) -->
+              <!-- Espacio de fotografía -->
               <div class="relative h-52 bg-stone-900 overflow-hidden">
                 <img
                   src="${recipe.photoFile}"
@@ -2518,14 +2394,9 @@
                   ${recipe.kanji}
                 </span>
 
-                <!-- Estado y nombre de archivo para GitHub -->
-                <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] text-stone-200">
-                  <span class="font-mono px-2 py-0.5 rounded-md border truncate max-w-[70%] ${
-                    isReady
-                      ? 'bg-emerald-900/80 border-emerald-400/40 text-emerald-100'
-                      : 'bg-black/55 border-white/15'
-                  }">${isReady ? '✅' : '📷'} ${recipe.photoFile}</span>
-                  <span class="font-medium bg-black/55 px-2 py-0.5 rounded-md">${recipe.time}</span>
+                <!-- Tiempo estimado -->
+                <div class="absolute bottom-2.5 right-3 flex items-center text-[11px] text-stone-200">
+                  <span class="font-medium bg-black/55 px-2.5 py-0.5 rounded-md backdrop-blur-sm">⏱️ ${recipe.time}</span>
                 </div>
               </div>
 
@@ -2560,11 +2431,10 @@
       if (!recipe) return;
 
       document.getElementById('modalCategoryBadge').textContent = `${recipe.origin} • ${recipe.category}`;
-      document.getElementById('modalPhotoFilename').textContent = recipe.photoFile;
 
       const ingredientsHTML = recipe.ingredientGroups
         .map(
-          (group) => `
+          (group, gIdx) => `
           <div class="mb-5 last:mb-0">
             <h4 class="font-serif font-bold text-sm uppercase tracking-wider text-crimson mb-2.5 flex items-center gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
@@ -2575,8 +2445,8 @@
                 .map(
                   (item, idx) => `
                 <li class="flex items-start gap-2.5 text-sm text-stone-700">
-                  <input type="checkbox" id="ing-${recipe.id}-${idx}-${group.subtitle.slice(0,3)}" class="mt-1 accent-crimson rounded cursor-pointer shrink-0" />
-                  <label for="ing-${recipe.id}-${idx}-${group.subtitle.slice(0,3)}" class="cursor-pointer select-none leading-snug">${item}</label>
+                  <input type="checkbox" id="ing-${recipe.id}-${gIdx}-${idx}" class="mt-1 accent-crimson rounded cursor-pointer shrink-0" />
+                  <label for="ing-${recipe.id}-${gIdx}-${idx}" class="cursor-pointer select-none leading-snug">${item}</label>
                 </li>
               `
                 )
@@ -2630,7 +2500,6 @@
         <div class="bg-washiDark border-b border-stone-200 px-5 sm:px-8 py-3.5 flex flex-wrap items-center gap-4 sm:gap-8 text-xs sm:text-sm text-stone-700">
           <div><strong class="text-ink">Rendimiento:</strong> ${recipe.yield}</div>
           <div><strong class="text-ink">Tiempo estimado:</strong> ${recipe.time}</div>
-          <div><strong class="text-ink">Archivo de foto:</strong> <code class="font-mono text-crimson bg-white px-2 py-0.5 rounded border border-stone-200">${recipe.photoFile}</code></div>
         </div>
 
         <!-- Cuerpo de la receta: Ingredientes y Procedimiento -->
@@ -2671,41 +2540,8 @@
     }
 
     /**
-     * Abre el modal con la guía de nombres de archivos PENDIENTES para GitHub
+     * Restablece los filtros y la búsqueda
      */
-    function openPhotoGuide() {
-      const pendingRecipes = RECIPES.filter((r) => !READY_PHOTOS.has(r.photoFile));
-      const readyCount = RECIPES.length - pendingRecipes.length;
-
-      document.getElementById('photoGuideStats').innerHTML = `
-        <span class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200">
-          ✅ Ya tienes listas: ${readyCount} fotos
-        </span>
-        <span class="px-3 py-1.5 rounded-lg bg-amber-50 text-amber-900 border border-amber-200">
-          📷 Te faltan por preparar: ${pendingRecipes.length} fotos
-        </span>
-      `;
-
-      const list = document.getElementById('photoGuideList');
-      list.innerHTML = pendingRecipes
-        .map(
-          (r, i) => `
-        <div class="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-washi border border-stone-200">
-          <span class="text-xs font-medium text-ink truncate">${i + 1}. ${r.title}</span>
-          <code class="text-xs font-mono font-semibold text-crimson bg-white px-2 py-1 rounded border border-stone-200 shrink-0">${r.photoFile}</code>
-        </div>
-      `
-        )
-        .join('');
-      document.getElementById('photoGuideModal').classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closePhotoGuide() {
-      document.getElementById('photoGuideModal').classList.add('hidden');
-      document.body.style.overflow = '';
-    }
-
     function resetFilters() {
       currentFilter = 'Todas';
       currentSearch = '';
@@ -2714,6 +2550,9 @@
       renderRecipes();
     }
 
+    /**
+     * Actualiza el estilo visual del botón de filtro activo
+     */
     function updateFilterButtons() {
       document.querySelectorAll('.filter-btn').forEach((btn) => {
         if (btn.dataset.filter === currentFilter) {
@@ -2740,17 +2579,13 @@
       });
     });
 
-    // Cerrar modales al hacer clic fuera o presionar Escape
+    // Cerrar modal al hacer clic fuera o presionar Escape
     document.getElementById('recipeModal').addEventListener('click', (e) => {
       if (e.target.id === 'recipeModal') closeRecipeModal();
-    });
-    document.getElementById('photoGuideModal').addEventListener('click', (e) => {
-      if (e.target.id === 'photoGuideModal') closePhotoGuide();
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeRecipeModal();
-        closePhotoGuide();
       }
     });
 
