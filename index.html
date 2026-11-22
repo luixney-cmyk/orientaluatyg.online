@@ -141,18 +141,18 @@
           </h1>
 
           <p class="text-stone-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
-            Compendio gastronómico de la <strong class="text-white">Licenciatura en Gastronomía</strong>. Técnicas tradicionales, fondos, masas artesanales, sushi, salteados al wok y repostería tradicional de Japón y China elaborados en práctica por la <strong class="text-gold">Brigada 1</strong>.
+            Compendio gastronómico de la <strong class="text-white">Licenciatura en Gastronomía</strong>. Técnicas tradicionales, fondos, masas artesanales, sushi, salteados al wok, curries, fermentos y repostería tradicional de Japón, China, Tailandia y Corea elaborados en práctica por la <strong class="text-gold">Brigada 1</strong>.
           </p>
 
           <!-- Estadísticas rápidas -->
           <div class="flex flex-wrap gap-3 sm:gap-4">
             <div class="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-              <p class="text-2xl font-serif font-bold text-gold" id="statTotal">30</p>
+              <p class="text-2xl font-serif font-bold text-gold" id="statTotal">48</p>
               <p class="text-xs text-stone-300 uppercase tracking-wider">Recetas Completas</p>
             </div>
             <div class="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-              <p class="text-2xl font-serif font-bold text-white">日本 • 中華</p>
-              <p class="text-xs text-stone-300 uppercase tracking-wider">Japón y China</p>
+              <p class="text-2xl font-serif font-bold text-white">日 • 中 • 泰 • 韓</p>
+              <p class="text-xs text-stone-300 uppercase tracking-wider">Japón, China, Tailandia y Corea</p>
             </div>
             <div class="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
               <p class="text-2xl font-serif font-bold text-crimson bg-washi/95 px-2 rounded-md inline-block">Brigada 1</p>
@@ -177,7 +177,7 @@
   <!-- ==================== BUSCADOR Y FILTROS ==================== -->
   <section id="recetario" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-7 relative z-20">
     <div class="bg-white rounded-2xl shadow-xl border border-stone-200/80 p-4 sm:p-6">
-      <div class="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between">
+      <div class="flex flex-col gap-4">
         <!-- Campo de búsqueda -->
         <div class="relative flex-1">
           <svg class="w-5 h-5 text-stone-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,15 +186,15 @@
           <input
             type="text"
             id="searchInput"
-            placeholder="Buscar receta o ingrediente (ej. sushi, ramen, salmón, cerdo, dango...)"
+            placeholder="Buscar receta o ingrediente (ej. sushi, ramen, curry, kimchi, bulgogi, koso, sake...)"
             class="w-full pl-12 pr-4 py-3 rounded-xl bg-washi border border-stone-200 focus:border-crimson focus:ring-2 focus:ring-crimson/20 outline-none text-sm sm:text-base transition"
           />
         </div>
 
-        <!-- Botones de filtro por categoría -->
+        <!-- Botones de filtro por categoría / origen -->
         <div class="flex flex-wrap gap-2" id="filterButtons">
-          <button data-filter="Todas" class="filter-btn active px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-crimson text-white shadow-sm">
-            Todas (30)
+          <button data-filter="Todas" id="btnAllFilter" class="filter-btn active px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-crimson text-white shadow-sm">
+            Todas (48)
           </button>
           <button data-filter="Japonesa" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-washiDark text-ink hover:bg-stone-200">
             🇯🇵 Japonesa
@@ -202,18 +202,27 @@
           <button data-filter="China" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-washiDark text-ink hover:bg-stone-200">
             🇨🇳 China
           </button>
+          <button data-filter="Tailandesa" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-washiDark text-ink hover:bg-stone-200">
+            🇹🇭 Tailandesa
+          </button>
+          <button data-filter="Coreana" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-washiDark text-ink hover:bg-stone-200">
+            🇰🇷 Coreana
+          </button>
           <button data-filter="Masas y Bases" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-washiDark text-ink hover:bg-stone-200">
             🥟 Masas y Bases
           </button>
           <button data-filter="Repostería" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-washiDark text-ink hover:bg-stone-200">
             🍡 Repostería
           </button>
+          <button data-filter="Bebidas" class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-washiDark text-ink hover:bg-stone-200">
+            🍹 Bebidas
+          </button>
         </div>
       </div>
 
       <!-- Contador de resultados -->
       <div class="mt-3 flex items-center justify-between text-xs text-stone-500 border-t border-stone-100 pt-3">
-        <span id="resultsCount">Mostrando 30 recetas</span>
+        <span id="resultsCount">Mostrando 48 recetas</span>
         <span class="hidden sm:inline">Haz clic en cualquier platillo para ver ingredientes y procedimiento completo</span>
       </div>
     </div>
@@ -450,233 +459,12 @@
   <!-- ==================== LÓGICA Y BASE DE DATOS DE RECETAS ==================== -->
   <script>
     /**
-     * BASE DE DATOS COMPLETA DE LAS 25 RECETAS DE COCINA ORIENTAL
-     * Cada receta incluye su nombre de archivo `photoFile` listo para GitHub (ej. "foto-kasutera.jpg", "foto-dango.jpg", "foto-sushi.jpg").
+     * BASE DE DATOS COMPLETA DE LAS 44 RECETAS DE COCINA ORIENTAL
+     * Ordenadas conforme al índice del recetario (Prácticas 1 a 8: Japón, China, Tailandia y Corea)
+     * conservando al final los 5 postres oficiales de la Brigada 1 y Brigada 3.
      */
     const RECIPES = [
-      {
-        id: 'onigiri',
-        title: 'Onigiri de Salmón y Wakame',
-        kanji: 'おにぎり',
-        origin: 'Japonesa',
-        category: 'Japonesa',
-        yield: '2 piezas',
-        time: '25 min',
-        photoFile: 'foto-onigiri.jpg',
-        description: 'Triángulos tradicionales de arroz japonés caliente mezclados con salmón salteado, alga wakame, sésamo tostado y envueltos en alga nori.',
-        ingredientGroups: [
-          {
-            subtitle: 'Ingredientes',
-            items: [
-              '150 g de arroz cocido (caliente)',
-              '80 g de salmón',
-              '1 cdita de alga wakame seca',
-              '1/2 cdita de sésamo blanco tostado',
-              '1 cda de salsa de soja',
-              '2 g de cebollino',
-              'Aceite (al gusto)',
-              '1 hoja de alga Nori'
-            ]
-          }
-        ],
-        steps: [
-          'Cortamos el cebollino finamente.',
-          'Salteamos el salmón comenzando por la parte de la piel. Echamos un poco de sal, tapamos, damos la vuelta y terminamos de cocer.',
-          'Dejamos el salmón encima de papel absorbente para retirar el exceso de aceite.',
-          'Apartamos la piel y desmenuzamos el salmón.',
-          'En un bol colocamos el arroz (es importante que esté caliente, de lo contrario se deshace la bola).',
-          'Añadimos el salmón y el alga wakame seca, machacándola o deshaciéndola con la mano.',
-          'Añadimos el sésamo tostado, pellizcándolo ligeramente para liberar su sabor y nutrientes.',
-          'Incorporamos la salsa de soja y el cebollino cortado; mezclamos todo muy bien.',
-          'Nos mojamos las manos, tomamos la mitad de la mezcla y apretamos suavemente dándole forma de triángulo.',
-          'Cortamos el alga nori en forma de triángulo y cubrimos nuestro onigiri.'
-        ]
-      },
-      {
-        id: 'masa-gyozas',
-        title: 'Masa Casera para Dumpling y Gyozas',
-        kanji: '餃子の皮',
-        origin: 'Japonesa / China',
-        category: 'Masas y Bases',
-        yield: '28 piezas',
-        time: '2 h 30 min (incluye reposo)',
-        photoFile: 'foto-masa-gyozas.jpg',
-        description: 'Masa artesanal elástica y suave elaborada con agua caliente, ideal para formar discos finos con centro reforzado para gyozas y dumplings.',
-        ingredientGroups: [
-          {
-            subtitle: 'Ingredientes',
-            items: [
-              '200 g de harina de trigo',
-              '80 ml de agua caliente (+10 ml según temperatura ambiente)',
-              '10 g de sal',
-              '50 g de maicena (para enharinar)'
-            ]
-          }
-        ],
-        steps: [
-          'Ponemos la harina en un bol, añadimos la sal y mezclamos bien. Vertemos el agua caliente poco a poco mientras removemos.',
-          'Trabajamos la masa con la mano hasta conseguir una bola y que el bol quede limpio.',
-          'La pasamos a una superficie lisa y amasamos unos 10 minutos más. Cuando esté homogénea y suave, la envolvemos con papel film y dejamos reposar 2 horas.',
-          'Pasadas las 2 horas, volvemos a trabajar la masa formando un cilindro grande y la dividimos en 2. Guardamos una parte en film o bolsa plástica para que no se seque, y con la otra formamos un cilindro más pequeño.',
-          'Cortamos cada cilindro en 14 piezas iguales (28 piezas en total), espolvoreamos un poco de maicena por encima y aplanamos ligeramente cada pieza con la mano.',
-          'Tomamos una pieza (tapando el resto con un paño o servilleta húmeda) y con un rodillo formamos un disco fino, procurando que el centro quede un poco más grueso que los bordes para que no se rompa con el relleno.'
-        ]
-      },
-      {
-        id: 'katsudon',
-        title: 'Katsudon',
-        kanji: 'カツ丼',
-        origin: 'Japonesa',
-        category: 'Japonesa',
-        yield: '4 - 6 porciones',
-        time: '1 h 30 min',
-        photoFile: 'foto-katsudon.jpg',
-        description: 'Clásico tazón japonés de arroz acompañado de filete de cerdo marinado y empanizado crujiente en panko con verduras salteadas.',
-        ingredientGroups: [
-          {
-            subtitle: 'Ingredientes',
-            items: [
-              '1 kg de filete de cerdo',
-              '1 kg de panko',
-              '1/2 docena de huevos (6 piezas)',
-              '1/2 kg de harina',
-              '1 kg de arroz japonés o Verde Valle',
-              '3 piezas de pimiento morrón semáforo (uno de cada color)',
-              '2 piezas de cebolla',
-              '1/2 kg de champiñones',
-              'Ajo y 1 trozo de jengibre',
-              '50 g de pimienta',
-              '5 g de sal',
-              'Salsa de soya y aceite vegetal'
-            ]
-          }
-        ],
-        steps: [
-          'Marinamos el filete de cerdo con ajo, jengibre, salsa de soya, sal y pimienta; dejamos reposar durante 1 hora.',
-          'Ponemos a remojar el arroz durante 30 minutos. Una vez remojado, lo ponemos a cocer.',
-          'Cortamos las verduras: el morrón y la cebolla en cubos de 2 a 3 cm, y los champiñones fileteados.',
-          'Ya marinada la carne, la pasamos por harina, huevo y panko para empanizarla y freírla hasta dorar.',
-          'Aparte, salteamos las verduras con pimienta, salsa de soya y sal.',
-          'Montamos el platillo colocando la cama de arroz, las verduras salteadas y encima la carne empanizada cortada en tiras.'
-        ]
-      },
-      {
-        id: 'yakitori-pollo',
-        title: 'Yakitori de Pollo',
-        kanji: '焼き鳥',
-        origin: 'Japonesa',
-        category: 'Japonesa',
-        yield: '6 - 8 porciones',
-        time: '40 min',
-        photoFile: 'foto-yakitori-pollo.jpg',
-        description: 'Brochetas japonesas de pechuga de pollo marinado intercaladas con pimiento morrón y cebolla, terminadas con soya y ajonjolí tostado.',
-        ingredientGroups: [
-          {
-            subtitle: 'Ingredientes',
-            items: [
-              '1 kg de pechuga de pollo',
-              '3 piezas de pimiento morrón',
-              '2 piezas de cebollas grandes',
-              '1 cabeza de ajo',
-              'Jengibre fresco',
-              'Salsa de soya Kikkoman',
-              'Aceite de ajonjolí',
-              '100 g de ajonjolí',
-              '1 paquete de palillos de bambú',
-              'Sal y pimienta al gusto'
-            ]
-          }
-        ],
-        steps: [
-          'Marinar el pollo cortado en cubos con ajo, jengibre, salsa de soya, sal y pimienta.',
-          'Tostar el ajonjolí en una sartén seca hasta que tome aroma y reservar.',
-          'Cortar la cebolla y el pimiento morrón en cubos de 2 cm.',
-          'Insertar los ingredientes en los palillos de bambú de manera intercalada (pollo, cebolla, morrón).',
-          'Freír las brochetas de yakitori en poco aceite (con toque de aceite de ajonjolí) hasta cocer bien el pollo y bañar al final con salsa de soya Kikkoman y ajonjolí previamente tostado.'
-        ]
-      },
-      {
-        id: 'yakitori-camaron',
-        title: 'Yakitori de Camarón',
-        kanji: 'エビ焼き鳥',
-        origin: 'Japonesa',
-        category: 'Japonesa',
-        yield: '6 - 8 porciones',
-        time: '35 min',
-        photoFile: 'foto-yakitori-camaron.jpg',
-        description: 'Brochetas orientales de camarón mediano marinado en soya, ajo y jengibre, intercalado con vegetales frescos y glaseado con ajonjolí tostado.',
-        ingredientGroups: [
-          {
-            subtitle: 'Ingredientes',
-            items: [
-              '1 kg de camarón pelado mediano',
-              '3 piezas de pimiento morrón',
-              '2 piezas de cebollas grandes',
-              '1 cabeza de ajo',
-              'Jengibre fresco',
-              'Salsa de soya Kikkoman',
-              'Aceite de ajonjolí',
-              '100 g de ajonjolí',
-              '1 paquete de palillos de bambú',
-              'Sal y pimienta al gusto'
-            ]
-          }
-        ],
-        steps: [
-          'Marinar el camarón limpio con ajo, jengibre, salsa de soya, sal y pimienta.',
-          'Tostar el ajonjolí ligeramente y reservar.',
-          'Cortar la cebolla y el pimiento morrón en cubos de 2 cm.',
-          'Insertar los camarones y los vegetales en los palillos de bambú de manera intercalada.',
-          'Freír los yakitori en poco aceite hasta que los camarones estén rosados y cocidos; bañar con salsa de soya Kikkoman y espolvorear con el ajonjolí tostado.'
-        ]
-      },
-      {
-        id: 'yakisoba',
-        title: 'Yakisoba',
-        kanji: '焼きそば',
-        origin: 'Japonesa',
-        category: 'Japonesa',
-        yield: '2 porciones',
-        time: '25 min',
-        photoFile: 'foto-yakisoba.jpg',
-        description: 'Fideos japoneses salteados a fuego fuerte con lomo de cerdo, col, zanahoria, brotes de soja y salsa Yakisoba casera.',
-        ingredientGroups: [
-          {
-            subtitle: 'Fideos y Salteado',
-            items: [
-              '150 g de fideos Yakisoba',
-              '100 g de lomo de cerdo',
-              '50 g de col',
-              '25 g de cebollín',
-              '25 g de brotes de soja',
-              '25 g de zanahoria',
-              '1 diente de ajo',
-              'Un chorrito de Sake o agua',
-              'Una pizca de sal y pimienta',
-              'Aceite vegetal',
-              'Katsuobushi y copos de alga Nori (para decorar)'
-            ]
-          },
-          {
-            subtitle: 'Salsa Yakisoba Casera',
-            items: [
-              '1 cda de salsa de soja japonesa',
-              '1 cda de salsa de ostras',
-              '1/2 cda de salsa inglesa',
-              '1/2 cda de ketchup',
-              '1/2 cdita de azúcar'
-            ]
-          }
-        ],
-        steps: [
-          'En una sartén a fuego fuerte con un poco de aceite vegetal, freír los fideos para Yakisoba.',
-          'Cuando estén bien tostados, darles la vuelta y añadir un poco de Sake (o un chorrito de agua) para ayudar a separarlos bien.',
-          'Una vez separados, apartar a un lado, añadir un poco más de aceite y saltear el cerdo junto con el ajo picado.',
-          'Agregar la col, la zanahoria y una pizca de sal y pimienta; saltear hasta que las verduras se ablanden ligeramente.',
-          'Añadir los brotes de soja, los cebollines y la salsa Yakisoba casera. Mezclar todo bien y saltear un minuto más.',
-          'Servir en un plato y coronar con un poco de Katsuobushi y copos de alga Nori al gusto.'
-        ]
-      },
+      // ==================== PRÁCTICA 1 (JAPÓN) ====================
       {
         id: 'sushi',
         title: 'Sushi y sus Derivados (Maki, Uramaki, Temaki, Nigiri y Gunkan)',
@@ -778,42 +566,82 @@
         notes: 'El frío es rey: el choque térmico crea la crocancia. Fríe primero las verduras más firmes (zanahoria) y al final las más tiernas (calabaza).'
       },
       {
-        id: 'rollos-chinos',
-        title: 'Rollos Chinos Caseros (Spring Rolls)',
-        kanji: '春卷',
-        origin: 'China',
-        category: 'China',
-        yield: '8 - 10 piezas',
-        time: '45 min',
-        photoFile: 'foto-rollos-chinos.jpg',
-        description: 'Crujientes rollitos primavera rellenos de cerdo picado, col, zanahoria, fideos de soja y setas shiitake aromatizados con jengibre.',
+        id: 'yakisoba',
+        title: 'Yakisoba',
+        kanji: '焼きそば',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '2 porciones',
+        time: '25 min',
+        photoFile: 'foto-yakisoba.jpg',
+        description: 'Fideos japoneses salteados a fuego fuerte con lomo de cerdo, col, zanahoria, brotes de soja y salsa Yakisoba casera.',
         ingredientGroups: [
           {
-            subtitle: 'Ingredientes',
+            subtitle: 'Fideos y Salteado',
             items: [
-              '8 - 10 hojas de papel de harina ("Spring roll paper")',
-              '1 huevo (para cerrar los rollitos)',
-              '150 g de carne de cerdo picada',
-              '150 g de col',
-              '50 g de fideos de soja',
-              '4 setas Shiitake deshidratadas',
-              '25 g de cebollines',
-              '1 pieza de zanahoria',
-              '2 dientes de ajo y 1 trocito de jengibre',
-              '1 cda de salsa de soja ligera',
-              '1 cdita de azúcar y pimienta blanca en polvo',
-              'Aceite vegetal para freír'
+              '150 g de fideos Yakisoba',
+              '100 g de lomo de cerdo',
+              '50 g de col',
+              '25 g de cebollín',
+              '25 g de brotes de soja',
+              '25 g de zanahoria',
+              '1 diente de ajo',
+              'Un chorrito de Sake o agua',
+              'Una pizca de sal y pimienta',
+              'Aceite vegetal',
+              'Katsuobushi y copos de alga Nori (para decorar)'
+            ]
+          },
+          {
+            subtitle: 'Salsa Yakisoba Casera',
+            items: [
+              '1 cda de salsa de soja japonesa',
+              '1 cda de salsa de ostras',
+              '1/2 cda de salsa inglesa',
+              '1/2 cda de ketchup',
+              '1/2 cdita de azúcar'
             ]
           }
         ],
         steps: [
-          'Hidratar los fideos de soja durante 30 minutos y las setas Shiitake deshidratadas durante 15 minutos.',
-          'Picar el ajo y jengibre; cortar muy finamente los cebollines y la zanahoria. Escurrir y cortar las setas Shiitake y los fideos de soja.',
-          'Relleno: En una sartén con aceite vegetal, freír ajo y jengibre a fuego fuerte. Cuando suelten aroma, añadir las setas Shiitake y saltear 1 minuto.',
-          'Agregar los cebollines y saltear otro minuto. Bajar el fuego y añadir el cerdo picado.',
-          'Cuando el cerdo esté cocinado, añadir zanahoria, col, fideos de soja, salsa de soja ligera, azúcar y pimienta blanca; saltear 5 minutos. Pasar a un bowl y dejar enfriar completamente.',
-          'Armado: Extender la hoja de papel de harina, colocar el relleno, enrollar hasta el centro, doblar las puntas hacia adentro y terminar de enrollar sellando con huevo batido.',
-          'Fritura: Freír en abundante aceite vegetal a fuego medio unos 5 minutos, moviéndolos para un dorado homogéneo. Escurrir en rejilla o papel absorbente.'
+          'En una sartén a fuego fuerte con un poco de aceite vegetal, freír los fideos para Yakisoba.',
+          'Cuando estén bien tostados, darles la vuelta y añadir un poco de Sake (o un chorrito de agua) para ayudar a separarlos bien.',
+          'Una vez separados, apartar a un lado, añadir un poco más de aceite y saltear el cerdo junto con el ajo picado.',
+          'Agregar la col, la zanahoria y una pizca de sal y pimienta; saltear hasta que las verduras se ablanden ligeramente.',
+          'Añadir los brotes de soja, los cebollines y la salsa Yakisoba casera. Mezclar todo bien y saltear un minuto más.',
+          'Servir en un plato y coronar con un poco de Katsuobushi y copos de alga Nori al gusto.'
+        ]
+      },
+
+      // ==================== PRÁCTICA 2 (JAPÓN) ====================
+      {
+        id: 'masa-gyozas',
+        title: 'Masa Casera para Dumpling y Gyozas',
+        kanji: '餃子の皮',
+        origin: 'Japonesa / China',
+        category: 'Masas y Bases',
+        yield: '28 piezas',
+        time: '2 h 30 min (incluye reposo)',
+        photoFile: 'foto-masa-gyozas.jpg',
+        description: 'Masa artesanal elástica y suave elaborada con agua caliente, ideal para formar discos finos con centro reforzado para gyozas y dumplings.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '200 g de harina de trigo',
+              '80 ml de agua caliente (+10 ml según temperatura ambiente)',
+              '10 g de sal',
+              '50 g de maicena (para enharinar)'
+            ]
+          }
+        ],
+        steps: [
+          'Ponemos la harina en un bol, añadimos la sal y mezclamos bien. Vertemos el agua caliente poco a poco mientras removemos.',
+          'Trabajamos la masa con la mano hasta conseguir una bola y que el bol quede limpio.',
+          'La pasamos a una superficie lisa y amasamos unos 10 minutos más. Cuando esté homogénea y suave, la envolvemos con papel film y dejamos reposar 2 horas.',
+          'Pasadas las 2 horas, volvemos a trabajar la masa formando un cilindro grande y la dividimos en 2. Guardamos una parte en film o bolsa plástica para que no se seque, y con la otra formamos un cilindro más pequeño.',
+          'Cortamos cada cilindro en 14 piezas iguales (28 piezas en total), espolvoreamos un poco de maicena por encima y aplanamos ligeramente cada pieza con la mano.',
+          'Tomamos una pieza (tapando el resto con un paño o servilleta húmeda) y con un rodillo formamos un disco fino, procurando que el centro quede un poco más grueso que los bordes para que no se rompa con el relleno.'
         ]
       },
       {
@@ -859,6 +687,257 @@
           'Planchado: En sartén a fuego medio con un poco de aceite vegetal, colocar las gyozas y dorar la base un par de minutos.',
           'Añadir el agua (o agua con maicena disuelta para costra crujiente) también por encima para evitar que se sequen. Tapar y cocinar 5 a 7 minutos hasta evaporar casi todo el líquido.',
           'Añadir un poco de aceite de sésamo para aromatizar, cocinar 2 minutos más y servir con la mezcla de soja, vinagre de arroz y aceite de chile La-Yu.'
+        ]
+      },
+      {
+        id: 'yakitori-camaron',
+        title: 'Yakitori de Camarón',
+        kanji: 'エビ焼き鳥',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '6 - 8 porciones',
+        time: '35 min',
+        photoFile: 'foto-yakitori-camaron.jpg',
+        description: 'Brochetas orientales de camarón mediano marinado en soya, ajo y jengibre, intercalado con vegetales frescos y glaseado con ajonjolí tostado.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '1 kg de camarón pelado mediano',
+              '3 piezas de pimiento morrón',
+              '2 piezas de cebollas grandes',
+              '1 cabeza de ajo',
+              'Jengibre fresco',
+              'Salsa de soya Kikkoman',
+              'Aceite de ajonjolí',
+              '100 g de ajonjolí',
+              '1 paquete de palillos de bambú',
+              'Sal y pimienta al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'Marinar el camarón limpio con ajo, jengibre, salsa de soya, sal y pimienta.',
+          'Tostar el ajonjolí ligeramente y reservar.',
+          'Cortar la cebolla y el pimiento morrón en cubos de 2 cm.',
+          'Insertar los camarones y los vegetales en los palillos de bambú de manera intercalada.',
+          'Freír los yakitori en poco aceite hasta que los camarones estén rosados y cocidos; bañar con salsa de soya Kikkoman y espolvorear con el ajonjolí tostado.'
+        ]
+      },
+      {
+        id: 'yakitori-pollo',
+        title: 'Yakitori de Pollo',
+        kanji: '焼き鳥',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '6 - 8 porciones',
+        time: '40 min',
+        photoFile: 'foto-yakitori-pollo.jpg',
+        description: 'Brochetas japonesas de pechuga de pollo marinado intercaladas con pimiento morrón y cebolla, terminadas con soya y ajonjolí tostado.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '1 kg de pechuga de pollo',
+              '3 piezas de pimiento morrón',
+              '2 piezas de cebollas grandes',
+              '1 cabeza de ajo',
+              'Jengibre fresco',
+              'Salsa de soya Kikkoman',
+              'Aceite de ajonjolí',
+              '100 g de ajonjolí',
+              '1 paquete de palillos de bambú',
+              'Sal y pimienta al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'Marinar el pollo cortado en cubos con ajo, jengibre, salsa de soya, sal y pimienta.',
+          'Tostar el ajonjolí en una sartén seca hasta que tome aroma y reservar.',
+          'Cortar la cebolla y el pimiento morrón en cubos de 2 cm.',
+          'Insertar los ingredientes en los palillos de bambú de manera intercalada (pollo, cebolla, morrón).',
+          'Freír las brochetas de yakitori en poco aceite (con toque de aceite de ajonjolí) hasta cocer bien el pollo y bañar al final con salsa de soya Kikkoman y ajonjolí previamente tostado.'
+        ]
+      },
+      {
+        id: 'onigiri',
+        title: 'Onigiri de Salmón y Wakame',
+        kanji: 'おにぎり',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '2 piezas',
+        time: '25 min',
+        photoFile: 'foto-onigiri.jpg',
+        description: 'Triángulos tradicionales de arroz japonés caliente mezclados con salmón salteado, alga wakame, sésamo tostado y envueltos en alga nori.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '150 g de arroz cocido (caliente)',
+              '80 g de salmón',
+              '1 cdita de alga wakame seca',
+              '1/2 cdita de sésamo blanco tostado',
+              '1 cda de salsa de soja',
+              '2 g de cebollino',
+              'Aceite (al gusto)',
+              '1 hoja de alga Nori'
+            ]
+          }
+        ],
+        steps: [
+          'Cortamos el cebollino finamente.',
+          'Salteamos el salmón comenzando por la parte de la piel. Echamos un poco de sal, tapamos, damos la vuelta y terminamos de cocer.',
+          'Dejamos el salmón encima de papel absorbente para retirar el exceso de aceite.',
+          'Apartamos la piel y desmenuzamos el salmón.',
+          'En un bol colocamos el arroz (es importante que esté caliente, de lo contrario se deshace la bola).',
+          'Añadimos el salmón y el alga wakame seca, machacándola o deshaciéndola con la mano.',
+          'Añadimos el sésamo tostado, pellizcándolo ligeramente para liberar su sabor y nutrientes.',
+          'Incorporamos la salsa de soja y el cebollino cortado; mezclamos todo muy bien.',
+          'Nos mojamos las manos, tomamos la mitad de la mezcla y apretamos suavemente dándole forma de triángulo.',
+          'Cortamos el alga nori en forma de triángulo y cubrimos nuestro onigiri.'
+        ]
+      },
+      {
+        id: 'katsudon',
+        title: 'Katsudon',
+        kanji: 'カツ丼',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '4 - 6 porciones',
+        time: '1 h 30 min',
+        photoFile: 'foto-katsudon.jpg',
+        description: 'Clásico tazón japonés de arroz acompañado de filete de cerdo marinado y empanizado crujiente en panko con verduras salteadas.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '1 kg de filete de cerdo',
+              '1 kg de panko',
+              '1/2 docena de huevos (6 piezas)',
+              '1/2 kg de harina',
+              '1 kg de arroz japonés o Verde Valle',
+              '3 piezas de pimiento morrón semáforo (uno de cada color)',
+              '2 piezas de cebolla',
+              '1/2 kg de champiñones',
+              'Ajo y 1 trozo de jengibre',
+              '50 g de pimienta',
+              '5 g de sal',
+              'Salsa de soya y aceite vegetal'
+            ]
+          }
+        ],
+        steps: [
+          'Marinamos el filete de cerdo con ajo, jengibre, salsa de soya, sal y pimienta; dejamos reposar durante 1 hora.',
+          'Ponemos a remojar el arroz durante 30 minutos. Una vez remojado, lo ponemos a cocer.',
+          'Cortamos las verduras: el morrón y la cebolla en cubos de 2 a 3 cm, y los champiñones fileteados.',
+          'Ya marinada la carne, la pasamos por harina, huevo y panko para empanizarla y freírla hasta dorar.',
+          'Aparte, salteamos las verduras con pimienta, salsa de soya y sal.',
+          'Montamos el platillo colocando la cama de arroz, las verduras salteadas y encima la carne empanizada cortada en tiras.'
+        ]
+      },
+
+      // ==================== PRÁCTICA 3 (JAPÓN) ====================
+      {
+        id: 'okonomiyaki',
+        title: 'Okonomiyaki',
+        kanji: 'お好み焼き',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '1 porción',
+        time: '30 min',
+        photoFile: 'foto-okonomiyaki.jpg',
+        description: 'Tarta salada japonesa a la plancha de repollo, vegetales y tocino, cubierta con salsa tonkatsu, dashi, cebollín, polvo nori y gari.',
+        ingredientGroups: [
+          {
+            subtitle: 'Grupo Amarillo (Vegetales)',
+            items: [
+              '150 g de repollo',
+              '60 g de pimiento / pimienta',
+              '60 g de cebolla',
+              '60 g de champiñón',
+              '60 g de germinado'
+            ]
+          },
+          {
+            subtitle: 'Proteína y Harina',
+            items: [
+              '5 piezas de tocino',
+              '1 taza de harina'
+            ]
+          },
+          {
+            subtitle: 'Grupo Azul (Líquidos y Sazón)',
+            items: [
+              '1 1/2 cda de aceite de ajonjolí',
+              '3 cdas de Sake',
+              '1 1/2 cda de Mirin',
+              '3 cdas de salsa de soja',
+              '1 cda de sal-pimienta',
+              '2 piezas de huevo'
+            ]
+          },
+          {
+            subtitle: 'Grupo Verde (Decoración y Terminado)',
+            items: [
+              '3 oz de salsa tonkatsu',
+              '1 cda de dashi',
+              '2 cdas de cebollín',
+              '1/2 cda de polvo nori',
+              '1 cda de gari (jengibre encurtido)'
+            ]
+          }
+        ],
+        steps: [
+          'En un bowl agregar los ingredientes del Grupo Amarillo (repollo, pimiento, cebolla, champiñón y germinado).',
+          'Agregar piezas de tocino cortadas en macedoine a la mezcla.',
+          'Incorporar los ingredientes del Grupo Azul (aceite de ajonjolí, sake, mirin, soja, sal-pimienta y huevo) y mezclar hasta homogeneizar.',
+          'Agregar la harina y mezclar hasta que todo quede uniforme.',
+          'En una sartén a fuego medio verter la mezcla y acomodar para que la superficie quede uniforme.',
+          'Colocar el resto de las tiras de tocino encima y tapar.',
+          'Una vez cocida la mitad inferior, dar la vuelta y volver a tapar.',
+          'Emplatar con el lado del tocino hacia arriba, cortar en 8 porciones de manera convergente, bañar con salsa tonkatsu y decorar con los ingredientes del Grupo Verde.'
+        ],
+        notes: 'Cuidados: Para revisar que la tarta esté cocida por dentro, pinchar con un palillo hasta que salga seco. Tiempo de vida: 3-4 horas.'
+      },
+      {
+        id: 'pollo-teriyaki',
+        title: 'Pollo Teriyaki',
+        kanji: '照り焼きチキン',
+        origin: 'Japonesa',
+        category: 'Japonesa',
+        yield: '2 personas',
+        time: '20 min',
+        photoFile: 'foto-pollo-teriyaki.jpg',
+        description: 'Contramuslos de pollo dorados a la plancha y glaseados en una brillante reducción de shoyu, sake, mirin y azúcar.',
+        ingredientGroups: [
+          {
+            subtitle: 'Para el Pollo',
+            items: [
+              '2 contramuslos de pollo sin hueso (con o sin piel)',
+              '2 cdas de harina de trigo',
+              'Sal y pimienta al gusto',
+              '1 tallo de cebolleta (en trozos de 3-4 cm)',
+              'Unas rodajas de jengibre fresco',
+              'Aceite vegetal para dorar'
+            ]
+          },
+          {
+            subtitle: 'Salsa Teriyaki',
+            items: [
+              '2 cdas de salsa de soja japonesa (Shoyu)',
+              '1 cda de Sake',
+              '1 cda de Mirin (o 1/2 cda de miel)',
+              '1/2 cda de azúcar'
+            ]
+          }
+        ],
+        steps: [
+          'En un bol mezcla la salsa de soja japonesa, el Sake, el Mirin (o miel) y el azúcar hasta disolver. Reserva.',
+          'Retira el exceso de grasa del pollo y empareja su grosor. Salpimienta por ambos lados y cubre ligeramente con harina de trigo.',
+          'En sartén a fuego medio con aceite vegetal, dora el pollo (piel hacia abajo primero) unos 3 minutos hasta dorar bien y da la vuelta.',
+          'Haz un hueco en la sartén, añade la cebolleta y rodajas de jengibre. Cocina hasta que la cebolleta esté tierna, retírala y drena el exceso de aceite.',
+          'Vierte la salsa Teriyaki y deja reducir a fuego lento hasta la mitad, bañando constantemente el pollo para glasearlo.',
+          'Corta en trozos de bocado, sirve con la cebolleta a la plancha, vierte el resto de la salsa espesa por encima y acompaña con arroz blanco caliente.'
         ]
       },
       {
@@ -936,47 +1015,6 @@
         ]
       },
       {
-        id: 'pollo-teriyaki',
-        title: 'Pollo Teriyaki',
-        kanji: '照り焼きチキン',
-        origin: 'Japonesa',
-        category: 'Japonesa',
-        yield: '2 personas',
-        time: '20 min',
-        photoFile: 'foto-pollo-teriyaki.jpg',
-        description: 'Contramuslos de pollo dorados a la plancha y glaseados en una brillante reducción de shoyu, sake, mirin y azúcar.',
-        ingredientGroups: [
-          {
-            subtitle: 'Para el Pollo',
-            items: [
-              '2 contramuslos de pollo sin hueso (con o sin piel)',
-              '2 cdas de harina de trigo',
-              'Sal y pimienta al gusto',
-              '1 tallo de cebolleta (en trozos de 3-4 cm)',
-              'Unas rodajas de jengibre fresco',
-              'Aceite vegetal para dorar'
-            ]
-          },
-          {
-            subtitle: 'Salsa Teriyaki',
-            items: [
-              '2 cdas de salsa de soja japonesa (Shoyu)',
-              '1 cda de Sake',
-              '1 cda de Mirin (o 1/2 cda de miel)',
-              '1/2 cda de azúcar'
-            ]
-          }
-        ],
-        steps: [
-          'En un bol mezcla la salsa de soja japonesa, el Sake, el Mirin (o miel) y el azúcar hasta disolver. Reserva.',
-          'Retira el exceso de grasa del pollo y empareja su grosor. Salpimienta por ambos lados y cubre ligeramente con harina de trigo.',
-          'En sartén a fuego medio con aceite vegetal, dora el pollo (piel hacia abajo primero) unos 3 minutos hasta dorar bien y da la vuelta.',
-          'Haz un hueco en la sartén, añade la cebolleta y rodajas de jengibre. Cocina hasta que la cebolleta esté tierna, retírala y drena el exceso de aceite.',
-          'Vierte la salsa Teriyaki y deja reducir a fuego lento hasta la mitad, bañando constantemente el pollo para glasearlo.',
-          'Corta en trozos de bocado, sirve con la cebolleta a la plancha, vierte el resto de la salsa espesa por encima y acompaña con arroz blanco caliente.'
-        ]
-      },
-      {
         id: 'shoyu-ramen',
         title: 'Shoyu Ramen Tradicional',
         kanji: '醤油ラーメン',
@@ -1026,68 +1064,8 @@
           'Ensamblaje: Pon en cada bol 4 cdas de Tare, 1 cda de aceite aromatizado y caldo caliente hasta poco más de la mitad. Cuece los fideos 1 minuto, escurre, agrégalos y decora con Chashu, cebolleta, huevo y alga Nori.'
         ]
       },
-      {
-        id: 'okonomiyaki',
-        title: 'Okonomiyaki',
-        kanji: 'お好み焼き',
-        origin: 'Japonesa',
-        category: 'Japonesa',
-        yield: '1 porción',
-        time: '30 min',
-        photoFile: 'foto-okonomiyaki.jpg',
-        description: 'Tarta salada japonesa a la plancha de repollo, vegetales y tocino, cubierta con salsa tonkatsu, dashi, cebollín, polvo nori y gari.',
-        ingredientGroups: [
-          {
-            subtitle: 'Grupo Amarillo (Vegetales)',
-            items: [
-              '150 g de repollo',
-              '60 g de pimiento / pimienta',
-              '60 g de cebolla',
-              '60 g de champiñón',
-              '60 g de germinado'
-            ]
-          },
-          {
-            subtitle: 'Proteína y Harina',
-            items: [
-              '5 piezas de tocino',
-              '1 taza de harina'
-            ]
-          },
-          {
-            subtitle: 'Grupo Azul (Líquidos y Sazón)',
-            items: [
-              '1 1/2 cda de aceite de ajonjolí',
-              '3 cdas de Sake',
-              '1 1/2 cda de Mirin',
-              '3 cdas de salsa de soja',
-              '1 cda de sal-pimienta',
-              '2 piezas de huevo'
-            ]
-          },
-          {
-            subtitle: 'Grupo Verde (Decoración y Terminado)',
-            items: [
-              '3 oz de salsa tonkatsu',
-              '1 cda de dashi',
-              '2 cdas de cebollín',
-              '1/2 cda de polvo nori',
-              '1 cda de gari (jengibre encurtido)'
-            ]
-          }
-        ],
-        steps: [
-          'En un bowl agregar los ingredientes del Grupo Amarillo (repollo, pimiento, cebolla, champiñón y germinado).',
-          'Agregar piezas de tocino cortadas en macedoine a la mezcla.',
-          'Incorporar los ingredientes del Grupo Azul (aceite de ajonjolí, sake, mirin, soja, sal-pimienta y huevo) y mezclar hasta homogeneizar.',
-          'Agregar la harina y mezclar hasta que todo quede uniforme.',
-          'En una sartén a fuego medio verter la mezcla y acomodar para que la superficie quede uniforme.',
-          'Colocar el resto de las tiras de tocino encima y tapar.',
-          'Una vez cocida la mitad inferior, dar la vuelta y volver a tapar.',
-          'Emplatar con el lado del tocino hacia arriba, cortar en 8 porciones de manera convergente, bañar con salsa tonkatsu y decorar con los ingredientes del Grupo Verde.'
-        ],
-        notes: 'Cuidados: Para revisar que la tarta esté cocida por dentro, pinchar con un palillo hasta que salga seco. Tiempo de vida: 3-4 horas.'
-      },
+
+      // ==================== PRÁCTICA 4 (CHINA / REPOSTERÍA JAPONESA) ====================
       {
         id: 'pollo-naranja',
         title: 'Pollo a la Naranja',
@@ -1133,6 +1111,38 @@
         ]
       },
       {
+        id: 'dango',
+        title: 'Dango (Hanami Dango)',
+        kanji: '花見団子',
+        origin: 'Japonesa',
+        category: 'Repostería',
+        yield: '15 bolitas (5 brochetas)',
+        time: '25 min',
+        photoFile: 'foto-dango.jpg',
+        description: 'Tradicionales brochetas dulces japonesas tricolor (matcha, blanco y rosa) elaboradas con harina de arroz y arroz glutinoso.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '50 g de harina de arroz',
+              '110 g de harina de arroz glutinoso',
+              '90 ml de agua caliente',
+              '1 cdita de café de té matcha en polvo',
+              '2 gotas de colorante rojo',
+              '50 g de azúcar refinado'
+            ]
+          }
+        ],
+        steps: [
+          'En una ensaladera mezclar ambas harinas con el azúcar y repartir la mezcla resultante en 3 tazones iguales.',
+          'En el primer tazón añadir el té matcha y 30 ml de agua caliente; mezclar hasta obtener una consistencia blanda (ajustar agua o harina si es necesario) y formar 5 bolitas.',
+          'En el segundo tazón añadir 2 gotas de colorante rojo y 30 ml de agua caliente. En el tercer tazón añadir solo 30 ml de agua caliente. Formar 5 bolitas rosas y 5 blancas.',
+          'Llevar agua a ebullición en una olla e introducir las bolitas por tandas. Cuando floten a la superficie, cocer 2 minutos más.',
+          'Escurrir bien y ensartar de 3 en 3 (verde, blanco y rosa) en brochetas.'
+        ],
+        notes: 'Truco: Se puede utilizar harina preparada para dango en lugar de la mezcla de harinas de arroz y arroz glutinoso.'
+      },
+      {
         id: 'chow-mein',
         title: 'Chow Mein',
         kanji: '炒麵',
@@ -1176,36 +1186,43 @@
         ]
       },
       {
-        id: 'dango',
-        title: 'Dango (Hanami Dango)',
-        kanji: '花見団子',
-        origin: 'Japonesa',
-        category: 'Repostería',
-        yield: '15 bolitas (5 brochetas)',
-        time: '25 min',
-        photoFile: 'foto-dango.jpg',
-        description: 'Tradicionales brochetas dulces japonesas tricolor (matcha, blanco y rosa) elaboradas con harina de arroz y arroz glutinoso.',
+        id: 'rollos-chinos',
+        title: 'Rollos Chinos Caseros (Spring Rolls)',
+        kanji: '春卷',
+        origin: 'China',
+        category: 'China',
+        yield: '8 - 10 piezas',
+        time: '45 min',
+        photoFile: 'foto-rollos-chinos.jpg',
+        description: 'Crujientes rollitos primavera rellenos de cerdo picado, col, zanahoria, fideos de soja y setas shiitake aromatizados con jengibre.',
         ingredientGroups: [
           {
             subtitle: 'Ingredientes',
             items: [
-              '50 g de harina de arroz',
-              '110 g de harina de arroz glutinoso',
-              '90 ml de agua caliente',
-              '1 cdita de café de té matcha en polvo',
-              '2 gotas de colorante rojo',
-              '50 g de azúcar refinado'
+              '8 - 10 hojas de papel de harina ("Spring roll paper")',
+              '1 huevo (para cerrar los rollitos)',
+              '150 g de carne de cerdo picada',
+              '150 g de col',
+              '50 g de fideos de soja',
+              '4 setas Shiitake deshidratadas',
+              '25 g de cebollines',
+              '1 pieza de zanahoria',
+              '2 dientes de ajo y 1 trocito de jengibre',
+              '1 cda de salsa de soja ligera',
+              '1 cdita de azúcar y pimienta blanca en polvo',
+              'Aceite vegetal para freír'
             ]
           }
         ],
         steps: [
-          'En una ensaladera mezclar ambas harinas con el azúcar y repartir la mezcla resultante en 3 tazones iguales.',
-          'En el primer tazón añadir el té matcha y 30 ml de agua caliente; mezclar hasta obtener una consistencia blanda (ajustar agua o harina si es necesario) y formar 5 bolitas.',
-          'En el segundo tazón añadir 2 gotas de colorante rojo y 30 ml de agua caliente. En el tercer tazón añadir solo 30 ml de agua caliente. Formar 5 bolitas rosas y 5 blancas.',
-          'Llevar agua a ebullición en una olla e introducir las bolitas por tandas. Cuando floten a la superficie, cocer 2 minutos más.',
-          'Escurrir bien y ensartar de 3 en 3 (verde, blanco y rosa) en brochetas.'
-        ],
-        notes: 'Truco: Se puede utilizar harina preparada para dango en lugar de la mezcla de harinas de arroz y arroz glutinoso.'
+          'Hidratar los fideos de soja durante 30 minutos y las setas Shiitake deshidratadas durante 15 minutos.',
+          'Picar el ajo y jengibre; cortar muy finamente los cebollines y la zanahoria. Escurrir y cortar las setas Shiitake y los fideos de soja.',
+          'Relleno: En una sartén con aceite vegetal, freír ajo y jengibre a fuego fuerte. Cuando suelten aroma, añadir las setas Shiitake y saltear 1 minuto.',
+          'Agregar los cebollines y saltear otro minuto. Bajar el fuego y añadir el cerdo picado.',
+          'Cuando el cerdo esté cocinado, añadir zanahoria, col, fideos de soja, salsa de soja ligera, azúcar y pimienta blanca; saltear 5 minutos. Pasar a un bowl y dejar enfriar completamente.',
+          'Armado: Extender la hoja de papel de harina, colocar el relleno, enrollar hasta el centro, doblar las puntas hacia adentro y terminar de enrollar sellando con huevo batido.',
+          'Fritura: Freír en abundante aceite vegetal a fuego medio unos 5 minutos, moviéndolos para un dorado homogéneo. Escurrir en rejilla o papel absorbente.'
+        ]
       },
       {
         id: 'kasutera',
@@ -1239,114 +1256,38 @@
         ],
         notes: 'Truco: El kasutera se conserva muy bien varios días en refrigeración siempre que se mantenga bien envuelto en papel film para evitar que se reseque.'
       },
+
+      // ==================== PRÁCTICA 5 (CHINA) ====================
       {
-        id: 'cerdo-yuxiang',
-        title: 'Cerdo Yuxiang (Yu Xiang Rou Si)',
-        kanji: '魚香肉絲',
+        id: 'pasta-wonton',
+        title: 'Pasta Wontón Casera',
+        kanji: '雲吞皮',
         origin: 'China',
-        category: 'China',
-        yield: '2 personas',
-        time: '45 min',
-        photoFile: 'foto-cerdo-yuxiang.jpg',
-        description: 'Tiras de lomo de cerdo salteadas al estilo Sichuan con pasta de chile Doubanjiang, pimientos, zanahoria y hongos negros chinos.',
+        category: 'Masas y Bases',
+        yield: '25 piezas (9 x 9 cm)',
+        time: '2 h 30 min',
+        photoFile: 'foto-pasta-wonton.jpg',
+        description: 'Láminas delgadas y resistentes de pasta al huevo de 1 mm de grosor, ideales para sopa wontón, wontones fritos o shumai.',
         ingredientGroups: [
           {
             subtitle: 'Ingredientes',
             items: [
-              '250 g de lomo de cerdo',
-              '1 cda de maicena y 1 clara de huevo (opcional)',
-              '1 cda de aceite vegetal o agua',
-              '100 g de pimiento verde y rojo',
-              '50 g de setas u hongos negros chinos',
-              '25 g de zanahoria',
-              '2 dientes de ajo, 1 trocito de jengibre y cebollín al gusto',
-              '1 cda de salsa de soja ligera',
-              '1/2 cda de pasta de chile china (Doubanjiang / Toban Djan)',
-              '1 tapón de vino de arroz chino o agua',
-              '1 cdita de azúcar, sal, pimienta blanca y aceite vegetal'
+              '300 g de harina de trigo',
+              '50 ml de agua (ajustar según tamaño de huevos)',
+              '2 huevos XL',
+              '1 cdita de sal',
+              'Maicena (cantidad necesaria para estirar y separar)'
             ]
           }
         ],
         steps: [
-          'Cortar el cerdo en tiras y mezclarlo con sal, pimienta blanca, maicena, clara de huevo y aceite o agua. Refrigerar y marinar mínimo 30 minutos.',
-          'Cortar pimientos, zanahoria y setas en juliana. Picar ajo, jengibre y la parte blanca del cebollín. Preparar aparte una mezcla de maicena con agua para espesar.',
-          'Calentar un wok o sartén con aceite y saltear el cerdo hasta cocer. Incorporar ajo, jengibre y cebollín.',
-          'Agregar la pasta de chile y cocinar brevemente para desarrollar su aroma. Añadir las verduras y saltear hasta que estén tiernas pero crujientes.',
-          'Incorporar la soja, vino de arroz (o agua) y azúcar. Ajustar la consistencia con la maicena disuelta en agua hasta que la salsa nape los ingredientes y servir.'
-        ]
-      },
-      {
-        id: 'cerdo-charsiu',
-        title: 'Cerdo Char Siu',
-        kanji: '叉燒',
-        origin: 'China',
-        category: 'China',
-        yield: '4 personas',
-        time: '2 h 30 min (incluye marinado)',
-        photoFile: 'foto-cerdo-charsiu.jpg',
-        description: 'Clásico cerdo asado cantonés marinado en salsa Hoisin, miel, cinco especias chinas y vino de arroz, horneado y glaseado.',
-        ingredientGroups: [
-          {
-            subtitle: 'Ingredientes',
-            items: [
-              '1 kg de carne de cerdo (preferentemente con algo de grasa)',
-              '100 g de salsa Hoisin (aprox. 5 cucharadas)',
-              '50 ml de vino de arroz chino o Jerez seco',
-              '4 cdas de salsa de soja y 1 cda de salsa de soja oscura',
-              '2 cdas de salsa de ostras',
-              '3 cdas de miel y 20 g de azúcar moreno',
-              '1 cda de cinco especias chinas y 1 cdita de pimienta blanca',
-              'Anís estrellado y hojas de laurel (opcionales)'
-            ]
-          }
-        ],
-        steps: [
-          'Mezclar la salsa Hoisin, miel, azúcar moreno, vino, salsas de soja y ostras, cinco especias y pimienta blanca hasta lograr una marinada homogénea.',
-          'Cubrir el cerdo con la marinada, tapar y refrigerar al menos 2 horas.',
-          'Precalentar el horno a 200 °C. Colocar la carne sobre una rejilla y hornear 10 minutos.',
-          'Voltear, pincelar con la marinada y hornear otros 10 minutos. Apagar el horno y dejar reposar la carne dentro unos 5 minutos.',
-          'Hervir aparte la marinada restante hasta reducir y espesar. Cortar el cerdo en láminas, bañar con la salsa y terminar con cebollín y sésamo.'
-        ]
-      },
-      {
-        id: 'ternera-brocoli',
-        title: 'Ternera con Brócoli en Salsa de Ostras',
-        kanji: '西蘭花炒牛肉',
-        origin: 'China',
-        category: 'China',
-        yield: '4 personas',
-        time: '50 min',
-        photoFile: 'foto-ternera-brocoli.jpg',
-        description: 'Láminas tiernas de ternera marinada salteadas en wok con brócoli blanqueado, ajo machacado, zanahoria y salsa brillante de ostras.',
-        ingredientGroups: [
-          {
-            subtitle: 'Salteado y Salsa',
-            items: [
-              '300 g de brócoli',
-              '8 dientes de ajo',
-              '50 g de zanahoria (aprox. 1/2 pieza)',
-              '1/2 cebolla grande',
-              '1 1/2 cdas de salsa de soja ligera',
-              '2 cdas de salsa de ostras',
-              'Aceite vegetal, maicena y un poco de agua'
-            ]
-          },
-          {
-            subtitle: 'Para Marinar la Ternera',
-            items: [
-              '300 g de ternera en láminas finas',
-              '1 cda de soja ligera y 1 cda de salsa de ostras',
-              '1/2 cda de maicena',
-              'Pimienta blanca y 1 cda de aceite vegetal'
-            ]
-          }
-        ],
-        steps: [
-          'Cortar la ternera en láminas finas y marinarla con soja, salsa de ostras, maicena, pimienta blanca y aceite mínimo 30 minutos en refrigeración.',
-          'Machacar ligeramente los ajos; cortar cebolla y zanahoria. Dividir el brócoli en ramilletes de bocado.',
-          'Blanquear el brócoli 30 segundos en agua hirviendo con sal y un poco de aceite; pasar a agua fría y escurrir.',
-          'Preparar la salsa mezclando soja ligera, salsa de ostras, pimienta blanca, maicena y un poco de agua.',
-          'Saltear el ajo en wok caliente, agregar la ternera y cocinar. Incorporar cebolla y zanahoria; después añadir el brócoli y la salsa. Saltear hasta espesar y servir.'
+          'Colocar la harina en un bol. Aparte batir huevos, agua y sal; incorporar poco a poco a la harina.',
+          'Amasar unos 10 minutos hasta obtener una masa lisa y compacta.',
+          'Envolver o cubrir y reposar en refrigeración durante 1 hora.',
+          'Amasar otros 10 minutos y dividir en dos porciones.',
+          'Estirar cada porción en rectángulo hasta 3 mm de grosor usando maicena. Doblar, cubrir con paño húmedo y reposar otra hora.',
+          'Estirar finalmente hasta aprox. 1 mm de grosor y cortar cuadrados de 9 x 9 cm.',
+          'Espolvorear bien con maicena para separar las hojas. Conservar hasta 3 días refrigeradas o 1 mes congeladas.'
         ]
       },
       {
@@ -1398,38 +1339,6 @@
         ]
       },
       {
-        id: 'pasta-wonton',
-        title: 'Pasta Wontón Casera',
-        kanji: '雲吞皮',
-        origin: 'China',
-        category: 'Masas y Bases',
-        yield: '25 piezas (9 x 9 cm)',
-        time: '2 h 30 min',
-        photoFile: 'foto-pasta-wonton.jpg',
-        description: 'Láminas delgadas y resistentes de pasta al huevo de 1 mm de grosor, ideales para sopa wontón, wontones fritos o shumai.',
-        ingredientGroups: [
-          {
-            subtitle: 'Ingredientes',
-            items: [
-              '300 g de harina de trigo',
-              '50 ml de agua (ajustar según tamaño de huevos)',
-              '2 huevos XL',
-              '1 cdita de sal',
-              'Maicena (cantidad necesaria para estirar y separar)'
-            ]
-          }
-        ],
-        steps: [
-          'Colocar la harina en un bol. Aparte batir huevos, agua y sal; incorporar poco a poco a la harina.',
-          'Amasar unos 10 minutos hasta obtener una masa lisa y compacta.',
-          'Envolver o cubrir y reposar en refrigeración durante 1 hora.',
-          'Amasar otros 10 minutos y dividir en dos porciones.',
-          'Estirar cada porción en rectángulo hasta 3 mm de grosor usando maicena. Doblar, cubrir con paño húmedo y reposar otra hora.',
-          'Estirar finalmente hasta aprox. 1 mm de grosor y cortar cuadrados de 9 x 9 cm.',
-          'Espolvorear bien con maicena para separar las hojas. Conservar hasta 3 días refrigeradas o 1 mes congeladas.'
-        ]
-      },
-      {
         id: 'shumai',
         title: 'Shumai (Dim Sum)',
         kanji: '燒賣',
@@ -1472,6 +1381,709 @@
           'Salsa: Calentar soja ligera, soja oscura, vinagre y azúcar hasta que comience a hervir; retirar, enfriar y servir con los shumai.'
         ]
       },
+      {
+        id: 'cerdo-charsiu',
+        title: 'Cerdo Char Siu',
+        kanji: '叉燒',
+        origin: 'China',
+        category: 'China',
+        yield: '4 personas',
+        time: '2 h 30 min (incluye marinado)',
+        photoFile: 'foto-cerdo-charsiu.jpg',
+        description: 'Clásico cerdo asado cantonés marinado en salsa Hoisin, miel, cinco especias chinas y vino de arroz, horneado y glaseado.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '1 kg de carne de cerdo (preferentemente con algo de grasa)',
+              '100 g de salsa Hoisin (aprox. 5 cucharadas)',
+              '50 ml de vino de arroz chino o Jerez seco',
+              '4 cdas de salsa de soja y 1 cda de salsa de soja oscura',
+              '2 cdas de salsa de ostras',
+              '3 cdas de miel y 20 g de azúcar moreno',
+              '1 cda de cinco especias chinas y 1 cdita de pimienta blanca',
+              'Anís estrellado y hojas de laurel (opcionales)'
+            ]
+          }
+        ],
+        steps: [
+          'Mezclar la salsa Hoisin, miel, azúcar moreno, vino, salsas de soja y ostras, cinco especias y pimienta blanca hasta lograr una marinada homogénea.',
+          'Cubrir el cerdo con la marinada, tapar y refrigerar al menos 2 horas.',
+          'Precalentar el horno a 200 °C. Colocar la carne sobre una rejilla y hornear 10 minutos.',
+          'Voltear, pincelar con la marinada y hornear otros 10 minutos. Apagar el horno y dejar reposar la carne dentro unos 5 minutos.',
+          'Hervir aparte la marinada restante hasta reducir y espesar. Cortar el cerdo en láminas, bañar con la salsa y terminar con cebollín y sésamo.'
+        ]
+      },
+      {
+        id: 'cerdo-yuxiang',
+        title: 'Cerdo Yuxiang (Yu Xiang Rou Si)',
+        kanji: '魚香肉絲',
+        origin: 'China',
+        category: 'China',
+        yield: '2 personas',
+        time: '45 min',
+        photoFile: 'foto-cerdo-yuxiang.jpg',
+        description: 'Tiras de lomo de cerdo salteadas al estilo Sichuan con pasta de chile Doubanjiang, pimientos, zanahoria y hongos negros chinos.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '250 g de lomo de cerdo',
+              '1 cda de maicena y 1 clara de huevo (opcional)',
+              '1 cda de aceite vegetal o agua',
+              '100 g de pimiento verde y rojo',
+              '50 g de setas u hongos negros chinos',
+              '25 g de zanahoria',
+              '2 dientes de ajo, 1 trocito de jengibre y cebollín al gusto',
+              '1 cda de salsa de soja ligera',
+              '1/2 cda de pasta de chile china (Doubanjiang / Toban Djan)',
+              '1 tapón de vino de arroz chino o agua',
+              '1 cdita de azúcar, sal, pimienta blanca y aceite vegetal'
+            ]
+          }
+        ],
+        steps: [
+          'Cortar el cerdo en tiras y mezclarlo con sal, pimienta blanca, maicena, clara de huevo y aceite o agua. Refrigerar y marinar mínimo 30 minutos.',
+          'Cortar pimientos, zanahoria y setas en juliana. Picar ajo, jengibre y la parte blanca del cebollín. Preparar aparte una mezcla de maicena con agua para espesar.',
+          'Calentar un wok o sartén con aceite y saltear el cerdo hasta cocer. Incorporar ajo, jengibre y cebollín.',
+          'Agregar la pasta de chile y cocinar brevemente para desarrollar su aroma. Añadir las verduras y saltear hasta que estén tiernas pero crujientes.',
+          'Incorporar la soja, vino de arroz (o agua) y azúcar. Ajustar la consistencia con la maicena disuelta en agua hasta que la salsa nape los ingredientes y servir.'
+        ]
+      },
+      {
+        id: 'ternera-brocoli',
+        title: 'Ternera con Brócoli en Salsa de Ostras',
+        kanji: '西蘭花炒牛肉',
+        origin: 'China',
+        category: 'China',
+        yield: '4 personas',
+        time: '50 min',
+        photoFile: 'foto-ternera-brocoli.jpg',
+        description: 'Láminas tiernas de ternera marinada salteadas en wok con brócoli blanqueado, ajo machacado, zanahoria y salsa brillante de ostras.',
+        ingredientGroups: [
+          {
+            subtitle: 'Salteado y Salsa',
+            items: [
+              '300 g de brócoli',
+              '8 dientes de ajo',
+              '50 g de zanahoria (aprox. 1/2 pieza)',
+              '1/2 cebolla grande',
+              '1 1/2 cdas de salsa de soja ligera',
+              '2 cdas de salsa de ostras',
+              'Aceite vegetal, maicena y un poco de agua'
+            ]
+          },
+          {
+            subtitle: 'Para Marinar la Ternera',
+            items: [
+              '300 g de ternera en láminas finas',
+              '1 cda de soja ligera y 1 cda de salsa de ostras',
+              '1/2 cda de maicena',
+              'Pimienta blanca y 1 cda de aceite vegetal'
+            ]
+          }
+        ],
+        steps: [
+          'Cortar la ternera en láminas finas y marinarla con soja, salsa de ostras, maicena, pimienta blanca y aceite mínimo 30 minutos en refrigeración.',
+          'Machacar ligeramente los ajos; cortar cebolla y zanahoria. Dividir el brócoli en ramilletes de bocado.',
+          'Blanquear el brócoli 30 segundos en agua hirviendo con sal y un poco de aceite; pasar a agua fría y escurrir.',
+          'Preparar la salsa mezclando soja ligera, salsa de ostras, pimienta blanca, maicena y un poco de agua.',
+          'Saltear el ajo en wok caliente, agregar la ternera y cocinar. Incorporar cebolla y zanahoria; después añadir el brócoli y la salsa. Saltear hasta espesar y servir.'
+        ]
+      },
+
+      // ==================== PRÁCTICA 6 (TAILANDIA) ====================
+      {
+        id: 'pollo-curry-amarillo',
+        title: 'Pollo con Curry Amarillo (Gaeng Kari Gai)',
+        kanji: 'แกงกะหรี่ไก่',
+        origin: 'Tailandesa',
+        category: 'Tailandesa',
+        yield: '4 porciones',
+        time: '40 min',
+        photoFile: 'foto-pollo-curry-amarillo.jpg',
+        description: 'Cremoso curry amarillo tailandés de pollo cocinado en leche de coco con calabacita, pimiento rojo, champiñones y servido con arroz jazmín.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes Principales',
+            items: [
+              '500 g de pechuga o muslo de pollo en cubos medianos',
+              '400 ml de leche de coco',
+              '2 a 3 cdas de pasta de curry amarillo tailandés',
+              '1 calabacita italiana en medias lunas',
+              '1 pimiento morrón rojo en tiras',
+              '150 g de champiñones en cuartos',
+              '1/2 cebolla blanca en juliana',
+              '2 cdas de aceite vegetal'
+            ]
+          },
+          {
+            subtitle: 'Sazón y Acompañamiento',
+            items: [
+              '2 cdas de salsa de pescado (fish sauce)',
+              '1 cda de azúcar de palma o mascabado',
+              '100 ml de caldo de pollo o agua (para ajustar consistencia)',
+              'Arroz jazmín cocido al vapor para servir'
+            ]
+          }
+        ],
+        steps: [
+          'En un wok o cazuela a fuego medio, calentar el aceite vegetal y sofreír la pasta de curry amarillo durante 1 a 2 minutos hasta que libere su aroma.',
+          'Añadir la mitad de la leche de coco poco a poco, mezclando bien hasta integrar la pasta de curry y dejar reducir ligeramente.',
+          'Incorporar el pollo en cubos y cocinar durante 5 minutos hasta que cambie de color y se impregne del curry.',
+          'Agregar el resto de la leche de coco, el caldo de pollo (si es necesario), la cebolla, los champiñones, el pimiento rojo y la calabacita.',
+          'Cocinar a fuego medio-bajo de 10 a 12 minutos hasta que el pollo esté completamente cocido y los vegetales tiernos pero firmes.',
+          'Sazonar con la salsa de pescado y el azúcar; rectificar sabor y servir caliente acompañado de arroz blanco jazmín.'
+        ],
+        notes: 'Nota de compulsa: En el PDF de referencia esta página tenía el texto traspapelado de otra receta, por lo que se restauró la receta tradicional de Pollo con Curry Amarillo tailandés acorde a la práctica y fotografía.'
+      },
+      {
+        id: 'mu-sarong',
+        title: 'Mu Sarong',
+        kanji: 'หมูสร่ง',
+        origin: 'Tailandesa',
+        category: 'Tailandesa',
+        yield: '25 bolitas',
+        time: '1 hora',
+        photoFile: 'foto-mu-sarong.jpg',
+        description: 'Clásico aperitivo real tailandés de albóndigas aromáticas de cerdo envueltas en nidos crujientes de fideos chinos fritos y salsa de chile dulce.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '250 g de cerdo molido',
+              '150 g de fideos chinos',
+              '1 yema de huevo',
+              '4 dientes de ajo',
+              '1 cda de tallos (o raíz) de cilantro',
+              '1/2 cda de salsa de pescado',
+              '1/2 cdita de sal marina',
+              '1/4 cdita de pimienta blanca en grano',
+              'Aceite vegetal para freír',
+              'Salsa de chile dulce (para acompañar)'
+            ]
+          }
+        ],
+        steps: [
+          'Introducir los fideos chinos en agua recién hervida, separar y retirar antes de que vuelva a hervir; enjuagar y secar muy bien.',
+          'Moler en mortero el ajo, los tallos (o raíz) de cilantro y la pimienta blanca. Mezclar con el cerdo molido, la yema, la sal marina y la salsa de pescado. Refrigerar 30 minutos.',
+          'Formar aproximadamente 25 bolitas de unos 10 g cada una.',
+          'Envolver cada bolita con cuatro fideos cruzados formando un ovillo; añadir más si hace falta y esconder las puntas.',
+          'Freír en aceite a fuego medio unos 5 minutos girando constantemente; retirar y dejar reposar 2 minutos.',
+          'Freír nuevamente a fuego más alto hasta lograr un dorado crujiente; escurrir sobre rejilla y acompañar con salsa de chile dulce.'
+        ],
+        notes: 'Nota: La lista de ingredientes indica tallos de cilantro, aunque la preparación tradicional del majado tailandés utiliza la raíz.'
+      },
+      {
+        id: 'salteado-tai',
+        title: 'Salteado Tai (Res con Albahaca)',
+        kanji: 'ผัดกะเพราเนื้อ',
+        origin: 'Tailandesa',
+        category: 'Tailandesa',
+        yield: '3 - 4 porciones',
+        time: '20 min',
+        photoFile: 'foto-salteado-tai.jpg',
+        description: 'Salteado tailandés intenso a fuego vivo con tiras de res, ajo, chile rojo, salsa de ostras, salsa de pescado y abundante albahaca fresca.',
+        ingredientGroups: [
+          {
+            subtitle: 'Carne y Vegetales',
+            items: [
+              '300 a 500 g de carne de res (en tiras finas o molida)',
+              '1 buen manojo de hojas frescas de albahaca (tailandesa o dulce)',
+              '2 a 4 dientes de ajo picados',
+              '1/2 a 1 cebolla en juliana o cebolleta picada',
+              'Chile rojo picante al gusto o pimiento rojo en tiras',
+              '1 a 2 cdas de aceite vegetal o de ajonjolí para saltear'
+            ]
+          },
+          {
+            subtitle: 'Salsa Estilo Thai',
+            items: [
+              '2 a 4 cdas de salsa de soya',
+              '2 cdas de salsa de ostras',
+              '1.5 a 4 cdas de salsa de pescado (opcional, aporta umami)',
+              '1 cdita de azúcar (o azúcar morena)',
+              '1 a 2 cdas de jugo de limón o lima',
+              'Extras opcionales: jengibre rallado, pimienta negra o sriracha al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'Preparar todos los ingredientes: cortar la ternera o res en trozos finos, picar los ajos y el chile/pimiento rojo, cortar la cebolla y cebolleta en juliana y deshojar la albahaca.',
+          'En una sartén o wok caliente poner un chorrito de aceite y freír el ajo y el chile o pimiento a fuego fuerte.',
+          'Cuando comience a soltar aroma, añadir la carne de res y saltear a fuego alto.',
+          'Cuando la carne esté casi cocinada, añadir la cebolla, la salsa de soja ligera, la salsa de ostras (y el resto de los ingredientes de la salsa estilo thai) y saltear 1 minuto.',
+          'Apagar el fuego, incorporar la cebolleta y las hojas de albahaca fresca, saltear con el calor residual 1 minuto más y servir de inmediato con arroz blanco.'
+        ]
+      },
+      {
+        id: 'rollitos-verano',
+        title: 'Rollitos de Verano con Salsa Tailandesa',
+        kanji: 'ปอเปี๊ยะสด',
+        origin: 'Tailandesa',
+        category: 'Tailandesa',
+        yield: '8 rollitos',
+        time: '30 min',
+        photoFile: 'foto-rollitos-verano.jpg',
+        description: 'Frescos rollitos traslúcidos de papel de arroz rellenos de camarón salteado, lechuga, pepino, zanahoria y hierbas aromáticas con salsa de ajo, chile y cacahuate.',
+        ingredientGroups: [
+          {
+            subtitle: 'Para los Rollitos',
+            items: [
+              '8 hojas de papel de arroz',
+              '16 camarones medianos o grandes',
+              '4 hojas de lechuga romana o francesa',
+              '1 pepino mediano',
+              '1 zanahoria',
+              'Hojas de cilantro fresco y hierbabuena (opcional)',
+              'Sal y pimienta al gusto',
+              '1 cdita de aceite vegetal'
+            ]
+          },
+          {
+            subtitle: 'Salsa Tailandesa de Ajo y Chile',
+            items: [
+              '3 cdas de salsa de pescado (fish sauce)',
+              '2 cdas de jugo de limón',
+              '2 cdas de azúcar mascabado',
+              '2 cdas de agua',
+              '2 dientes de ajo finamente picados',
+              '1 chile rojo fresco finamente picado',
+              '1 cda de cacahuate tostado picado',
+              '1 cdita de salsa de soya'
+            ]
+          }
+        ],
+        steps: [
+          'Limpiar y desvenar los camarones; sazonar con sal y pimienta y saltear en el aceite vegetal hasta que estén cocidos. Dejar enfriar.',
+          'Cortar el pepino y la zanahoria en julianas finas; lavar y desinfectar las hojas de lechuga y las hierbas frescas.',
+          'Hidratar cada hoja de papel de arroz en agua tibia durante unos segundos hasta que esté flexible.',
+          'Colocar la lechuga, los vegetales en juliana, las hierbas y los camarones sobre el papel de arroz.',
+          'Doblar los extremos hacia adentro y enrollar cuidadosamente con firmeza hasta cerrar el rollito.',
+          'Para la salsa, mezclar la salsa de pescado, jugo de limón, azúcar mascabado, agua, salsa de soya, ajo, chile picado y cacahuate tostado.',
+          'Servir los rollitos frescos acompañados de la salsa.'
+        ]
+      },
+      {
+        id: 'khai-yad-sai',
+        title: 'Khai Yad Sai (Tortilla Rellena)',
+        kanji: 'ไข่ยัดไส้',
+        origin: 'Tailandesa',
+        category: 'Tailandesa',
+        yield: '1 - 2 porciones',
+        time: '25 min',
+        photoFile: 'foto-khai-yad-sai.jpg',
+        description: 'Tradicional sobre de tortilla delgada de huevo estilo tailandés relleno de cerdo molido salteado con tomate, cebolla, soya y kétchup.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '150 g de cerdo molido',
+              '2 huevos',
+              '2 tomates en cubos, sin semillas',
+              '1/4 de cebolla picada',
+              '2 dientes de ajo picados',
+              '10 g de cebollino cortado',
+              '1 1/2 cdas de salsa de soya (para el relleno)',
+              '1 cda de kétchup',
+              'Una pizca de sal y pimienta blanca',
+              'Aceite vegetal y un chorrito adicional de soya para los huevos'
+            ]
+          }
+        ],
+        steps: [
+          'Dorar el ajo picado en una sartén con aceite caliente. Incorporar el cerdo molido y deshacerlo mientras se cocina.',
+          'Agregar la cebolla y una pizca de sal. Cuando la cebolla se ablande, añadir el tomate en cubos, kétchup, salsa de soya y pimienta blanca.',
+          'Apagar el fuego, mezclar con el cebollino cortado y reservar el relleno.',
+          'Batir los huevos con el chorrito adicional de salsa de soya. Calentar una sartén y engrasar con una película ligera de aceite, incluyendo los bordes.',
+          'Verter los huevos batidos y girar la sartén para extender una capa delgada y pareja.',
+          'Colocar el relleno al centro de la tortilla, plegar los cuatro lados formando un paquete rectangular y voltear con ayuda de un plato. Acompañar con arroz blanco.'
+        ]
+      },
+
+      // ==================== PRÁCTICA 7 (TAILANDIA Y COREA) ====================
+      {
+        id: 'arroz-congee',
+        title: 'Arroz Congee (Jok)',
+        kanji: 'โจ๊ก',
+        origin: 'Tailandesa / China',
+        category: 'Tailandesa',
+        yield: '4 porciones',
+        time: '2 h 30 min (incluye reposo)',
+        photoFile: 'foto-arroz-congee.jpg',
+        description: 'Reconfortante sopa cremosa de arroz jazmín cocido en caldo de huesos de cerdo con albóndigas tiernas, jengibre en juliana, cebollino y huevo.',
+        ingredientGroups: [
+          {
+            subtitle: 'Para las Albóndigas de Cerdo',
+            items: [
+              '400 g de cerdo muy bien picado (frío)',
+              '1/2 cda de maicena',
+              '1 cda de salsa de soja ligera',
+              '1 cdita de azúcar',
+              '1/2 cdita de sal',
+              '1/2 cdita de bicarbonato sódico',
+              'Pizca de pimienta blanca'
+            ]
+          },
+          {
+            subtitle: 'Para el Caldo, Arroz y Toppings',
+            items: [
+              '600 g de huesos de cerdo',
+              '200 g de arroz jazmín',
+              '3 litros de agua',
+              '10 tallos (o raíz) de cilantro y 1 cda de sal',
+              '1 tallo de cebollino y 10 g de cilantro fresco',
+              '1 trozo de jengibre en juliana fina',
+              '4 huevos cocidos',
+              'Pimienta blanca al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'En un bowl colocar la carne de cerdo muy bien picada (debe estar fría de refrigerador o 30 minutos en congelador). Añadir salsa de soja ligera, sal, azúcar, maicena, bicarbonato y pimienta blanca; mezclar bien y reposar aproximadamente 1 hora y media.',
+          'Pasado el reposo, formar las albóndigas con ayuda de dos cucharas o manos limpias (hacerlo antes de terminar el Jok por los tiempos).',
+          'En una olla grande poner los 3 litros de agua, los huesos de cerdo, los tallos o raíz de cilantro y la cucharada de sal; llevar a ebullición a fuego fuerte.',
+          'Añadir el arroz jazmín, remover bien y dejar cocinar durante 1 hora.',
+          'Bajar a fuego suave y continuar cocinando unos 20 minutos más, removiendo frecuentemente para evitar que se pegue o queme la base.',
+          'Añadir las albóndigas de cerdo y cocinar 15 minutos más hasta que estén bien cocidas y el arroz cremoso.',
+          'Servir el "Jok" en cuencos con varias albóndigas y coronar con cilantro, cebollino, jengibre, un huevo cocido y pimienta blanca al gusto.'
+        ]
+      },
+      {
+        id: 'galbi-jjim',
+        title: 'Galbi Jjim (Costilla de Res Estofada)',
+        kanji: '갈비찜',
+        origin: 'Coreana',
+        category: 'Coreana',
+        yield: '4 - 6 porciones',
+        time: '1 h 45 min',
+        photoFile: 'foto-galbi-jjim.jpg',
+        description: 'Emblemático estofado festivo coreano de costilla de res glaseada lentamente en soya, mirin, ajo, jengibre y aceite de ajonjolí con papas, zanahorias y champiñones.',
+        ingredientGroups: [
+          {
+            subtitle: 'Carne y Vegetales',
+            items: [
+              '1 kg de costilla de res',
+              '1 papa grande',
+              '1 zanahoria grande',
+              '4 a 5 piezas de champiñón',
+              '2 a 3 piezas de cebollín o cebolla cambray',
+              'Chile serrano (opcional)'
+            ]
+          },
+          {
+            subtitle: 'Salsa de Estofado',
+            items: [
+              '150 ml de salsa de soya',
+              '180 ml de mirin',
+              '180 ml de agua (para la salsa) + 2 tazas de agua fría para cocción',
+              '2 cdas de ajo picado y 1/3 cda de jengibre picado',
+              '3 cdas de azúcar y 3 cdas de jarabe de maíz',
+              '2 cdas de aceite de ajonjolí',
+              '3 a 4 pizcas de pimienta molida'
+            ]
+          }
+        ],
+        steps: [
+          'Dejar remojando las costillas de res en agua fría durante media hora para desangrar.',
+          'Mezclar todos los ingredientes de la salsa en un bowl (soya, mirin, 180 ml de agua, ajo, pimienta, azúcar, jarabe de maíz, aceite de ajonjolí y jengibre).',
+          'Cortar las verduras: las papas y zanahorias en trozos grandes redondeando los bordes para que no se deshagan, los champiñones a la mitad y los cebollines en trozos medianos.',
+          'Hervir las costillas en una olla con agua caliente solo por 5 minutos; retirar y enjuagar muy bien con agua fría.',
+          'Colocar las costillas limpias en una olla, verter la salsa mezclada y agregar las 2 tazas de agua fría. Llevar a fuego alto.',
+          'Dejar hervir y reducir durante 45 a 60 minutos hasta que las costillas estén tiernas y el caldo haya mermado (retirar espuma o residuos con cuchara).',
+          'Agregar primero las papas, mezclar y dejar hervir; enseguida incorporar las zanahorias y hervir nuevamente.',
+          'Finalmente añadir los champiñones y el cebollín, dar un último hervor hasta glasear y servir.'
+        ]
+      },
+      {
+        id: 'kimbap',
+        title: 'Kimbap',
+        kanji: '김밥',
+        origin: 'Coreana',
+        category: 'Coreana',
+        yield: '4 rollos',
+        time: '45 min',
+        photoFile: 'foto-kimbap.jpg',
+        description: 'Rollos coreanos de alga nori y arroz sazonado con aceite de ajonjolí, rellenos de tortilla de huevo, zanahoria, pepino, espinaca, surimi y pastel de pescado.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '2 tazas de arroz para sushi',
+              '2 cdas de aceite de ajonjolí',
+              '1/2 cdita de sal',
+              '4 hojas de alga nori',
+              '2 huevos',
+              '1 zanahoria y 1 pepino',
+              '100 g de espinacas',
+              '100 g de surimi o jamón',
+              'Pastel de pescado (Omuk) en tiras'
+            ]
+          }
+        ],
+        steps: [
+          'Lavar y cocer el arroz; una vez cocido y tibio, incorporar el aceite de ajonjolí y la sal mezclando suavemente.',
+          'Cortar la zanahoria, el pepino, el pastel de pescado y el surimi o jamón en tiras largas y delgadas.',
+          'Saltear la zanahoria y las espinacas por separado con un poco de sal. Preparar una tortilla delgada con los huevos batidos y cortarla en tiras.',
+          'Colocar una hoja de alga nori sobre una esterilla de bambú y distribuir una capa uniforme y delgada de arroz.',
+          'Acomodar todos los ingredientes del relleno en el centro de manera horizontal y enrollar firmemente.',
+          'Humedecer ligeramente el extremo del alga para sellar, barnizar si se desea con unas gotas de aceite de ajonjolí y cortar en rodajas de aproximadamente 2 cm.'
+        ]
+      },
+      {
+        id: 'kimchi',
+        title: 'Kimchi Tradicional',
+        kanji: '김치',
+        origin: 'Coreana',
+        category: 'Coreana',
+        yield: '1 frasco grande (~1 kg)',
+        time: '8 h salmuera + fermentación',
+        photoFile: 'foto-kimchi.jpg',
+        description: 'Col china fermentada estilo coreano en pasta picante de chile gochugaru, ajo, jengibre, salsa de pescado, cebollita cambray y zanahoria.',
+        ingredientGroups: [
+          {
+            subtitle: 'Salmuera',
+            items: [
+              '1 col china grande (aprox. 1 kg)',
+              '3 cdas de sal gruesa',
+              '1 litro de agua'
+            ]
+          },
+          {
+            subtitle: 'Para la Pasta Picante',
+            items: [
+              '4 dientes de ajo',
+              '1 trozo de jengibre del tamaño del pulgar',
+              '3 cdas de hojuelas de chile coreano (gochugaru) o chile quebrado',
+              '1 cda de azúcar',
+              '2 cdas de salsa de pescado o salsa de soja',
+              '3 cebollitas cambray picadas',
+              '1 zanahoria en tiritas finas'
+            ]
+          }
+        ],
+        steps: [
+          'Salmuera: Cortar la col china en trozos de bocado, sumergirla en el litro de agua con la sal gruesa y dejar reposar de 6 a 8 horas. Enjuagar 2 veces y escurrir muy bien.',
+          'Pasta: Licuar o machacar ajo, jengibre, azúcar, salsa de pescado (o soja) y el chile gochugaru hasta formar una pasta uniforme. Mezclarla con la cebollita cambray y la zanahoria en tiritas.',
+          'Mezcla: Usando guantes, untar y masajear toda la col escurrida con la pasta hasta que quede bien cubierta.',
+          'Fermentación: Introducir la col bien apretada en un frasco de vidrio limpio para no dejar bolsas de aire, dejando 1 dedo libre en la parte superior. Tapar sin apretar por completo.',
+          'Reposar 1 día fuera del refrigerador (considerando climas cálidos como Tepic) y después refrigerar. Se puede consumir al día 2, alcanza su mejor punto al día 4–5 y dura de 2 a 3 semanas en refrigeración.'
+        ]
+      },
+      {
+        id: 'omuk',
+        title: 'Omuk (Pastel de Pescado Coreano)',
+        kanji: '어묵',
+        origin: 'Coreana',
+        category: 'Coreana',
+        yield: '6 - 8 porciones',
+        time: '45 min',
+        photoFile: 'foto-omuk.jpg',
+        description: 'Pasta artesanal elástica de pescado blanco, camarón y calamar con zanahoria y cebollín, moldeada y frita hasta quedar dorada y esponjosa.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '300 g de filete basa (pescado blanco)',
+              '400 g de camarón limpio',
+              '200 g de pulpo o calamar',
+              '1/2 pieza de zanahoria en cubos pequeños',
+              '1 a 2 piezas de cebollín picado fino',
+              '1 cda de sal y 1/2 cda de pimienta molida',
+              '1/2 cda de azúcar',
+              '1 clara de huevo',
+              '3 cdas de aceite vegetal (+ aceite suficiente para freír)',
+              '50 g de fécula de maíz y 50 g de harina de trigo'
+            ]
+          }
+        ],
+        steps: [
+          'Cortar el filete de pescado, el camarón y el pulpo o calamar en pedazos pequeños. Picar la zanahoria y el cebollín en cubos muy finos.',
+          'En un procesador de alimentos triturar el pescado, camarón y calamar.',
+          'Agregar sal, pimienta, azúcar, clara de huevo y las 3 cucharadas de aceite vegetal; procesar durante bastante tiempo hasta obtener una pasta lisa sin forma visible de los mariscos.',
+          'Incorporar la fécula de maíz y la harina de trigo; triturar bien hasta que no queden rastros de polvo y la masa se torne chiclosa.',
+          'Añadir la zanahoria y el cebollín y pulsar solo unos segundos para integrar. Pasar la masa a un bowl.',
+          'Calentar aceite en una sartén a temperatura controlada de 100 a 120 °C.',
+          'Colocar porciones de la masa en un raspador y, con ayuda de un palito de madera, deslizar hacia el aceite formando bastones.',
+          'Freír hasta que tomen un color dorado parejo y escurrir sobre rejilla para retirar el exceso de aceite.'
+        ]
+      },
+
+      // ==================== PRÁCTICA 8 (COREA) ====================
+      {
+        id: 'bibimbap',
+        title: 'Bibimbap',
+        kanji: '비빔밥',
+        origin: 'Coreana',
+        category: 'Coreana',
+        yield: '4 porciones',
+        time: '1 hora',
+        photoFile: 'foto-bibimbap.jpg',
+        description: 'Icónico tazón coreano de arroz blanco coronado con carne de res marinada, vegetales salteados por separado, tiras de huevo y salsa picante de gochujang.',
+        ingredientGroups: [
+          {
+            subtitle: 'Vegetales y Huevo',
+            items: [
+              '1 zanahoria, 1/2 cebolla y 1 calabaza en tiras finas',
+              '5 a 7 champiñones fileteados',
+              '3 pepinos persas en rodajas o tiras',
+              '200 g de espinaca y 100 g de germen de soya',
+              '4 huevos (para tortilla en tiras)',
+              'Arroz blanco cocido para servir'
+            ]
+          },
+          {
+            subtitle: 'Carne de Res Marinada',
+            items: [
+              '400 g de carne de res en tiras finas',
+              '4 cdas de salsa de soya y 4 cdas de mirin',
+              '1 a 2 cdas de azúcar',
+              '2 cditas de ajo picado',
+              'Ajonjolí tostado al gusto'
+            ]
+          },
+          {
+            subtitle: 'Salsa Picante de Gochujang',
+            items: [
+              '2 cdas de Gochujang (pasta de chile fermentado)',
+              '1 cda de Gochugaru (chile coreano en polvo)',
+              '1 cda de salsa de soya',
+              '1 cda de ajo picado',
+              '1 cda de azúcar y ajonjolí tostado al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'Cortar todas las verduras en tiras finas (juliana).',
+          'Batir los huevos, preparar tortillas delgadas en sartén y cortarlas en tiras finas.',
+          'Cortar la carne de res en tiras finas y marinar con salsa de soya, mirin, azúcar, ajo picado y ajonjolí tostado durante 10 a 15 minutos.',
+          'Saltear cada verdura por separado en una sartén con poco aceite y sal al gusto.',
+          'Freír la carne marinada hasta que esté bien cocida.',
+          'En agua hirviendo blanquear la espinaca por 30 segundos y el germen de soya por 1 a 2 minutos; escurrir bien.',
+          'Mezclar todos los ingredientes de la salsa picante de gochujang en un tazón.',
+          'Colocar arroz blanco caliente en un plato hondo, acomodar radialmente las verduras, el huevo y la carne, coronar con la salsa y mezclar todo muy bien al momento de comer.'
+        ]
+      },
+      {
+        id: 'bulgogi',
+        title: 'Bulgogi',
+        kanji: '불고기',
+        origin: 'Coreana',
+        category: 'Coreana',
+        yield: '4 - 6 porciones',
+        time: '1 h 15 min (incluye reposo)',
+        photoFile: 'foto-bulgogi.jpg',
+        description: 'Rebanadas delgadas de carne de res marinadas en una mezcla dulce-salada de soya, mirin, jarabe de maíz, ajo y aceite de ajonjolí, salteadas con vegetales.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '1 kg de carne de res en rebanadas muy delgadas',
+              '1 cebolla blanca en tiras delgadas',
+              '1 zanahoria en tiras delgadas',
+              '5 a 7 piezas de cebolla cambray',
+              '8 a 10 cdas de salsa de soya',
+              '5 a 6 cdas de azúcar y 1 cda de jarabe de maíz',
+              '5 a 6 cdas de mirin',
+              '2 cdas de ajo picado',
+              '1 cda de aceite de oliva',
+              'Aceite de ajonjolí, pimienta molida y ajonjolí tostado al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'Cortar las rebanadas de carne de res en tiras o trozos de bocado.',
+          'Cortar la cebolla, zanahoria y cebolla cambray en tiras delgadas.',
+          'Colocar todos los ingredientes (incluida la carne y las verduras) en un bowl grande.',
+          'Mezclar muy bien con las manos separando las láminas de carne para que todo quede impregnado de la marinada.',
+          'Tapar y dejar reposar en refrigeración de 30 minutos a 1 hora.',
+          'Calentar una sartén o wok a fuego medio-alto y saltear la carne con sus vegetales hasta cocer.',
+          'Si se desea con un poco de caldo jugoso, sofreír hasta reducir el líquido inicial y agregar 1 taza de agua dejando dar un hervor; servir con ajonjolí tostado y arroz blanco.'
+        ]
+      },
+      {
+        id: 'haemul-udong',
+        title: 'Haemul Udong (Udon Salteado con Mariscos)',
+        kanji: '해물우동',
+        origin: 'Coreana',
+        category: 'Coreana',
+        yield: '2 porciones',
+        time: '30 min',
+        photoFile: 'foto-haemul-udong.jpg',
+        description: 'Fideos gruesos de udon salteados al wok estilo coreano con camarón, calamar, mejillones, almejas y vegetales en salsa ligeramente picante de ostión y soya.',
+        ingredientGroups: [
+          {
+            subtitle: 'Fideos, Mariscos y Vegetales',
+            items: [
+              '1 pieza (paquete) de fideo Udon',
+              '5 a 7 piezas de camarón limpio y pelado',
+              '1 a 2 piezas de calamar (en corte flor o piña)',
+              '3 a 5 piezas de mejillón y 3 a 5 piezas de almeja limpios',
+              '2 cdas de mirin',
+              '1/4 de cebolla en tiras y 1/2 zanahoria en rodajas',
+              '1/8 de col en cuadritos y 2 piezas de cebollín picado',
+              'Ajo picado y chile serrano (opcional)'
+            ]
+          },
+          {
+            subtitle: 'Salsa para el Salteado',
+            items: [
+              '1 cda de salsa de soya',
+              '1 cda de salsa de ostión',
+              '1 cda de chile en polvo',
+              '1/2 cda de jarabe de maíz',
+              '1 cda de aceite de ajonjolí'
+            ]
+          }
+        ],
+        steps: [
+          'Limpiar bien los mejillones y almejas; pelar los camarones y realizar corte flor o piña en el calamar.',
+          'Cortar la cebolla en tiras, la zanahoria en rodajas, la col en cuadritos y picar el cebollín. Mezclar aparte todos los ingredientes de la salsa.',
+          'Hervir agua, añadir los fideos udon y cocinar durante 3 minutos; enjuagar inmediatamente en agua fría con hielo y escurrir bien.',
+          'Calentar aceite en un wok y sofreír ajo y cebolla.',
+          'Incorporar todos los mariscos junto con el mirin y saltear hasta que el camarón cambie de color y las conchas abran.',
+          'Añadir la salsa preparada y mezclar bien (si es necesario, agregar 2 a 3 cucharadas de agua para integrar mejor).',
+          'Agregar los vegetales y saltear; finalmente incorporar los fideos udon y saltear 1 minuto más antes de servir.'
+        ]
+      },
+      {
+        id: 'tteokbokki',
+        title: 'Tteokbokki',
+        kanji: '떡볶이',
+        origin: 'Coreana',
+        category: 'Coreana',
+        yield: '4 porciones',
+        time: '25 min',
+        photoFile: 'foto-tteokbokki.jpg',
+        description: 'Famoso platillo callejero coreano de pastelitos cilíndricos de arroz (tteok) y pastel de pescado (eomuk) cocidos en una salsa espesa, dulce y picante de gochujang.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '500 g de pastelitos de arroz coreanos (tteok)',
+              '150 g de pastel de pescado coreano (eomuk) en trozos',
+              '500 ml de fondo de pescado o agua',
+              '3 cdas de gochujang (pasta de chile coreano)',
+              '1 cda de gochugaru (chile coreano en hojuelas)',
+              '2 cdas de salsa de soya',
+              '1 cda de azúcar',
+              '2 dientes de ajo picados',
+              '2 cebollines picados',
+              '1 cdita de aceite de ajonjolí y semillas de ajonjolí al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'Si los pastelitos de arroz (tteok) están duros o refrigerados, remojarlos en agua tibia durante 10 minutos para suavizarlos.',
+          'En una olla o sartén profunda mezclar el fondo de pescado (o agua), el gochujang, gochugaru, salsa de soya, azúcar y ajo picado.',
+          'Llevar a ebullición e incorporar los pastelitos de arroz escurridos.',
+          'Cocinar a fuego medio durante 10 a 15 minutos, removiendo constantemente para que no se peguen, hasta que la salsa espese y los tteok estén suaves y masticables.',
+          'Agregar el pastel de pescado (eomuk) cortado en trozos y el cebollín picado, cocinando un par de minutos más.',
+          'Finalizar con el aceite de ajonjolí y espolvorear semillas de ajonjolí tostado antes de servir caliente.'
+        ]
+      },
+
+      // ==================== REPOSTERÍA DE BRIGADA 1 Y BRIGADA 3 (SIN CAMBIOS) ====================
       {
         id: 'dorayaki-camote',
         title: 'Dorayaki con Relleno de Camote',
@@ -1658,6 +2270,129 @@
           'En otra olla, cocer las bolitas en agua a hervor suave. Cuando floten a la superficie, continuar 2–3 minutos y comprobar una pieza. Servir calientes en el almíbar.'
         ],
         notes: 'Equipo: Báscula, procesador o molino y ollas. Nota técnica: La harina de arroz común no sustituye a la de arroz glutinoso, ya que no ofrece la misma elasticidad. Elaborado por Julieta Esmeralda Hernández Arias (Brigada 3).'
+      },
+
+      // ==================== BEBIDAS ====================
+      {
+        id: 'aurora-roja',
+        title: 'Aurora Roja',
+        kanji: '紅の暁',
+        origin: 'Coctelería Oriental (Sin Alcohol)',
+        category: 'Bebidas',
+        yield: '1 vaso (350 ml)',
+        time: '5 min',
+        photoFile: 'foto-aurora-roja.jpg',
+        description: 'Refrescante mocktail burbujeante de frutos rojos macerados con jugo de limón fresco, jarabe natural y un toque efervescente de Sprite.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '60 g de frutos rojos (fresas, frambuesas, zarzamoras o moras azules)',
+              '1 oz (30 ml) de jugo de limón fresco',
+              '1/2 a 1 oz (15–30 ml) de jarabe natural (al gusto)',
+              'Sprite bien frío (para rellenar)',
+              'Hielo al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'Colocar los frutos rojos en el fondo de un vaso alto o coctelera junto con el jarabe natural y macerar suavemente con un mortero para liberar su jugo y color rubí.',
+          'Añadir el jugo de limón fresco y mezclar ligeramente para equilibrar la acidez y el dulzor.',
+          'Llenar el vaso con abundante hielo (si se maceró en coctelera, colar sobre el vaso con hielo para una textura más limpia o servir directo para conservar la pulpa).',
+          'Completar lentamente con Sprite bien frío para generar un degradado rojo brillante, remover con delicadeza una sola vez y decorar con una rodaja de limón o frutos rojos frescos.'
+        ]
+      },
+      {
+        id: 'sakuva',
+        title: 'Sakuva',
+        kanji: '酒スパーク',
+        origin: 'Coctelería Japonesa',
+        category: 'Bebidas',
+        yield: '1 vaso (350 ml)',
+        time: '5 min',
+        photoFile: 'foto-sakuva.jpg',
+        description: 'Bebida ligera y chispeante a base de sake japonés equilibrado con el dulzor cítrico del Sprite y la frescura seca del agua mineral.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '2 oz (60 ml) de Sake frío',
+              '3 oz (90 ml) de Sprite bien frío',
+              '3 oz (90 ml) de agua mineral fría',
+              'Hielo en cubos grandes'
+            ]
+          }
+        ],
+        steps: [
+          'Enfriar previamente un vaso alto (highball) llenándolo con cubos grandes de hielo.',
+          'Verter el sake bien frío sobre el hielo para conservar sus notas aromáticas limpias.',
+          'Añadir primero el Sprite y completar inmediatamente con el agua mineral dejándolos resbalar suavemente por la pared del vaso para mantener la efervescencia.',
+          'Integrar con un movimiento ascendente muy suave utilizando una cuchara bailarina y servir de inmediato.'
+        ]
+      },
+      {
+        id: 'brisa-citrica',
+        title: 'Brisa Cítrica',
+        kanji: '柑橘の風',
+        origin: 'Bebida Oriental (Sin Alcohol)',
+        category: 'Bebidas',
+        yield: '1 vaso (350 ml)',
+        time: '5 min',
+        photoFile: 'foto-brisa-citrica.jpg',
+        description: 'Bebida tropical y ligera que combina jugo natural de mandarina, agua de coco hidratante, miel de abeja y un final chispeante de agua mineral.',
+        ingredientGroups: [
+          {
+            subtitle: 'Ingredientes',
+            items: [
+              '2 oz de jugo de mandarina fresco',
+              '2 oz de agua de coco',
+              '1/2 oz de miel',
+              'Agua mineral (para completar)',
+              'Hielo al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'En un vaso mezclador o shaker disolver la 1/2 oz de miel con las 2 oz de jugo de mandarina hasta integrar por completo y evitar que la miel se asiente en el fondo.',
+          'Agregar las 2 oz de agua de coco y mezclar o agitar brevemente con un poco de hielo para enfriar.',
+          'Servir en un vaso alto con abundante hielo fresco.',
+          'Rellenar con agua mineral bien fría, dar una vuelta suave con cuchara y decorar opcionalmente con un gajo o twist de mandarina.'
+        ]
+      },
+      {
+        id: 'koso-frambuesa',
+        title: 'Koso de Frambuesa',
+        kanji: 'ラズベリー酵素',
+        origin: 'Japonesa (Fermento Tradicional)',
+        category: 'Bebidas',
+        yield: '1 frasco de almíbar + bebida (1 vaso por porción)',
+        time: '7 días fermentación + 5 min armado',
+        photoFile: 'foto-koso-frambuesa.jpg',
+        description: 'Sirope fermentado tradicional japonés (Koso) de frambuesa fresca y azúcar en partes iguales, servido sobre hielo con agua mineral.',
+        ingredientGroups: [
+          {
+            subtitle: 'Base de Koso (Fermento)',
+            items: [
+              '120 g de frambuesa fresca',
+              '120 g de azúcar'
+            ]
+          },
+          {
+            subtitle: 'Para Preparar la Bebida',
+            items: [
+              '2 oz de Koso de frambuesa',
+              'Agua mineral bien fría (para completar)',
+              'Hielo al gusto'
+            ]
+          }
+        ],
+        steps: [
+          'En un frasco de vidrio limpio agregar los 120 g de frambuesa y cubrir completamente con los 120 g de azúcar.',
+          'Dejar fermentar a temperatura ambiente durante una semana, removiendo de vez en cuando con una cuchara limpia para ayudar a que se disuelva el azúcar.',
+          'Pasada la semana de fermentación, colar la preparación presionando ligeramente para obtener un almíbar limpio y aromático (Koso).',
+          'Para servir la bebida: en un vaso con hielo agregar 2 oz de Koso de frambuesa y terminar rellenando con agua mineral bien fría. Remover suavemente antes de disfrutar.'
+        ],
+        notes: 'Conservación: Guarda el Koso ya colado en un frasco hermético dentro del refrigerador para detener la fermentación y conservar su frescura.'
       }
     ];
 
@@ -1691,14 +2426,40 @@
     }
 
     /**
-     * Renderiza la cuadrícula de tarjetas de recetas
+     * Devuelve el color de insignia correspondiente a la categoría/origen
+     */
+    function getBadgeColor(category) {
+      switch (category) {
+        case 'Japonesa':
+          return 'bg-crimson text-white';
+        case 'China':
+          return 'bg-amber-700 text-white';
+        case 'Tailandesa':
+          return 'bg-teal-700 text-white';
+        case 'Coreana':
+          return 'bg-indigo-800 text-white';
+        case 'Repostería':
+          return 'bg-pink-800 text-white';
+        case 'Bebidas':
+          return 'bg-sky-700 text-white';
+        default:
+          return 'bg-jade text-white';
+      }
+    }
+
+    /**
+     * Renderiza la cuadrícula de tarjetas de recetas manteniendo el orden oficial
      */
     function renderRecipes() {
       const grid = document.getElementById('recipesGrid');
       const emptyState = document.getElementById('emptyState');
       const resultsCount = document.getElementById('resultsCount');
 
-      const filtered = RECIPES.filter((r) => {
+      // Actualiza contadores globales dinámicamente
+      document.getElementById('statTotal').textContent = RECIPES.length;
+      document.getElementById('btnAllFilter').textContent = `Todas (${RECIPES.length})`;
+
+      const filtered = RECIPES.map((r, idx) => ({ ...r, orderNum: idx + 1 })).filter((r) => {
         const matchesCategory = currentFilter === 'Todas' || r.category === currentFilter;
         const searchLower = currentSearch.toLowerCase().trim();
         const matchesSearch =
@@ -1706,6 +2467,7 @@
           r.title.toLowerCase().includes(searchLower) ||
           r.description.toLowerCase().includes(searchLower) ||
           r.origin.toLowerCase().includes(searchLower) ||
+          r.category.toLowerCase().includes(searchLower) ||
           r.ingredientGroups.some((g) =>
             g.items.some((item) => item.toLowerCase().includes(searchLower))
           );
@@ -1724,14 +2486,7 @@
       grid.innerHTML = filtered
         .map((recipe) => {
           const isReady = READY_PHOTOS.has(recipe.photoFile);
-          const badgeColor =
-            recipe.category === 'Japonesa'
-              ? 'bg-crimson text-white'
-              : recipe.category === 'China'
-              ? 'bg-amber-700 text-white'
-              : recipe.category === 'Repostería'
-              ? 'bg-pink-800 text-white'
-              : 'bg-jade text-white';
+          const badgeColor = getBadgeColor(recipe.category);
 
           return `
             <article
@@ -1748,10 +2503,15 @@
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent"></div>
 
-                <!-- Etiqueta de categoría -->
-                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg text-[11px] font-bold tracking-wide uppercase shadow ${badgeColor}">
-                  ${recipe.category}
-                </span>
+                <!-- Número de orden y etiqueta de categoría -->
+                <div class="absolute top-3 left-3 flex items-center gap-1.5">
+                  <span class="px-2 py-1 rounded-lg text-[11px] font-bold bg-ink/85 text-gold border border-gold/40 shadow">
+                    #${String(recipe.orderNum).padStart(2, '0')}
+                  </span>
+                  <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold tracking-wide uppercase shadow ${badgeColor}">
+                    ${recipe.category}
+                  </span>
+                </div>
 
                 <!-- Símbolo oriental -->
                 <span class="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-black/50 backdrop-blur-sm text-gold font-serif text-xs border border-gold/30">
